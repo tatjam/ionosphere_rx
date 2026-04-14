@@ -4,6 +4,7 @@
 # macOS files
 .DS_Store
 
+\#auto_saved_files\#
 # Temporary files
 *.000
 *.bak
