@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "dac_spi.h"
+#include <util/delay.h>
 
 void dac_spi_init()
 {
@@ -16,7 +17,7 @@ void dac_spi_init()
 	DAC_SPI_PORT_SCK &= ~(1 << DAC_SPI_PIN_SCK);
 }
 
-static void clock_bit(uint8_t on)
+static inline void clock_bit(uint8_t on)
 {
 	if (on)
 	{
@@ -27,8 +28,6 @@ static void clock_bit(uint8_t on)
 		DAC_SPI_PORT_SDI &= ~(1 << DAC_SPI_PIN_SDI);
 	}
 
-	// Clock the SCK port, up then down. At max freq of the chip, 20MHz, the clock is still at 10MHz
-	// within DAC limits
 	DAC_SPI_PORT_SCK |= 1 << DAC_SPI_PIN_SCK;
 	DAC_SPI_PORT_SCK &= ~(1 << DAC_SPI_PIN_SCK);
 }
@@ -42,15 +41,18 @@ void dac_spi_send(uint16_t value)
 	clock_bit(0);
 	// Use unbuffered Vref
 	clock_bit(0);
-	// Gain = 2, for full output swing
-	clock_bit(0);
+	// Gain = 1, as otherwise precision is lost near upper edge
+	clock_bit(1);
 	// Output enabled
 	clock_bit(1);
 
-	// Clock the data bits
+	// Clock the data bits, we do the trick to make each loop iteration same
+	// time, instead of doing the bitshift >> i
+	uint16_t mask = 0x800;
 	for (uint8_t i = 0; i < 12; i++)
 	{
-		clock_bit(value >> (12 - i) & 1);
+		clock_bit((value & mask) ? 1 : 0);
+		mask >>= 1;
 	}
 
 	// CS up, at this point the data is updated

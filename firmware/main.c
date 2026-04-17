@@ -3,6 +3,7 @@
 
 #include "dac_spi.h"
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 
 int main()
@@ -15,18 +16,19 @@ int main()
 	PORTA |= (1 << PA1);
 
 	uint16_t value = 0;
+
 	while (1)
 	{
-		dac_spi_send(value << 2);
-		value += 1;
-
-		if (value >= 1024)
+		if (value >= 4096)
 		{
+			dac_spi_send(4095);
 			value = 0;
 			PORTA ^= (1 << PA1);
 		}
-
-		// _delay_ms(3);
+		else {
+			dac_spi_send(value);
+			value += 1;
+		}
 	}
 
 	return 0;

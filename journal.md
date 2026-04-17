@@ -23,3 +23,10 @@ Got hyper-focus for the weekend and just did it all.
 # (13-04-2026) Built a simple ArduinoISP
 
 Did this on a breadboard, flashed the ArduinoISP sketch into a Nano and it works out of the box with `avrdude -c avrisp -P /dev/ttyUSB0 -b 19200 -p attiny85`
+
+# (17-04-2026) Proof of concept on breadboards
+
+Turns out when desoldering the programming pin from my Nano I somehow decoupled the ground! So I had to add a jumper from one side to another of the arduino board... Also forgot to disable the clock prescaler, so F_CPU was actually 1MHz. Now, with it set to 8MHz, it's able to send commands to the DAC at a rate of 10kHz.
+
+Very important, the x2 output amplifier on the DAC clamps the upper voltages in a non-deterministic manner, so design the varactor driver op-amp to amplify by x2 additionally.
+
