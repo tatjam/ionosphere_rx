@@ -2,4 +2,5 @@
 *.out
 *.hex
 *.cache/
+*.elf
 compile_commands.json

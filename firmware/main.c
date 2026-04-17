@@ -1,27 +1,26 @@
-#include <avr/io.h>
+// Copyright (C) 2026 tatjam
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+#include "dac_spi.h"
 #include <util/delay.h>
 
-#define LED PA1
+int main()
+{
+	dac_spi_init();
 
-int main() {
-  uint8_t high = 0;
+	uint16_t value = 0;
+	while (1)
+	{
+		dac_spi_send(value);
+		value += 1;
 
-  DDRA |= (1 << LED);
-  PORTA &= ~(1 << LED);
+		if (value >= 4095)
+		{
+			value = 0;
+		}
 
-  while(1) {
-    high = !high;
+		_delay_ms(3);
+	}
 
-    if(high) {
-      PORTA |= (1 << LED);
-    } else {
-      PORTA &= ~(1 << LED);
-    }
-
-    for(int i = 0; i < 10; i++) {
-      _delay_ms(10);
-    }
-  }
-
-  return 0;
+	return 0;
 }
