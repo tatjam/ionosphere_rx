@@ -30,3 +30,53 @@ Turns out when desoldering the programming pin from my Nano I somehow decoupled 
 
 Very important, the x2 output amplifier on the DAC clamps the upper voltages in a non-deterministic manner, so design the varactor driver op-amp to amplify by x2 additionally.
 
+
+# (18-04-2026) PLL experiments
+
+The communication protocol will use simple Manchester encoding:
+
+## Transmitter
+
+The transmitter simply runs a clock, and feeds the data at half the clock-rate XORed with the clock (IEEE 802.3 standard).
+
+## Receiver
+
+The receiver has an interrupt for a pin change, a timer, a "T" variable, and a "idle" state.
+
+From an [IDLE] state, the receiver detects a pin change interrupt. This moves the state machine to [RUN] state and starts a up-counting timer. The T variable is set to its maximum value.
+
+From the [RUN] state with counter > 1.5T, interrupts are ignored.
+
+From the [RUN] state with counter < 1.5T its max value, interrupts are handled and data is received (0->1 = 1, 1 -> 0 = 0). Furthermore, the counter is restarted to the value adjusted to 3T', where T := 2T-C (or simply C if T is the maximum value), to correct for clock drift. Note that in this scheme:
+- If clock expired below T, T' is set higher. Thus, the local clock is running faster than real clock and we need to slow down.
+- If clock expired above T, T' is set lower. Thus, the local clock is running slower than real clock and we need to speed up.
+
+If on the [RUN] state the timer expires, we return to [IDLE] state.
+
+We operate on 8bit timer for efficiency, thus to prevent wrap around we need 3T's representation reasonably below 255, say we expect it to range [190, 230].
+
+We will consider our "high performance" target to be packets of 16 bits sent atleast 1000 times per second, thus 16000bits per second. This will allow tuning the antenna 1000 times per second which seems to be more than enough.
+
+### 20MHz operation
+
+If we clock the 8-bit timer at 20MHz, and pre-scale by 8, we can have expiries as 3T goes from [190, 230] of [76, 92]us. Thus, T = [25, 31]us, and we have a clock rate of nominally (middle value = 28us) 1/T = 35.71kHz, allowing up to 17855 bits per second, or nearly 3kB/s.
+
+We have nearly 1120 cycles per bit.
+
+Alternatively, if we don't pre-scale the clock, we have expiries as 3T goes from [190, 230] of [9.5, 11.5]us. Thus, T = [3.16, 3.833]us, and we have a clock rate of nominally (middle value = 7us) 1/T = 142.9kHz, allowing up to 71450 bits per second, or nearly 9kB/s.
+
+This last option is probably a bit tight for the core running at 20MHz as we have almost 280 cycles per bit.
+
+### 8MHz operation
+
+Same as before, if we pre-scale by 8, we have expiries as 3T goes from [190, 230] of [190, 230]us, and we have a clock rate of nominally (middle value = 210us) 4.76kHz, allowing up to 2380 bits per second, or nearly 300B/s.
+
+We have nearly 3361 cycles per bit.
+
+Alternatively, if we don't pre-scale the clock, we have expiries as 3T goes from [190, 230] of [23.75, 28.75]us. Thus, T = [7.91, 9.58]us, and we have a clock rate of nominally (middle value = 17.5us) 1/T = 57.14kHz, allowing up to 28570 bits per second, or nearly 3.6kB/s.
+
+This last option is probably a bit tight for the core running at 8MHz as we have 200 cycles per bit.
+
+### Decision
+
+Because the 20MHz, pre-scaler 8 is appropriate for our "production" use case, we won't use a 16-bit timer. For development purposes, the 8MHz operation is good enough if only a bit slow.
