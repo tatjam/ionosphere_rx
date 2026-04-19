@@ -80,3 +80,22 @@ This last option is probably a bit tight for the core running at 8MHz as we have
 ### Decision
 
 Because the 20MHz, pre-scaler 8 is appropriate for our "production" use case, we won't use a 16-bit timer. For development purposes, the 8MHz operation is good enough if only a bit slow.
+
+# (19-04-2026) PLL Experiments
+
+Forgot the INH pulldown resistor! Now, with it, the PLL works.
+
+At a voltage of VCO=4.72V, C = 1nF, R1 = 22k I'm seeing a frequency of 4.4MHz, very jittery
+At a voltage of VCO=4.5V, C = 1nF, R1 = 22k I'm seeing a frequency of 4.4MHz, very jittery
+At a voltage of VCO=4.2V, C = 1nF, R1 = 22k I'm seeing a frequency of 352kHz
+At a voltage of VCO=4.0V, C = 1nF, R1 = 22k I'm seeing a frequency of 327kHz.
+At a voltage of VCO=3.0V, C = 1nF, R1 = 22k I'm seeing a frequency of 231kHz.
+At a voltage of VCO=2.6V, C = 1nF, R1 = 22k I'm seeing a frequency of 190kHz.
+At a voltage of VCO=2.0V, C = 1nF, R1 = 22k I'm seeing a frequency of 149.6kHz.
+At a voltage of VCO=1.0V, C = 1nF, R1 = 22k I'm seeing a frequency of 74.3kHz.
+At a voltage of VCO=0.8V, C = 1nF, R1 = 22k I'm seeing no oscillation.
+At a voltage of VCO=0.5V, C = 1nF, R1 = 22k I'm seeing no oscillation.
+
+Output frequency is slightly jittery, despite DAC output being nearly perfect.
+
+Nwo, the chosen frequency of {180, 275}kHz is too low if we want a baseband bandwidth of 32kHz (or higher) and to use a simple RC low pass, we will need a stepper filter, or to use a slightly higher carrier frequency. I'll experiment now with {370, 500kHz} carrier.
