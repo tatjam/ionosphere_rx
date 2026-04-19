@@ -47,3 +47,4 @@ At a voltage of VCO=0.5V, C = 1nF, R1 = 22k I'm seeing no oscillation.
 
 Output frequency is slightly jittery, despite DAC output being nearly perfect.
 
+Nwo, the chosen frequency of {180, 275}kHz is too low if we want a baseband bandwidth of 32kHz (or higher) and to use a simple RC low pass, we will need a stepper filter, or to use a slightly higher carrier frequency. I'll experiment now with {370, 500kHz} carrier.
