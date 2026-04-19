@@ -42,7 +42,7 @@ void dac_spi_send(uint16_t value)
 	// Use unbuffered Vref
 	clock_bit(0);
 	// Gain = 1, as otherwise precision is lost near upper edge
-	clock_bit(1);
+	clock_bit(0);
 	// Output enabled
 	clock_bit(1);
 

@@ -30,3 +30,20 @@ Turns out when desoldering the programming pin from my Nano I somehow decoupled 
 
 Very important, the x2 output amplifier on the DAC clamps the upper voltages in a non-deterministic manner, so design the varactor driver op-amp to amplify by x2 additionally.
 
+# (19-04-2026) PLL Experiments
+
+Forgot the INH pulldown resistor! Now, with it, the PLL works.
+
+At a voltage of VCO=4.72V, C = 1nF, R1 = 22k I'm seeing a frequency of 4.4MHz, very jittery
+At a voltage of VCO=4.5V, C = 1nF, R1 = 22k I'm seeing a frequency of 4.4MHz, very jittery
+At a voltage of VCO=4.2V, C = 1nF, R1 = 22k I'm seeing a frequency of 352kHz
+At a voltage of VCO=4.0V, C = 1nF, R1 = 22k I'm seeing a frequency of 327kHz.
+At a voltage of VCO=3.0V, C = 1nF, R1 = 22k I'm seeing a frequency of 231kHz.
+At a voltage of VCO=2.6V, C = 1nF, R1 = 22k I'm seeing a frequency of 190kHz.
+At a voltage of VCO=2.0V, C = 1nF, R1 = 22k I'm seeing a frequency of 149.6kHz.
+At a voltage of VCO=1.0V, C = 1nF, R1 = 22k I'm seeing a frequency of 74.3kHz.
+At a voltage of VCO=0.8V, C = 1nF, R1 = 22k I'm seeing no oscillation.
+At a voltage of VCO=0.5V, C = 1nF, R1 = 22k I'm seeing no oscillation.
+
+Output frequency is slightly jittery, despite DAC output being nearly perfect.
+

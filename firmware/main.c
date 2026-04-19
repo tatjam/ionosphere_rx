@@ -19,16 +19,18 @@ int main()
 
 	while (1)
 	{
-		if (value >= 4096)
+		if (value >= 3440)
 		{
-			dac_spi_send(4095);
-			value = 0;
+			dac_spi_send(3440);
+			value = 820;
 			PORTA ^= (1 << PA1);
 		}
 		else {
 			dac_spi_send(value);
 			value += 1;
 		}
+
+		_delay_us(1000);
 	}
 
 	return 0;
