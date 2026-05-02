@@ -12,7 +12,7 @@ void manchester_hw_init() {
 void manchester_hw_start_up_counter() {
 
 }
-void manchester_hw_start_down_counter() {
+void manchester_hw_start_down_counter(uint8_t start) {
 
 }
 uint8_t manchester_hw_get_counter() {
@@ -64,6 +64,10 @@ static inline void manchester_handle_pin_change_int()
 	{
 		is_idle = false;
 		manchester_hw_start_up_counter();
+
+		// Set time thresholds to max, as we don't know just yet the period
+		t1_5 = 255;
+		t2 = 255;
 		return;
 	}
 
@@ -108,6 +112,11 @@ static inline void manchester_handle_pin_change_int()
 
 	// Pre-compute the new counter values
 	uint8_t tnew = t2 - cval;
+	if(t2 == 255) {
+		// The period read is exactly tnew
+		tnew = cval;
+	}
+
 	t2			 = tnew * 2;
 	uint8_t t3	 = t2 + tnew;
 	t1_5		 = t3 / 2;

@@ -93,6 +93,9 @@ static char *test_nominal_read()
 	}
 	mu_assert("is_idle is false after bits", is_idle == false);
 	mu_assert("2 bytes are available after bits", manchester_get_next_count() == 2);
+	// Note, each byte is reversed relative to its reception!
+	mu_assert("first byte match expected", manchester_read_next() == 0b10101101);
+	mu_assert("second byte match expected", manchester_read_next() == 0b11110101);
 	// Wait for clock expiry
 	test_clock_tick(255);
 	mu_assert("is_idle is false after clock expirty", is_idle == true);

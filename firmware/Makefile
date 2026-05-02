@@ -24,8 +24,8 @@ disasm: firmware.elf
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%_test: %_test.c
-	cc $(TEST_FLAGS) -o $@ $^
+%_test: %_test.c ${SRCS}
+	cc $(TEST_FLAGS) -o $@ $<
 
 test: $(TEST_BINS)
 	@for t in $^; do \
@@ -35,4 +35,4 @@ test: $(TEST_BINS)
 
 
 clean:
-	rm -f $(OBJS) $(TEST_OBJS) firmware.elf firmware.hex
+	rm -f $(OBJS) $(TEST_OBJS) $(TEST_BINS) firmware.elf firmware.hex
