@@ -2,13 +2,25 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "manchester.h"
-#include <avr/interrupt.h>
 #include <stdbool.h>
 
-#ifdef ENV_TEST
-#include "manchester_mock.inc.h"
-#else
-#include "manchester_hw.inc.h"
+#ifndef ENV_TEST
+#include <avr/interrupt.h>
+void manchester_hw_init() {
+
+}
+void manchester_hw_start_up_counter() {
+
+}
+void manchester_hw_start_down_counter() {
+
+}
+uint8_t manchester_hw_get_counter() {
+	return 0;
+}
+uint8_t manchester_hw_get_pin_value() {
+	return 0;
+}
 #endif
 
 // This is a ring-buffer, so read-write can take place safely
@@ -61,7 +73,8 @@ static inline void manchester_handle_pin_change_int()
 		return;
 	}
 
-	if(overflow >= 1) {
+	if (overflow >= 1)
+	{
 		overflow++;
 		return;
 	}
@@ -120,6 +133,13 @@ uint8_t manchester_get_next_count()
 		// --W......R----
 		out = MANCHESTER_BUFFER_BYTES - rxbuffer_readpos + rxbuffer_writepos;
 	}
+	sei();
+	return out;
+}
+
+uint8_t manchester_get_overflow() {
+	cli();
+	uint8_t out = overflow;
 	sei();
 	return out;
 }

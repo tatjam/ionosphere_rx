@@ -1,9 +1,13 @@
-SRCS = $(wildcard *.c)
+ALL_SRCS = $(wildcard *.c)
+TEST_SRCS = $(wildcard *_test.c)
+SRCS = $(filter-out ${TEST_SRCS},${ALL_SRCS})
 OBJS = $(SRCS:.c=.o)
+TEST_BINS = $(TEST_SRCS:%_test.c=%_test)
 MCU  = attiny84
 F_CPU = 8000000
 CC = avr-gcc
 CFLAGS = -Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -g
+TEST_FLAGS = -Wall -g
 
 default: firmware.hex
 
@@ -20,5 +24,15 @@ disasm: firmware.elf
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+%_test: %_test.c
+	cc $(TEST_FLAGS) -o $@ $^
+
+test: $(TEST_BINS)
+	@for t in $^; do \
+		echo "TEST --- $$t ---"; \
+		./$$t && echo "Passed" || exit 1; \
+	done
+
+
 clean:
-	rm -f $(OBJS) firmware.elf firmware.hex
+	rm -f $(OBJS) $(TEST_OBJS) firmware.elf firmware.hex
