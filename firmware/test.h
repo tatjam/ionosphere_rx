@@ -16,23 +16,26 @@
 #define mu_run_test(test)                                                                          \
 	do                                                                                             \
 	{                                                                                              \
+		printf("Running test " #test "...\n");                                                     \
 		char *message = test();                                                                    \
 		tests_run++;                                                                               \
 		if (message)                                                                               \
 			return message;                                                                        \
 	} while (0)
 
-#define mu_suite(result) \
-	do { \
-     if (result != 0) { \
-         printf("%s\n", result); \
-     } \
-     else { \
-         printf("ALL TESTS PASSED\n"); \
-     } \
-     printf("Tests run: %d\n", tests_run); \
-     return result != 0; \
-} while (0)
-
+#define mu_suite(result)                                                                           \
+	do                                                                                             \
+	{                                                                                              \
+		if (result != 0)                                                                           \
+		{                                                                                          \
+			printf("\t%s\n", result);                                                              \
+		}                                                                                          \
+		else                                                                                       \
+		{                                                                                          \
+			printf("ALL TESTS PASSED\n");                                                          \
+		}                                                                                          \
+		printf("Tests run: %d\n", tests_run);                                                      \
+		return result != 0;                                                                        \
+	} while (0)
 
 extern int tests_run;

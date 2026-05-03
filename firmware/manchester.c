@@ -6,21 +6,14 @@
 
 #ifndef ENV_TEST
 #include <avr/interrupt.h>
-void manchester_hw_init() {
-
-}
-void manchester_hw_start_up_counter() {
-
-}
-void manchester_hw_start_down_counter(uint8_t start) {
-
-}
-uint8_t manchester_hw_get_counter() {
-	return 0;
-}
-uint8_t manchester_hw_get_pin_value() {
-	return 0;
-}
+void manchester_hw_init() {}
+void manchester_hw_start_up_counter() {}
+void manchester_hw_start_down_counter(uint8_t start) {}
+uint8_t manchester_hw_get_counter() { return 0; }
+uint8_t manchester_hw_get_pin_value() { return 0; }
+#define DEBUG(...)
+#else
+#define DEBUG(...) printf(__VA_ARGS__)
 #endif
 
 // This is a ring-buffer, so read-write can take place safely
@@ -47,6 +40,7 @@ void manchester_init()
 	rxbuffer_readpos  = 0;
 	rxbuffer_writebit = 0;
 	is_idle			  = true;
+	overflow		  = 0;
 	manchester_hw_init();
 }
 
@@ -67,13 +61,15 @@ static inline void manchester_handle_pin_change_int()
 
 		// Set time thresholds to max, as we don't know just yet the period
 		t1_5 = 255;
-		t2 = 255;
+		t2	 = 255;
 		return;
 	}
 
 	uint8_t cval = manchester_hw_get_counter();
+	DEBUG("Interrupt with cval = %i t1_5 = %i\n", cval, t1_5);
 	if (cval >= t1_5)
 	{
+		DEBUG("Skipping, %i > %i\n", cval, t1_5);
 		return;
 	}
 
@@ -110,17 +106,20 @@ static inline void manchester_handle_pin_change_int()
 		}
 	}
 
-	// Pre-compute the new counter values
+	// Pre-compute the new counter values, if everything went nominally,
+	// cval = t, so we can correct the clock by...
 	uint8_t tnew = t2 - cval;
-	if(t2 == 255) {
+	if (t2 == 255)
+	{
 		// The period read is exactly tnew
 		tnew = cval;
 	}
 
-	t2			 = tnew * 2;
-	uint8_t t3	 = t2 + tnew;
-	t1_5		 = t3 / 2;
+	t2		   = tnew * 2;
+	uint8_t t3 = t2 + tnew;
+	t1_5	   = t3 / 2;
 
+	DEBUG("Processed with %i, new t1_5 %i\n", cval, t1_5);
 	manchester_hw_start_down_counter(t3);
 }
 
@@ -146,7 +145,8 @@ uint8_t manchester_get_next_count()
 	return out;
 }
 
-uint8_t manchester_get_overflow() {
+uint8_t manchester_get_overflow()
+{
 	cli();
 	uint8_t out = overflow;
 	sei();
