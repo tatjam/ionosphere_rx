@@ -976,12 +976,6 @@
 		(uuid "09ce8b07-b741-468a-8b84-c3456845e191")
 	)
 	(junction
-		(at 113.03 66.04)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3114f94b-8fe8-4caa-ae4c-afaa4b465452")
-	)
-	(junction
 		(at 100.33 157.48)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1339,17 +1333,7 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 66.04) (xy 119.38 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fa5e29eb-90c1-429b-8fcf-5033dacb47f8")
-	)
-	(wire
-		(pts
-			(xy 104.14 66.04) (xy 113.03 66.04)
+			(xy 104.14 66.04) (xy 119.38 66.04)
 		)
 		(stroke
 			(width 0)
@@ -1744,73 +1728,6 @@
 			(project ""
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a"
 					(reference "U4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 113.03 66.04 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "2ac57916-20be-409a-97fd-40c1e2430f4f")
-		(property "Reference" "TP8"
-			(at 115.57 61.4679 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 115.57 64.0079 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 118.11 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 118.11 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 113.03 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f2971515-1d40-4c76-9640-3eb8aed93624")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a"
-					(reference "TP8")
 					(unit 1)
 				)
 			)
@@ -2953,9 +2870,9 @@
 				(justify right)
 			)
 		)
-		(pin "vtune" input
+		(pin "VTUNE" input
 			(at 124.46 121.92 180)
-			(uuid "9fde21f6-2b40-470a-9828-c5f4648c0d47")
+			(uuid "9fa1bd8f-9c37-482e-97c6-21a8f26bc460")
 			(effects
 				(font
 					(size 1.27 1.27)

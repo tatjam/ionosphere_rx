@@ -66,7 +66,7 @@ static inline void manchester_handle_pin_change_int()
 	}
 
 	uint8_t cval = manchester_hw_get_counter();
-	DEBUG("Interrupt with cval = %i t1_5 = %i\n", cval, t1_5);
+	DEBUG("Interrupt with cval = %i t1_5 = %i %i\n", cval, t1_5, cval - t1_5);
 	if (cval >= t1_5)
 	{
 		DEBUG("Skipping, %i > %i\n", cval, t1_5);

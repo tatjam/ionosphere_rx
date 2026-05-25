@@ -870,143 +870,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "power:GNDREF"
-			(power)
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -6.35 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "GNDREF"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"GNDREF\" , reference supply ground"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "GNDREF_0_1"
-				(polyline
-					(pts
-						(xy -0.635 -1.905) (xy 0.635 -1.905)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -0.127 -2.54) (xy 0.127 -2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -1.27) (xy 0 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 -1.27) (xy -1.27 -1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "GNDREF_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "proj_power:GND_ISOL"
 			(power)
 			(pin_numbers
@@ -1144,7 +1007,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "proj_power:V_ISOL_CLEAN"
+		(symbol "proj_power:HV_CLEAN"
 			(power)
 			(exclude_from_sim no)
 			(in_bom no)
@@ -1158,7 +1021,7 @@
 					(hide yes)
 				)
 			)
-			(property "Value" "V_ISOL_CLEAN"
+			(property "Value" "HV_CLEAN"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1193,7 +1056,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "V_ISOL_CLEAN_0_1"
+			(symbol "HV_CLEAN_0_1"
 				(polyline
 					(pts
 						(xy 0 0) (xy 0 2.54) (xy 0.635 1.27) (xy 0 2.54) (xy -0.635 1.27)
@@ -1207,12 +1070,12 @@
 					)
 				)
 			)
-			(symbol "V_ISOL_CLEAN_1_1"
+			(symbol "HV_CLEAN_1_1"
 				(pin power_in line
 					(at 0 0 90)
 					(length 2.54)
 					(hide yes)
-					(name "+V_ISOL_CLEAN"
+					(name "+HV_CLEAN"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1240,16 +1103,6 @@
 			)
 		)
 		(uuid "ca2363c5-362f-4c85-95a9-7591f8c8c508")
-	)
-	(text "Small value, or DNP, experiment, \nmust be high impedance at operating freq"
-		(exclude_from_sim no)
-		(at 232.156 97.536 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "d11df919-ecbd-414d-b4db-727dc9b3d600")
 	)
 	(junction
 		(at 201.93 85.09)
@@ -1282,22 +1135,10 @@
 		(uuid "c3efb593-fde9-4e58-a9b9-a9e3725a7cb9")
 	)
 	(junction
-		(at 208.28 102.7645)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c88a0f59-91c5-44e4-b4f4-51b5524e49f3")
-	)
-	(junction
 		(at 185.42 85.09)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d0e83968-cc71-48d1-91e5-9ad86cbc9bd3")
-	)
-	(junction
-		(at 208.28 85.09)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e106101c-ea10-4958-bbac-5247498c271e")
 	)
 	(junction
 		(at 172.72 85.09)
@@ -1377,16 +1218,6 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 96.52) (xy 208.28 102.7645)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "385377d6-dcbc-485c-8822-37ac109f9df7")
-	)
-	(wire
-		(pts
 			(xy 48.26 30.48) (xy 48.26 16.51)
 		)
 		(stroke
@@ -1404,16 +1235,6 @@
 			(type default)
 		)
 		(uuid "3deb6c02-ff30-420a-b183-31c8cc6dc27e")
-	)
-	(wire
-		(pts
-			(xy 201.93 85.09) (xy 208.28 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "42f33311-3950-48fb-bd8a-b2b54614dd8b")
 	)
 	(wire
 		(pts
@@ -1567,16 +1388,6 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 102.7645) (xy 208.28 102.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a106f1c2-5247-4a49-b619-30f4a399a541")
-	)
-	(wire
-		(pts
 			(xy 172.72 85.09) (xy 172.72 96.52)
 		)
 		(stroke
@@ -1594,16 +1405,6 @@
 			(type default)
 		)
 		(uuid "a409d06b-9bd7-40f7-90ab-deed9a6ea8b3")
-	)
-	(wire
-		(pts
-			(xy 208.28 85.09) (xy 208.28 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a6c0498c-9d8b-43b0-bfb1-5127b7f7dc29")
 	)
 	(wire
 		(pts
@@ -1657,7 +1458,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 85.09) (xy 223.52 85.09)
+			(xy 201.93 85.09) (xy 223.52 85.09)
 		)
 		(stroke
 			(width 0)
@@ -1974,17 +1775,17 @@
 		)
 	)
 	(symbol
-		(lib_id "proj_power:V_ISOL_CLEAN")
-		(at 81.28 83.82 0)
+		(lib_id "proj_power:GND_ISOL")
+		(at 22.86 34.29 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
+		(in_bom yes)
+		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "26e3faad-21fd-4b63-900a-968b759dd7e1")
-		(property "Reference" "#PWR08"
-			(at 81.28 83.82 0)
+		(uuid "35121e89-a4a3-416d-bee8-caf58858dd6b")
+		(property "Reference" "#PWR091"
+			(at 22.86 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1992,8 +1793,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "V_ISOL_CLEAN"
-			(at 81.28 78.74 0)
+		(property "Value" "GND_ISOL"
+			(at 22.86 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2001,7 +1802,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 81.28 83.82 0)
+			(at 22.86 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2010,7 +1811,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 81.28 83.82 0)
+			(at 22.86 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2018,8 +1819,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 81.28 83.82 0)
+		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
+			(at 22.86 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2027,20 +1828,20 @@
 				(hide yes)
 			)
 		)
-		(pin ""
-			(uuid "c05ad0ae-b638-4cf1-aa4a-bc4067a678e5")
+		(pin "1"
+			(uuid "7f1beb0c-21a6-48fb-a1ba-b7fe88658f10")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
-					(reference "#PWR08")
+					(reference "#PWR091")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "proj_power:V_ISOL_CLEAN")
+		(lib_id "proj_power:HV_CLEAN")
 		(at 50.8 67.31 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2048,8 +1849,8 @@
 		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "6198b830-afdf-4c3f-ad99-3844a7a854b6")
-		(property "Reference" "#PWR011"
+		(uuid "701560f1-ba00-454b-bca1-fb28d7f6a5fa")
+		(property "Reference" "#PWR08"
 			(at 50.8 67.31 0)
 			(effects
 				(font
@@ -2058,7 +1859,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "V_ISOL_CLEAN"
+		(property "Value" "HV_CLEAN"
 			(at 50.8 62.23 0)
 			(effects
 				(font
@@ -2094,12 +1895,12 @@
 			)
 		)
 		(pin ""
-			(uuid "3dfe1294-227a-4f92-82b5-f5ba39851695")
+			(uuid "a7831277-d21e-404c-a5c0-1a3df0373d8c")
 		)
 		(instances
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
-					(reference "#PWR011")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -2123,7 +1924,7 @@
 				)
 			)
 		)
-		(property "Value" "110k"
+		(property "Value" "50k"
 			(at 81.28 66.04 90)
 			(effects
 				(font
@@ -2168,72 +1969,6 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
 					(reference "R2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "proj_power:GND_ISOL")
-		(at 208.28 102.7645 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "856d3618-fa59-4700-b90b-62b8b1095167")
-		(property "Reference" "#PWR04"
-			(at 208.28 109.1145 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND_ISOL"
-			(at 208.28 107.8445 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 208.28 102.7645 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 208.28 102.7645 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
-			(at 208.28 102.7645 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "41334b53-77c3-41d4-b98f-5536e8d7ddbf")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
-					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -2552,7 +2287,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_2220_5750Metric"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 231.14 84.1248 0)
 			(effects
 				(font
@@ -2656,142 +2391,6 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
 					(reference "TP10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 208.28 92.71 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp yes)
-		(fields_autoplaced yes)
-		(uuid "ca85a30a-84b3-46a3-9ab8-46a8ba30ee30")
-		(property "Reference" "C1"
-			(at 212.09 91.4399 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1p"
-			(at 212.09 93.9799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PCM_Capacitor_SMD_AKL:C_0603_1608Metric"
-			(at 209.2452 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 208.28 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 208.28 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "9d6e3f60-4744-46ad-bd94-101ac16a4cc0")
-		)
-		(pin "1"
-			(uuid "9beef6b3-bf92-41dc-ad98-bb614f38d114")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
-					(reference "C1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GNDREF")
-		(at 22.86 34.29 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ceb09d2a-0c21-4990-8694-d2db1e188e6c")
-		(property "Reference" "#PWR09"
-			(at 22.86 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GNDREF"
-			(at 22.86 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 22.86 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 22.86 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GNDREF\" , reference supply ground"
-			(at 22.86 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0bac903b-14be-4a40-a6e2-ba66ab36b25d")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
-					(reference "#PWR09")
 					(unit 1)
 				)
 			)
@@ -2926,6 +2525,72 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
 					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "proj_power:HV_CLEAN")
+		(at 81.28 83.82 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d5d241a7-9375-426a-b899-170ecf6d3284")
+		(property "Reference" "#PWR09"
+			(at 81.28 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "HV_CLEAN"
+			(at 81.28 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 81.28 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 81.28 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 81.28 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "fa6c847f-77d9-469a-bf4c-747003f008a6")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
+					(reference "#PWR09")
 					(unit 1)
 				)
 			)

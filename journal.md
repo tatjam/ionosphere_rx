@@ -99,3 +99,31 @@ At a voltage of VCO=0.5V, C = 1nF, R1 = 22k I'm seeing no oscillation.
 Output frequency is slightly jittery, despite DAC output being nearly perfect.
 
 Nwo, the chosen frequency of {180, 275}kHz is too low if we want a baseband bandwidth of 32kHz (or higher) and to use a simple RC low pass, we will need a stepper filter, or to use a slightly higher carrier frequency. I'll experiment now with {370, 500kHz} carrier.
+
+# (20-04-2026) Proper PLL design
+
+I have decided that the EEPROM will not be used and each antenna will be directly given the 12 bit DAC order. If the EEPROM is to be added back in the future, a MCU with more pins may be used!
+
+- I may add a loop lock pin just in case, which is possible due to having free pins now
+
+# (27-04-2026) Proper PLL design (2)
+
+- Out 35.7kHz clock, for 5x bandwidth, requires 178.5kHz bandwidth
+- Regardless, lets assume we want a 180kHz real bandwidth for the VCO voltage
+- We can tolerate
+- A simple lead-lag filter (see datasheet, offset one) with
+	- Bandpass frequency of 180kHz
+	- 0.1 (-20dB) of attenuation at stop-band
+- This filter has a stop-band frequency of 2MHz, which is too high
+- But we can just filter the buffered output afterwards to get a slightly better signal, a simple
+
+# (25-05-2026) HV source oscillator build
+
+Built on a breadboard, was very very unstable until I tied the gates physically next to the ones used to ground, at which point it worked!
+With component more or less similar to design, oscillation at ~6kHz (or maybe 8, I don't remember fully, should have taken screenshot!)
+
+Measuring on the breadboard 5V supply, maybe a 25mV or so noise was seen at the oscillation frequency. Need to add significant filtering to all the power supplies of oscillating stuff:
+
+- The oscillator itself is okay with the 100nF decoupling
+- Ferrite on supply line to mosfet driver section
+- Optional gate resistor, DNP or 10 / 20 ohms to smooth rise time and reduce noise
