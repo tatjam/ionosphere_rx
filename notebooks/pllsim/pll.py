@@ -1,12 +1,6 @@
 # Copyright (C) 2026 tatjam
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import numpy as np
-import PySpice.Logging.Logging as logging
-from PySpice.Spice.Netlist import Circuit
-from PySpice.Unit import *
-
-
 class Pll:
     def __init__(
         self,
@@ -28,39 +22,25 @@ class Pll:
         self.r2 = r2
         self.c = c
 
-    def gen_spice(
-        self,
-        circuit: Circuit,
-        vin_node: str,
-        vout_node: str,
-    ):
+    def gen_spice(self, vin_node: str, vout_node: str):
+        lines = []
         # RC network
 
         # r1: phase comparator -> middle node 1
-        tnode = f"{self.internal_name}mn1"
         pco_node = f"{self.internal_name}pco"
-        circuit.R(
-            f"{self.internal_name}r1",
-            pco_node,
-            tnode,
-            self.r1,
-        )
+        tnode = f"{self.internal_name}mn1"
+        lines.append(f"R{self.internal_name}r1 {pco_node} {tnode} {self.r1}")
 
         # r2 (optional): middle node -> middle node 2
         if self.r2 is not None:
+            prev_tnode = tnode
             tnode = f"{self.internal_name}mn2"
-            circuit.R(
-                f"{self.internal_name}r2",
-                f"{self.internal_name}mn1",
-                tnode,
-                self.r2,
-            )
+            lines.append(f"R{self.internal_name}r2 {prev_tnode} {tnode} {self.r2}")
 
         # c: from mn1 or mn2 to gnd
-        circuit.C(f"{self.internal_name}c", tnode, circuit.gnd, self.c)
+        lines.append(f"C{self.internal_name}c {tnode} 0 {self.c}")
+        vco_exp = "1"
+        lines.append(f"B{self.internal_name}b {pco_node} 0 v={vco_exp}")
 
-        vco_exp = f"1"
-        circuit.B(f"{self.internal_name}b", pco_node, circuit.gnd, v=vco_exp)
-
-
-# VCO tuning from tnode, output to pco_node
+        # VCO tuning from tnode, output to pco_node
+        return lines

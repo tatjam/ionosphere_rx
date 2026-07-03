@@ -4,17 +4,28 @@
 import os
 import sys
 import plotext as plt
-
-import PySpice
-from PySpice.Spice.Netlist import Circuit
+from spicelib import SimRunner, SpiceEditor, RawRead
+from spicelib.simulators.ngspice_simulator import NGspiceSimulator
 
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 from pll import Pll
 
-circuit = Circuit("CoupledPll")
+circuit_lines = [".title CoupledPll"]
 pll1 = Pll("pll1", 1e6, 1.0, 0.3, 5.0, 100, None, 1e-9)
-pll1.gen_spice(circuit, "vinpll1", "voutpll1")
-print(circuit)
+circuit_lines += pll1.gen_spice("vinpll1", "voutpll1")
+circuit_lines.append(".end")
 
-simulator = circuit.simulator(temperature=25, nominal_temperature=25)
-analysis = simulator.transient(step_time=1e-8, end_time=1e-6)
+with open("coupled_pll.cir", "w") as f:
+    f.write("\n".join(circuit_lines) + "\n")
+
+print("\n".join(circuit_lines))
+
+runner = SimRunner(simulator=NGspiceSimulator, output_folder="./simulate")
+editor = SpiceEditor("coupled_pll.cir")
+editor.add_instruction(".tran 1e-8 1e-6")
+
+task = runner.run(editor)
+runner.wait_completion()
+
+assert task and task.raw_file
+analysis = RawRead(task.raw_file, dialect="ngspice")
