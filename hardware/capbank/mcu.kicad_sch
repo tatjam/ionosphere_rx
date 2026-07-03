@@ -5,113 +5,6 @@
 	(uuid "1295bae6-1818-49f9-a307-69558a23446a")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Connector:TestPoint"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.762)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "TP"
-				(at 0 6.858 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "TestPoint"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 5.08 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 5.08 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "test point"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "test point tp"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Pin* Test*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "TestPoint_0_1"
-				(circle
-					(center 0 3.302)
-					(radius 0.762)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "TestPoint_1_1"
-				(pin passive line
-					(at 0 0 90)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Connector_Generic:Conn_01x02"
 			(pin_names
 				(offset 1.016)
@@ -1226,7 +1119,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "MCU_Microchip_ATtiny:ATtiny84A-P"
+		(symbol "MCU_Microchip_ATtiny:ATtiny84A-SS"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1239,7 +1132,7 @@
 					(justify left bottom)
 				)
 			)
-			(property "Value" "ATtiny84A-P"
+			(property "Value" "ATtiny84A-SS"
 				(at 2.54 -21.59 0)
 				(effects
 					(font
@@ -1248,7 +1141,7 @@
 					(justify left top)
 				)
 			)
-			(property "Footprint" "Package_DIP:DIP-14_W7.62mm"
+			(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1267,7 +1160,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "20MHz, 8kB Flash, 512B SRAM, 512B EEPROM, debugWIRE, DIP-14"
+			(property "Description" "20MHz, 8kB Flash, 512B SRAM, 512B EEPROM, debugWIRE, SOIC-14"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1285,7 +1178,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "DIP*W7.62mm*"
+			(property "ki_fp_filters" "SOIC*3.9x8.7mm*P1.27mm*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1294,7 +1187,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "ATtiny84A-P_0_1"
+			(symbol "ATtiny84A-SS_0_1"
 				(rectangle
 					(start -12.7 -20.32)
 					(end 12.7 20.32)
@@ -1307,7 +1200,7 @@
 					)
 				)
 			)
-			(symbol "ATtiny84A-P_1_1"
+			(symbol "ATtiny84A-SS_1_1"
 				(pin power_in line
 					(at 0 22.86 270)
 					(length 2.54)
@@ -1973,12 +1866,6 @@
 		(uuid "8f81f10c-1c96-4487-b484-5614b04da833")
 	)
 	(junction
-		(at 64.77 90.17)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "91f37308-c28c-4613-90cc-ba48e2d49850")
-	)
-	(junction
 		(at 93.98 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2292,16 +2179,6 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 90.17) (xy 78.74 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9ffed558-b1e2-4c68-aa05-a4eac3dd6e66")
-	)
-	(wire
-		(pts
 			(xy 195.58 38.1) (xy 195.58 36.83)
 		)
 		(stroke
@@ -2492,7 +2369,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 90.17) (xy 64.77 90.17)
+			(xy 59.69 90.17) (xy 78.74 90.17)
 		)
 		(stroke
 			(width 0)
@@ -3642,6 +3519,113 @@
 		)
 	)
 	(symbol
+		(lib_id "MCU_Microchip_ATtiny:ATtiny84A-SS")
+		(at 243.84 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3632d690-0a99-40be-8311-21938cccb54a")
+		(property "Reference" "U8"
+			(at 229.87 129.5399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "ATtiny84A-SS"
+			(at 229.87 132.0799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+			(at 243.84 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf"
+			(at 243.84 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "20MHz, 8kB Flash, 512B SRAM, 512B EEPROM, debugWIRE, SOIC-14"
+			(at 243.84 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "5b536c02-236c-404f-a6f6-9b2a91adc0b1")
+		)
+		(pin "7"
+			(uuid "921331eb-bd2f-467a-bb2d-287ffda3523f")
+		)
+		(pin "2"
+			(uuid "f02e3e15-b151-4d47-8d72-274a167c5485")
+		)
+		(pin "3"
+			(uuid "458bc436-7fa8-456c-93ef-be0cd5c502e8")
+		)
+		(pin "5"
+			(uuid "9c5f1a57-ee90-4d4c-84e5-c21462b13664")
+		)
+		(pin "8"
+			(uuid "06fdf81f-e5ef-4835-ac88-3cabc9ce2936")
+		)
+		(pin "6"
+			(uuid "b1de58a3-51ce-4ad5-862c-19ce3e2eb172")
+		)
+		(pin "9"
+			(uuid "47b3b8de-5078-4ed0-906f-2b6b56665124")
+		)
+		(pin "10"
+			(uuid "3bbea842-0d76-43e8-987c-36fc9bca027c")
+		)
+		(pin "11"
+			(uuid "4f84571c-1128-4a5e-ae2b-b2d3f7b5b175")
+		)
+		(pin "12"
+			(uuid "39716813-84a9-434e-afbb-209c53eafcc1")
+		)
+		(pin "13"
+			(uuid "a715de19-27f1-48cb-8c81-6d0a372ccb3e")
+		)
+		(pin "14"
+			(uuid "2f8a9223-c4bb-4916-8e89-ac04f8c542bf")
+		)
+		(pin "1"
+			(uuid "9dd0d380-7563-4394-90ca-4b91e63b4fd6")
+		)
+		(instances
+			(project ""
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
+					(reference "U8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 93.98 97.79 0)
 		(unit 1)
@@ -3768,113 +3752,6 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
 					(reference "#PWR095")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "MCU_Microchip_ATtiny:ATtiny84A-P")
-		(at 243.84 130.81 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "611e4d26-08a4-435e-a186-7e2127dac6d9")
-		(property "Reference" "U6"
-			(at 229.87 129.5399 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "ATtiny84A-P"
-			(at 229.87 132.0799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Package_DIP:DIP-14_W7.62mm"
-			(at 243.84 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/doc8183.pdf"
-			(at 243.84 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "20MHz, 8kB Flash, 512B SRAM, 512B EEPROM, debugWIRE, DIP-14"
-			(at 243.84 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "11"
-			(uuid "2491b9fb-2084-45a9-a8e3-164cbe3482c9")
-		)
-		(pin "5"
-			(uuid "df7bd70f-9e0f-4e24-91ee-c1739cece43a")
-		)
-		(pin "12"
-			(uuid "618b690e-710d-4dd3-a26a-bb395c867a73")
-		)
-		(pin "13"
-			(uuid "689b337f-8234-407c-ad97-263e7bcc9764")
-		)
-		(pin "2"
-			(uuid "12da25a3-6920-4c2e-b6a7-e914c26119dc")
-		)
-		(pin "8"
-			(uuid "a1817786-1b9a-4fbc-92f9-9b5366019abc")
-		)
-		(pin "9"
-			(uuid "d4fcbf57-c9ce-49f6-a66c-01a642e96991")
-		)
-		(pin "14"
-			(uuid "abfcc926-d8c3-474c-bb2a-a3f421a6310b")
-		)
-		(pin "6"
-			(uuid "b962d6eb-b8c6-4095-904e-9e4dc36d4ba6")
-		)
-		(pin "7"
-			(uuid "21fb02a5-1e87-4d49-a003-641fd580d4c6")
-		)
-		(pin "3"
-			(uuid "7ccaa068-fae9-4fac-beab-c9ba5b692828")
-		)
-		(pin "4"
-			(uuid "2c1cd042-0771-4bbe-86b0-aeac2b19f1bb")
-		)
-		(pin "1"
-			(uuid "cf476dce-da33-4228-a7a9-ae056a48af21")
-		)
-		(pin "10"
-			(uuid "4d6697bb-6e27-4f0c-bfac-d99014efbaa9")
-		)
-		(instances
-			(project ""
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
-					(reference "U6")
 					(unit 1)
 				)
 			)
@@ -4443,7 +4320,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "PCM_Crystal_Handsoldering_AKL:Resonator_SMD_muRata_CSTxExxV-3Pin_3.0x1.1mm_BigPads"
 			(at 179.705 135.89 0)
 			(effects
 				(font
@@ -4549,73 +4426,6 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
 					(reference "#PWR085")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 64.77 90.17 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b7b65216-eeb0-4cb6-b25a-4a4769c27eef")
-		(property "Reference" "TP1"
-			(at 67.31 85.5979 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "~"
-			(at 67.31 88.1379 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 69.85 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 69.85 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 64.77 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2f311344-aa6c-4e3a-8a15-8272e6118e72")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
-					(reference "TP1")
 					(unit 1)
 				)
 			)

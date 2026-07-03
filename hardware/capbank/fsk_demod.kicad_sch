@@ -3237,7 +3237,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "4046"
+		(property "Value" "74HC4046AD"
 			(at 69.4533 105.41 0)
 			(effects
 				(font
@@ -3246,7 +3246,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_DIP:DIP-16_W7.62mm"
+		(property "Footprint" "Package_SO:SOIC-16_3.9x9.9mm_P1.27mm"
 			(at 67.31 120.65 0)
 			(effects
 				(font

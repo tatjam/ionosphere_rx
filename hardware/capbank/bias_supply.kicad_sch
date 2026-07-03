@@ -2372,6 +2372,17 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "VERIFIED oscillator"
+		(exclude_from_sim no)
+		(at 251.46 18.796 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 18 90 21 1)
+			)
+		)
+		(uuid "0e86021e-83a4-4a26-860b-7cbd5a574afa")
+	)
 	(text "Oscillate under 10kHz for optimal \nripple rejection on LM317"
 		(exclude_from_sim no)
 		(at 221.234 18.796 0)
@@ -3938,6 +3949,76 @@
 	)
 	(symbol
 		(lib_id "Device:C")
+		(at 243.84 83.82 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "13696549-7bc3-411b-bdf2-5281cc4d60af")
+		(property "Reference" "C1"
+			(at 247.65 82.5499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100n"
+			(at 247.65 85.0899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_Capacitor_SMD_AKL:C_0603_1608Metric"
+			(at 244.8052 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 243.84 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 243.84 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "37145e7d-53ab-40c4-9105-5decd2a2dd97")
+		)
+		(pin "1"
+			(uuid "c5955b5f-9415-4c08-b07c-b4e3f9042410")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
 		(at 50.8 109.22 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4137,72 +4218,6 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
 					(reference "#PWR052")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "proj_power:GND_ISOL")
-		(at 247.65 80.01 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "21921666-92e9-4348-ab7a-0d7ef3e117e5")
-		(property "Reference" "#PWR048"
-			(at 247.65 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND_ISOL"
-			(at 247.65 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 247.65 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 247.65 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
-			(at 247.65 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0f94be6d-9b4d-41cc-ac18-b781c4d4b04a")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
-					(reference "#PWR048")
 					(unit 1)
 				)
 			)
@@ -4632,7 +4647,7 @@
 				)
 			)
 		)
-		(property "Value" "1N5711"
+		(property "Value" "BAT46WJ"
 			(at 52.3875 34.29 0)
 			(effects
 				(font
@@ -4640,7 +4655,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "PCM_Diode_SMD_AKL:D_SOD-323"
 			(at 52.07 38.1 0)
 			(effects
 				(font
@@ -5121,142 +5136,6 @@
 		)
 	)
 	(symbol
-		(lib_id "proj_power:VDD_ISOL")
-		(at 264.16 62.23 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7be3303a-eef3-4acb-bf22-522dadc9fb6c")
-		(property "Reference" "#PWR046"
-			(at 264.16 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VDD_ISOL"
-			(at 264.16 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 264.16 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 264.16 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 264.16 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin ""
-			(uuid "ae30d0dd-a8c6-465d-8b93-fdc2da97fff7")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
-					(reference "#PWR046")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 247.65 76.2 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7c79b1b8-b5f3-446b-8690-11455884cf74")
-		(property "Reference" "C18"
-			(at 251.46 74.9299 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100n"
-			(at 251.46 77.4699 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PCM_Capacitor_SMD_AKL:C_0603_1608Metric"
-			(at 248.6152 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 247.65 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Unpolarized capacitor"
-			(at 247.65 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "1c63315b-0730-46f7-a801-319c8b6c40b2")
-		)
-		(pin "1"
-			(uuid "65095613-e433-4933-8969-721a394ab97a")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
-					(reference "C18")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 200.66 36.83 0)
 		(unit 1)
@@ -5578,6 +5457,72 @@
 		)
 	)
 	(symbol
+		(lib_id "proj_power:VDD_ISOL")
+		(at 243.84 80.01 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8db77d98-60cb-4fb4-a643-f3b631ddc39e")
+		(property "Reference" "#PWR047"
+			(at 243.84 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VDD_ISOL"
+			(at 243.84 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 243.84 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 243.84 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 243.84 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "3b423220-710f-4e58-b2f6-498de9d2a465")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "#PWR047")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "PCM_Diode_Schottky_AKL:D_Schottky_Generic")
 		(at 114.3 38.1 0)
 		(unit 1)
@@ -5595,7 +5540,7 @@
 				)
 			)
 		)
-		(property "Value" "1N5711"
+		(property "Value" "BAT46WJ"
 			(at 114.6175 34.29 0)
 			(effects
 				(font
@@ -5603,7 +5548,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "PCM_Diode_SMD_AKL:D_SOD-323"
 			(at 114.3 38.1 0)
 			(effects
 				(font
@@ -5640,6 +5585,72 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
 					(reference "D6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "proj_power:GND_ISOL")
+		(at 243.84 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "96feb718-75e3-40cf-b422-934d4fa13f09")
+		(property "Reference" "#PWR048"
+			(at 243.84 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISOL"
+			(at 243.84 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 243.84 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 243.84 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
+			(at 243.84 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b74fff8c-8e3f-4927-985a-9878a86c6b29")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "#PWR048")
 					(unit 1)
 				)
 			)
@@ -5870,7 +5881,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1N4007"
+		(property "Value" "1N4007W"
 			(at 104.14 162.5599 90)
 			(effects
 				(font
@@ -5879,7 +5890,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "PCM_Diode_SMD_AKL:D_SOD-123"
 			(at 101.6 161.29 0)
 			(effects
 				(font
@@ -6006,6 +6017,72 @@
 		)
 	)
 	(symbol
+		(lib_id "proj_power:VDD_ISOL")
+		(at 259.08 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a68371d5-4461-4781-8a44-9d5eb9d4f563")
+		(property "Reference" "#PWR039"
+			(at 259.08 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VDD_ISOL"
+			(at 259.08 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 259.08 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 259.08 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 259.08 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "922542c1-e318-494d-8fad-6d9c682fd7f9")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "#PWR039")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 133.35 154.94 0)
 		(unit 1)
@@ -6070,72 +6147,6 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
 					(reference "C45")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "proj_power:VDD_ISOL")
-		(at 247.65 72.39 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b0b1d5eb-6a5c-4cb1-b176-4825a82f1eee")
-		(property "Reference" "#PWR049"
-			(at 247.65 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "VDD_ISOL"
-			(at 247.65 67.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 247.65 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 247.65 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 247.65 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin ""
-			(uuid "0de1c9a6-2bec-47a3-b13e-008b122a6565")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
-					(reference "#PWR049")
 					(unit 1)
 				)
 			)
@@ -6338,72 +6349,6 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
 					(reference "#PWR059")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "proj_power:GND_ISOL")
-		(at 264.16 87.63 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "bd58e51a-8631-44cc-9c2a-84215599e7fa")
-		(property "Reference" "#PWR047"
-			(at 264.16 93.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND_ISOL"
-			(at 264.16 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 264.16 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 264.16 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
-			(at 264.16 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a5b324e8-2b36-4ac0-ade0-21b6329dca98")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
-					(reference "#PWR047")
 					(unit 1)
 				)
 			)
@@ -6654,6 +6599,72 @@
 		)
 	)
 	(symbol
+		(lib_id "proj_power:GND_ISOL")
+		(at 259.08 100.33 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dc452e51-315d-4451-a121-818f11d34072")
+		(property "Reference" "#PWR046"
+			(at 259.08 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISOL"
+			(at 259.08 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 259.08 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 259.08 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
+			(at 259.08 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b7bf9473-a0fe-4171-87ed-408cad225961")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "#PWR046")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "proj_power:HV")
 		(at 138.43 29.21 0)
 		(unit 1)
@@ -6807,7 +6818,7 @@
 				)
 			)
 		)
-		(property "Value" "1N5711"
+		(property "Value" "BAT46WJ"
 			(at 85.4075 34.29 0)
 			(effects
 				(font
@@ -6815,7 +6826,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "PCM_Diode_SMD_AKL:D_SOD-323"
 			(at 85.09 38.1 0)
 			(effects
 				(font
@@ -7078,137 +7089,34 @@
 	)
 	(symbol
 		(lib_id "74xx:74HC14")
-		(at 264.16 74.93 0)
+		(at 259.08 87.63 0)
 		(unit 7)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "fbf40831-cb50-4d18-82ab-cb1b08322d79")
-		(property "Reference" "U13"
-			(at 270.51 73.6599 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "74HC14"
-			(at 270.51 76.1999 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
-			(at 264.16 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
-			(at 264.16 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Hex inverter schmitt trigger"
-			(at 264.16 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "14"
-			(uuid "4a27359d-99b3-42ed-8e62-1077d435ed50")
-		)
-		(pin "11"
-			(uuid "a827ef32-1e24-41c1-87c6-df816cac7ff7")
-		)
-		(pin "8"
-			(uuid "4e58caac-425b-459e-9355-714396720003")
-		)
-		(pin "12"
-			(uuid "bfd3f175-3ebe-4b2c-94da-0c2cde77d287")
-		)
-		(pin "9"
-			(uuid "5b8f4887-f7e2-4d00-b11b-fa355191deda")
-		)
-		(pin "5"
-			(uuid "0c121815-4c53-447b-9f1a-e555b02ab236")
-		)
-		(pin "6"
-			(uuid "f337b308-993c-4532-80a9-f1092d361807")
-		)
-		(pin "1"
-			(uuid "5f834ea5-455f-4587-8a8f-752e4dee13fc")
-		)
-		(pin "10"
-			(uuid "b25ee926-164c-41f5-aba8-56cab95aa821")
-		)
-		(pin "13"
-			(uuid "bebf6661-b387-4f32-8df3-3bb71e921717")
-		)
-		(pin "3"
-			(uuid "3ad0a1cf-1f2f-448e-b3f2-0d1bf28a8890")
-		)
-		(pin "4"
-			(uuid "7f095765-790d-4ca1-9cea-a647fd998a71")
-		)
-		(pin "2"
-			(uuid "ae9cf31f-8548-4229-9386-0494afecd1b1")
-		)
-		(pin "7"
-			(uuid "1165a55b-c8de-4084-9edc-971d4b01cc37")
-		)
-		(instances
-			(project ""
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
-					(reference "U13")
-					(unit 7)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "74xx:74HC14")
-		(at 219.71 43.18 0)
-		(unit 6)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
 		(uuid "fe866a45-a646-4bf0-b4e5-5438c87e2e95")
 		(property "Reference" "U13"
-			(at 219.71 35.306 0)
+			(at 265.43 86.3599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Value" "74HC14"
-			(at 219.71 37.846 0)
+			(at 265.43 88.8999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
-			(at 219.71 43.18 0)
+			(at 259.08 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7217,7 +7125,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
-			(at 219.71 43.18 0)
+			(at 259.08 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7226,7 +7134,7 @@
 			)
 		)
 		(property "Description" "Hex inverter schmitt trigger"
-			(at 219.71 43.18 0)
+			(at 259.08 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7275,6 +7183,109 @@
 		)
 		(pin "7"
 			(uuid "1165a55b-c8de-4084-9edc-971d4b01cc38")
+		)
+		(instances
+			(project ""
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "U13")
+					(unit 7)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "74xx:74HC14")
+		(at 219.71 43.18 0)
+		(unit 6)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fe866a45-a646-4bf0-b4e5-5438c87e2e96")
+		(property "Reference" "U13"
+			(at 219.71 35.306 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "74HC14"
+			(at 219.71 37.846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
+			(at 219.71 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
+			(at 219.71 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Hex inverter schmitt trigger"
+			(at 219.71 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "14"
+			(uuid "4a27359d-99b3-42ed-8e62-1077d435ed52")
+		)
+		(pin "11"
+			(uuid "a827ef32-1e24-41c1-87c6-df816cac7ff9")
+		)
+		(pin "8"
+			(uuid "4e58caac-425b-459e-9355-714396720005")
+		)
+		(pin "12"
+			(uuid "bfd3f175-3ebe-4b2c-94da-0c2cde77d289")
+		)
+		(pin "9"
+			(uuid "5b8f4887-f7e2-4d00-b11b-fa355191dedc")
+		)
+		(pin "5"
+			(uuid "0c121815-4c53-447b-9f1a-e555b02ab238")
+		)
+		(pin "6"
+			(uuid "f337b308-993c-4532-80a9-f1092d361809")
+		)
+		(pin "1"
+			(uuid "5f834ea5-455f-4587-8a8f-752e4dee13fe")
+		)
+		(pin "10"
+			(uuid "b25ee926-164c-41f5-aba8-56cab95aa823")
+		)
+		(pin "13"
+			(uuid "bebf6661-b387-4f32-8df3-3bb71e921719")
+		)
+		(pin "3"
+			(uuid "3ad0a1cf-1f2f-448e-b3f2-0d1bf28a8892")
+		)
+		(pin "4"
+			(uuid "7f095765-790d-4ca1-9cea-a647fd998a73")
+		)
+		(pin "2"
+			(uuid "ae9cf31f-8548-4229-9386-0494afecd1b3")
+		)
+		(pin "7"
+			(uuid "1165a55b-c8de-4084-9edc-971d4b01cc39")
 		)
 		(instances
 			(project ""

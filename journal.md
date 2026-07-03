@@ -127,3 +127,11 @@ Measuring on the breadboard 5V supply, maybe a 25mV or so noise was seen at the 
 - The oscillator itself is okay with the 100nF decoupling
 - Ferrite on supply line to mosfet driver section
 - Optional gate resistor, DNP or 10 / 20 ohms to smooth rise time and reduce noise
+
+# (07-06-2026) HV source build
+
+I don't have any MOSFET drivers, but direct drive from the oscillator, with 4.5V supply:
+- Output voltage near 12V
+- 10kOhm load drops by 1V, recovers in 3~4 ms once removed
+
+So with MOSFETs probably going to work perfectly!
