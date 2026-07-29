@@ -507,6 +507,36 @@
         "via_diameter": 0.6,
         "via_drill": 0.3,
         "wire_width": 6
+      },
+      {
+        "name": "ANTENNA",
+        "pcb_color": "rgb(255, 115, 234)",
+        "priority": 2,
+        "schematic_color": "rgb(255, 115, 234)"
+      },
+      {
+        "name": "HV_SWITCHER",
+        "pcb_color": "rgb(161, 149, 56)",
+        "priority": 1,
+        "schematic_color": "rgb(161, 149, 56)"
+      },
+      {
+        "name": "LOW_NOISE",
+        "pcb_color": "rgb(48, 198, 58)",
+        "priority": 0,
+        "schematic_color": "rgb(48, 198, 58)"
+      },
+      {
+        "name": "PWR",
+        "pcb_color": "rgb(184, 76, 11)",
+        "priority": 4,
+        "schematic_color": "rgb(255, 8, 0)"
+      },
+      {
+        "name": "PWR_ISOL",
+        "pcb_color": "rgb(255, 116, 0)",
+        "priority": 3,
+        "schematic_color": "rgb(255, 116, 0)"
       }
     ],
     "meta": {
@@ -514,7 +544,68 @@
     },
     "net_colors": null,
     "netclass_assignments": null,
-    "netclass_patterns": []
+    "netclass_patterns": [
+      {
+        "netclass": "LOW_NOISE",
+        "pattern": "/Isolated/VTUNE"
+      },
+      {
+        "netclass": "LOW_NOISE",
+        "pattern": "/Isolated/Varactor/VBIAS"
+      },
+      {
+        "netclass": "ANTENNA",
+        "pattern": "/Isolated/ANT1"
+      },
+      {
+        "netclass": "ANTENNA",
+        "pattern": "/Isolated/ANT2"
+      },
+      {
+        "netclass": "LOW_NOISE",
+        "pattern": "/Isolated/Varactor/VBIAS_FB"
+      },
+      {
+        "netclass": "HV_SWITCHER",
+        "pattern": "/BiasSupply/DRIVE"
+      },
+      {
+        "netclass": "HV_SWITCHER",
+        "pattern": "/BiasSupply/~{DRIVE}"
+      },
+      {
+        "netclass": "HV_SWITCHER",
+        "pattern": "HV"
+      },
+      {
+        "netclass": "PWR_ISOL",
+        "pattern": "V_SUPPLY_ISOL"
+      },
+      {
+        "netclass": "PWR_ISOL",
+        "pattern": "VDD_ISOL"
+      },
+      {
+        "netclass": "PWR_ISOL",
+        "pattern": "GND_ISOL"
+      },
+      {
+        "netclass": "HV_SWITCHER",
+        "pattern": "/BiasSupply/SWITCH_SUPPLY"
+      },
+      {
+        "netclass": "PWR",
+        "pattern": "V_SUPPLY"
+      },
+      {
+        "netclass": "PWR",
+        "pattern": "VDD"
+      },
+      {
+        "netclass": "PWR",
+        "pattern": "GND"
+      }
+    ]
   },
   "pcbnew": {
     "last_paths": {

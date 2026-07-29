@@ -1453,6 +1453,16 @@
 		)
 		(uuid "a11c9ac4-d055-4ede-b02e-65e46c87982c")
 	)
+	(label "VBIAS_FB"
+		(at 63.5 69.85 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c097db40-623a-4a9f-8068-07c8f582a64b")
+	)
 	(label "VBIAS"
 		(at 113.03 92.71 0)
 		(effects

@@ -1979,6 +1979,16 @@
 	)
 	(wire
 		(pts
+			(xy 58.42 151.13) (xy 64.77 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "35b8c336-d135-45fb-a07b-556904946f2d")
+	)
+	(wire
+		(pts
 			(xy 173.99 135.89) (xy 176.53 135.89)
 		)
 		(stroke
@@ -2166,6 +2176,16 @@
 			(type default)
 		)
 		(uuid "8f17e6e8-c406-4fce-8446-0d0045c3f761")
+	)
+	(wire
+		(pts
+			(xy 58.42 148.59) (xy 64.77 148.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "915ca480-5733-4115-89fe-143810a0044a")
 	)
 	(wire
 		(pts
@@ -2437,7 +2457,7 @@
 		)
 		(uuid "29196a2e-624a-456f-8c13-5a13dba770c9")
 	)
-	(label "PRG_MOSI_I2C_SDA"
+	(label "PRG_MOSI_RHEO_UD"
 		(at 58.42 52.07 0)
 		(effects
 			(font
@@ -2456,6 +2476,16 @@
 			(justify left bottom)
 		)
 		(uuid "3170ce70-97e5-4b34-820f-519fffdebfaa")
+	)
+	(label "PRG_SCK_RHEO_CS"
+		(at 58.42 148.59 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3a240d97-f165-4cca-a470-ccb05063c627")
 	)
 	(label "FSK"
 		(at 58.42 143.51 180)
@@ -2507,7 +2537,7 @@
 		)
 		(uuid "705f62f8-cf98-4e7d-815a-c421811080b5")
 	)
-	(label "PRG_MOSI_I2C_SDA"
+	(label "PRG_MOSI_RHEO_UD"
 		(at 262.89 130.81 0)
 		(effects
 			(font
@@ -2587,6 +2617,16 @@
 		)
 		(uuid "a50214f0-f71a-4453-992c-4a2068e0adcd")
 	)
+	(label "PRG_MOSI_RHEO_UD"
+		(at 58.42 151.13 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a922144f-5422-4e32-a5fe-64a76b1dabbb")
+	)
 	(label "HVSP_SDI_RELAY1"
 		(at 251.46 29.21 180)
 		(effects
@@ -2597,7 +2637,7 @@
 		)
 		(uuid "b8717f37-1d11-46dc-a096-99994b591af9")
 	)
-	(label "PRG_SCK_I2C_SCL"
+	(label "PRG_SCK_RHEO_CS"
 		(at 262.89 125.73 0)
 		(effects
 			(font
@@ -2637,7 +2677,7 @@
 		)
 		(uuid "ca144219-c3aa-4910-af2b-4d2db1d2536d")
 	)
-	(label "PRG_SCK_I2C_SCL"
+	(label "PRG_SCK_RHEO_CS"
 		(at 58.42 46.99 0)
 		(effects
 			(font
@@ -4969,7 +5009,7 @@
 	)
 	(sheet
 		(at 64.77 139.7)
-		(size 27.94 7.62)
+		(size 27.94 22.86)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -4993,7 +5033,7 @@
 			)
 		)
 		(property "Sheetfile" "fsk_demod.kicad_sch"
-			(at 64.77 147.9046 0)
+			(at 64.77 163.1446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5019,6 +5059,26 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+			)
+		)
+		(pin "RHEO_CS" input
+			(at 64.77 148.59 180)
+			(uuid "b97a1df5-c542-4e54-8dd9-81656160a538")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "RHEO_UD" input
+			(at 64.77 151.13 180)
+			(uuid "72a3db0a-9c69-4c09-8373-8842004e33ca")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 			)
 		)
 		(instances
