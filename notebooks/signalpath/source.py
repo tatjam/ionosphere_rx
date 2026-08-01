@@ -49,12 +49,12 @@ def fsk_modulate(
     f1,
     phase_continuity=True,
     digital=True,
-) -> tuple[NDArray, NDArray]:
+) -> tuple[NDArray, NDArray, NDArray]:
     """
     Generates BFSK modulated from the bitstream at given bitrate, generating the samples
     at the given multiple of bitrate. Ensure bitrate_mult*bitrate is > 2*max(f0, f1).
 
-    Returns the ts, samples pair
+    Returns the ts, samples, digital sample pair
     """
 
     # Time goes from 0 to len(bits) / bitrate, and we have bitrate_mult samples per bit, so...
@@ -62,6 +62,7 @@ def fsk_modulate(
     dt = ts[1] - ts[0]
 
     samples = np.zeros(len(ts))
+    digital_out = np.zeros(len(ts))
 
     # TODO: we could add a low pass filter to the digital signal to smooth the harmonics
 
@@ -72,30 +73,33 @@ def fsk_modulate(
             f = f1 if bits[i] else f0
             phase += 2.0 * np.pi * f * dt
 
+            digital_out[i * bitrate_mult + samp] = 1.0 if bits[i] else 0.0
+
         if not phase_continuity:
             phase = 0.0
 
     if digital:
         samples = (samples >= 0).astype(float)
 
-    return ts, samples
+    return ts, samples, digital_out
 
 
 def generate_source_signal():
     bits = manchester_encode(signal_to_bits(config.SIGNAL_TO_ENCODE))
     if config.SOURCE_STEADY_TONE is not None:
-	    if config.SOURCE_STEADY_TONE == "F0":
-	        bits = [False] * len(bits)
-	    elif config.SOURCE_STEADY_TONE == "F1":
-	        bits = [True] * len(bits)
+        if config.SOURCE_STEADY_TONE == "F0":
+            bits = [False] * len(bits)
+        elif config.SOURCE_STEADY_TONE == "F1":
+            bits = [True] * len(bits)
 
-    ts, samples = fsk_modulate(
+    ts, samples, digital_out = fsk_modulate(
         bits,
         config.SIGNAL_CLOCK_RATE,
         int(config.SIGNAL_OVERSAMPLING),
         config.F0,
         config.F1,
         config.PHASE_CONTINUITY,
+        True,
     )
 
     if config.SOURCE_USE_FILTER:
@@ -103,7 +107,7 @@ def generate_source_signal():
         a = config.SOURCE_FILTER[1]
         samples = utils.apply_filter_full(a, b, samples)
 
-    return ts, samples
+    return ts, samples, digital_out
 
 
 if __name__ == "__main__":
