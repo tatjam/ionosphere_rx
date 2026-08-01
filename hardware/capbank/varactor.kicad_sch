@@ -989,7 +989,7 @@
 	)
 	(text "Very large value, try 100k, 1M, 10M\nor use an inductor / choke.\nNote high values limit freq. agility"
 		(exclude_from_sim no)
-		(at 222.25 67.31 0)
+		(at 227.584 65.278 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1095,6 +1095,16 @@
 	)
 	(wire
 		(pts
+			(xy 201.93 57.15) (xy 201.93 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21195fd8-c7ab-45f0-a0a2-9a314b6c91f9")
+	)
+	(wire
+		(pts
 			(xy 62.23 85.09) (xy 62.23 83.82)
 		)
 		(stroke
@@ -1115,7 +1125,7 @@
 	)
 	(wire
 		(pts
-			(xy 196.85 68.58) (xy 201.93 68.58)
+			(xy 196.85 57.15) (xy 201.93 57.15)
 		)
 		(stroke
 			(width 0)
@@ -1212,16 +1222,6 @@
 			(type default)
 		)
 		(uuid "69a1103d-c512-4f56-9f67-0a42286f60fb")
-	)
-	(wire
-		(pts
-			(xy 201.93 68.58) (xy 201.93 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6a0462b4-693b-4c49-8d96-9ee33aed7e2f")
 	)
 	(wire
 		(pts
@@ -1322,6 +1322,16 @@
 			(type default)
 		)
 		(uuid "b18ca5ef-dd10-4804-92f8-26d7f6211a0b")
+	)
+	(wire
+		(pts
+			(xy 201.93 69.85) (xy 201.93 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b32e1900-e003-4e91-b50b-1230d1aab962")
 	)
 	(wire
 		(pts
@@ -1444,7 +1454,7 @@
 		(uuid "fb06dbab-098f-4058-9bb2-e7e295d4c525")
 	)
 	(label "VBIAS"
-		(at 196.85 68.58 0)
+		(at 196.85 57.15 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1856,6 +1866,76 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
 					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 201.93 66.04 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7eaebb12-ed3e-4513-808b-905852ed4cd6")
+		(property "Reference" "R22"
+			(at 204.47 64.7699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1M"
+			(at 204.47 67.3099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_Resistor_SMD_AKL:R_0603_1608Metric"
+			(at 200.152 66.04 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 201.93 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 201.93 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2258eae0-a752-4ff8-b552-085f9cf1295c")
+		)
+		(pin "2"
+			(uuid "bc9abaf3-4fa5-4287-a46f-3d9f9261a982")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
+					(reference "R22")
 					(unit 1)
 				)
 			)

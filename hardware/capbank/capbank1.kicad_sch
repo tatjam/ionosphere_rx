@@ -2589,7 +2589,7 @@
 	)
 	(wire
 		(pts
-			(xy 38.1 128.27) (xy 38.1 134.62)
+			(xy 38.1 132.08) (xy 38.1 134.62)
 		)
 		(stroke
 			(width 0)
@@ -3794,7 +3794,7 @@
 	)
 	(symbol
 		(lib_id "proj_power:V_SUPPLY")
-		(at 38.1 128.27 0)
+		(at 38.1 132.08 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -3803,7 +3803,7 @@
 		(fields_autoplaced yes)
 		(uuid "2d5741ac-cc3b-44a3-a053-aaa3a48053e6")
 		(property "Reference" "#PWR034"
-			(at 38.1 128.27 0)
+			(at 38.1 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3812,7 +3812,7 @@
 			)
 		)
 		(property "Value" "V_SUPPLY"
-			(at 38.1 123.19 0)
+			(at 38.1 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3820,7 +3820,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 38.1 128.27 0)
+			(at 38.1 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3829,7 +3829,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 38.1 128.27 0)
+			(at 38.1 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3838,7 +3838,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 38.1 128.27 0)
+			(at 38.1 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
