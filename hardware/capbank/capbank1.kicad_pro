@@ -60,6 +60,10 @@
       ],
       "drc_exclusions": [
         [
+          "starved_thermal|122725000|86500000|2fa401a4-ea53-4a19-bca3-c3952dba0b94|3b621b67-1640-4851-b4ee-7d8941678ca0|F.Cu",
+          ""
+        ],
+        [
           "starved_thermal|162600000|67400000|a2c3d5c7-de72-4d46-84cd-fc8c942a2cc7|c8f4a369-746a-437f-a42f-138a1a7cd7b3|F.Cu",
           ""
         ],
@@ -464,7 +468,7 @@
       "no_connect_dangling": "warning",
       "pin_not_connected": "error",
       "pin_not_driven": "error",
-      "pin_to_pin": "warning",
+      "pin_to_pin": "error",
       "power_pin_not_driven": "error",
       "same_local_global_label": "warning",
       "similar_label_and_power": "warning",
@@ -511,31 +515,37 @@
       {
         "name": "ANTENNA",
         "pcb_color": "rgb(255, 115, 234)",
-        "priority": 2,
+        "priority": 3,
         "schematic_color": "rgb(255, 115, 234)"
+      },
+      {
+        "name": "HV",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "priority": 0,
+        "schematic_color": "rgb(255, 142, 122)"
       },
       {
         "name": "HV_SWITCHER",
         "pcb_color": "rgb(161, 149, 56)",
-        "priority": 1,
+        "priority": 2,
         "schematic_color": "rgb(161, 149, 56)"
       },
       {
         "name": "LOW_NOISE",
         "pcb_color": "rgb(48, 198, 58)",
-        "priority": 0,
+        "priority": 1,
         "schematic_color": "rgb(48, 198, 58)"
       },
       {
         "name": "PWR",
         "pcb_color": "rgb(184, 76, 11)",
-        "priority": 4,
+        "priority": 5,
         "schematic_color": "rgb(255, 8, 0)"
       },
       {
         "name": "PWR_ISOL",
         "pcb_color": "rgb(255, 116, 0)",
-        "priority": 3,
+        "priority": 4,
         "schematic_color": "rgb(255, 116, 0)"
       }
     ],
@@ -604,6 +614,10 @@
       {
         "netclass": "PWR",
         "pattern": "GND"
+      },
+      {
+        "netclass": "HV",
+        "pattern": "HV_CLEAN"
       }
     ]
   },

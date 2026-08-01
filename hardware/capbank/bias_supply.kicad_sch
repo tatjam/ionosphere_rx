@@ -2383,6 +2383,26 @@
 		)
 		(uuid "0e86021e-83a4-4a26-860b-7cbd5a574afa")
 	)
+	(text "30.6V"
+		(exclude_from_sim no)
+		(at 85.09 166.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "1c8eb008-be65-47f6-a398-7be96e6b3f64")
+	)
+	(text "150mW"
+		(exclude_from_sim no)
+		(at 153.924 159.004 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "1e2b510c-13bb-4397-9449-23c7a64fc880")
+	)
 	(text "Oscillate under 10kHz for optimal \nripple rejection on LM317"
 		(exclude_from_sim no)
 		(at 221.234 18.796 0)
@@ -2392,6 +2412,56 @@
 			)
 		)
 		(uuid "64dfd61f-b8bc-417e-a15a-8b86fb90f3b1")
+	)
+	(text "Assumed 32V regulated for power worst-case"
+		(exclude_from_sim no)
+		(at 109.474 147.574 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6ac74eed-e6f9-478a-83df-2175ddff0360")
+	)
+	(text "7.7mW"
+		(exclude_from_sim no)
+		(at 84.074 161.29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "7603e908-9996-435b-83a7-c771eb690fdf")
+	)
+	(text "Resistor to ensure 10mA minimum load, \nWe need 4.5mA additional (at most!)\n\nIn practice, 3.5mA is enough, so may not \nneed to be populated"
+		(exclude_from_sim no)
+		(at 183.134 154.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "823709e4-b893-4019-be6e-057ef49f7861")
+	)
+	(text "170mW"
+		(exclude_from_sim no)
+		(at 93.726 178.054 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "b5420d05-ae2a-4330-84df-44f0c516e577")
+	)
+	(text "V 5.5mA"
+		(exclude_from_sim no)
+		(at 92.202 154.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "d602c322-6d40-4b5c-8416-051250f25ea0")
 	)
 	(text "Caps sized for derating"
 		(exclude_from_sim no)
@@ -2492,6 +2562,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a3f56403-c437-4ce1-8b68-8aa33377f0ea")
+	)
+	(junction
+		(at 148.59 151.13)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a5077d61-b0c4-4035-ae7b-a2b819de7168")
 	)
 	(junction
 		(at 93.98 38.1)
@@ -2665,7 +2741,7 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 151.13) (xy 142.24 143.51)
+			(xy 152.4 151.13) (xy 152.4 142.24)
 		)
 		(stroke
 			(width 0)
@@ -2982,6 +3058,16 @@
 			(type default)
 		)
 		(uuid "872d11ea-21fe-4963-9282-9059c0ee7ca7")
+	)
+	(wire
+		(pts
+			(xy 148.59 151.13) (xy 152.4 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "887380c4-77f0-424d-aace-86636d0162cf")
 	)
 	(wire
 		(pts
@@ -3305,7 +3391,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 151.13) (xy 142.24 151.13)
+			(xy 133.35 151.13) (xy 148.59 151.13)
 		)
 		(stroke
 			(width 0)
@@ -4118,6 +4204,76 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 148.59 154.94 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "157e31a7-1134-42ad-82d2-937f2b31669c")
+		(property "Reference" "R23"
+			(at 151.13 153.6699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "7k"
+			(at 151.13 156.2099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_Resistor_SMD_AKL:R_1812_4532Metric"
+			(at 146.812 154.94 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 148.59 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 148.59 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "33ea83c9-4094-4700-801f-daac1437d6a3")
+		)
+		(pin "1"
+			(uuid "8841b06c-5771-45e5-a85c-9ba74ec581a9")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "R23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Polarized")
 		(at 73.66 173.99 0)
 		(unit 1)
@@ -4660,6 +4816,72 @@
 		)
 	)
 	(symbol
+		(lib_id "proj_power:GND_ISOL")
+		(at 148.59 158.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "37f19f59-b1a2-4db9-9ba6-f26e23193837")
+		(property "Reference" "#PWR093"
+			(at 148.59 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISOL"
+			(at 148.59 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 148.59 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 148.59 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
+			(at 148.59 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e84511ab-d784-40a6-9226-237ff2e70a1e")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "#PWR093")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "PCM_Diode_Schottky_AKL:D_Schottky_Generic")
 		(at 52.07 38.1 0)
 		(unit 1)
@@ -5123,7 +5345,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Resistor_SMD_AKL:R_0603_1608Metric"
+		(property "Footprint" "PCM_Resistor_SMD_AKL:R_1210_3225Metric_Pad1.30x2.65mm_HandSolder"
 			(at 87.122 173.99 90)
 			(effects
 				(font
@@ -6184,7 +6406,7 @@
 	)
 	(symbol
 		(lib_id "proj_power:HV_CLEAN")
-		(at 142.24 143.51 0)
+		(at 152.4 142.24 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -6193,7 +6415,7 @@
 		(fields_autoplaced yes)
 		(uuid "b326ec72-f2b5-4739-9e4c-e81056cf3d5f")
 		(property "Reference" "#PWR043"
-			(at 142.24 143.51 0)
+			(at 152.4 142.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6202,7 +6424,7 @@
 			)
 		)
 		(property "Value" "HV_CLEAN"
-			(at 142.24 138.43 0)
+			(at 152.4 137.16 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6210,7 +6432,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 142.24 143.51 0)
+			(at 152.4 142.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6219,7 +6441,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 142.24 143.51 0)
+			(at 152.4 142.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6228,7 +6450,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 142.24 143.51 0)
+			(at 152.4 142.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)

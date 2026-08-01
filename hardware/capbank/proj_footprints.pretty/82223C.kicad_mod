@@ -1,0 +1,117 @@
+(footprint "82223C"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 1.5 -2.5 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "a4b6933e-9bd2-43fa-ab5a-92f4b3ccab96")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "82223C"
+		(at 0 1 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "01a37c1d-7907-431e-bf59-05e23932b190")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c9f3eebb-00fa-485c-a19f-d8598a2d277a")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "8786b379-9f9c-4820-b696-7a6a6c468fbe")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_rect
+		(start -1 -1.7)
+		(end 3.3 1.8)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "a61a53e2-f4ce-40ab-a496-fc6d5157f490")
+	)
+	(fp_rect
+		(start -0.5 -1.25)
+		(end 2.7 1.25)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "f0a09f7c-246a-4d96-9a62-568a60c72032")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 2.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "eaf5e667-f738-41b2-bdbc-0fd8825333aa")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at 0 0)
+		(size 1.52 3.05)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.15)
+		(uuid "bc190bc0-2425-4071-91aa-d60344635836")
+	)
+	(pad "2" smd roundrect
+		(at 2.29 0)
+		(size 1.52 3.05)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.15)
+		(uuid "e7642b91-caef-4fb2-a2aa-8471ce03300f")
+	)
+	(embedded_fonts no)
+	(model "/home/tatjam/code/embedded/ionosphere_rx/hardware/3dmodels/82223C.STEP"
+		(offset
+			(xyz 1.2 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -0)
+		)
+	)
+)
