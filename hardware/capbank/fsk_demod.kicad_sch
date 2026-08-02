@@ -1803,6 +1803,10 @@
 		(color 0 0 0 0)
 		(uuid "f826fd90-6e07-4609-a0fd-73361ed306ec")
 	)
+	(no_connect
+		(at 76.2 59.69)
+		(uuid "4f9ccdba-868d-42be-8afd-fab0fd59dc17")
+	)
 	(wire
 		(pts
 			(xy 41.91 49.53) (xy 41.91 52.07)
@@ -3011,7 +3015,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1.7k"
 			(at 44.45 157.48 90)
 			(effects
 				(font
@@ -4639,7 +4643,7 @@
 				)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "1.7k"
 			(at 57.15 157.48 90)
 			(effects
 				(font
@@ -6388,7 +6392,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1n"
+		(property "Value" "2n"
 			(at 53.34 170.1799 0)
 			(effects
 				(font

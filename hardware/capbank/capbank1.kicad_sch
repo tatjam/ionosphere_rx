@@ -781,6 +781,107 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "power:PWR_FLAG"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#FLG"
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "flag power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:VDD"
 			(power)
 			(pin_numbers
@@ -2389,6 +2490,18 @@
 			(embedded_fonts no)
 		)
 	)
+	(junction
+		(at 38.1 134.62)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "35b45bef-13a8-4b47-9854-b183d3cf24e6")
+	)
+	(junction
+		(at 38.1 137.16)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9aa07970-e8ef-4cf6-9676-5ac92cf20c46")
+	)
 	(bus_entry
 		(at 111.76 90.17)
 		(size 2.54 2.54)
@@ -2649,6 +2762,16 @@
 	)
 	(wire
 		(pts
+			(xy 38.1 134.62) (xy 45.72 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "59b4cbe4-c6ea-42e9-b902-e8dba364cd57")
+	)
+	(wire
+		(pts
 			(xy 161.29 123.19) (xy 171.45 123.19)
 		)
 		(stroke
@@ -2856,6 +2979,16 @@
 			(type default)
 		)
 		(uuid "d427bc60-cbd5-4b29-ade6-b7d4d8b02eda")
+	)
+	(wire
+		(pts
+			(xy 38.1 137.16) (xy 45.72 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4f10c3c-2cdc-4f8f-a699-45b2ebaabc3d")
 	)
 	(wire
 		(pts
@@ -3518,6 +3651,16 @@
 		)
 		(uuid "d54f35de-49e3-4777-af03-e00b6fb597eb")
 	)
+	(label "{ISOL_SCK,ISOL_SDI,ISOL_~{CS}}"
+		(at 173.99 110.49 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "da658e9e-d11e-4f3e-a3be-9ad9f3a43e08")
+	)
 	(label "SDI"
 		(at 105.41 90.17 180)
 		(effects
@@ -3527,6 +3670,16 @@
 			(justify right bottom)
 		)
 		(uuid "fbf6492f-4a84-46b3-afea-70a171b15d5b")
+	)
+	(label "{SCK,SDI,~{CS}}"
+		(at 114.3 106.68 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fbfb26bb-e394-4f97-9028-d3bcfaf74c8d")
 	)
 	(symbol
 		(lib_id "proj_power:GND_ISOL")
@@ -4049,6 +4202,72 @@
 			(project ""
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84"
 					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 45.72 134.62 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "512332d9-2637-4432-b0e8-11259ba1c05f")
+		(property "Reference" "#FLG01"
+			(at 45.72 132.715 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 45.72 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.72 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 45.72 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5704222d-98c4-4694-a4d1-fd79ec86f208")
+		)
+		(instances
+			(project ""
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84"
+					(reference "#FLG01")
 					(unit 1)
 				)
 			)
@@ -4833,6 +5052,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:PWR_FLAG")
+		(at 45.72 137.16 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c00f7e58-03a4-4c22-9805-5205cf60edaa")
+		(property "Reference" "#FLG02"
+			(at 45.72 139.065 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 45.72 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.72 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Special symbol for telling ERC where power comes from"
+			(at 45.72 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "09ff4e89-eb28-41f7-9d33-c830b42fab03")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84"
+					(reference "#FLG02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 181.61 147.32 0)
 		(unit 1)
@@ -5474,7 +5759,7 @@
 				(justify left top)
 			)
 		)
-		(pin "RELAY1" output
+		(pin "ORELAY1" output
 			(at 97.79 66.04 0)
 			(uuid "acc2e5d5-bf38-4082-9507-d77e7192633f")
 			(effects
@@ -5484,7 +5769,7 @@
 				(justify right)
 			)
 		)
-		(pin "RELAY2" output
+		(pin "ORELAY2" output
 			(at 97.79 72.39 0)
 			(uuid "2b50460a-5953-422b-a653-2ca7c5620072")
 			(effects
@@ -5494,7 +5779,7 @@
 				(justify right)
 			)
 		)
-		(pin "RELAY3" output
+		(pin "ORELAY3" output
 			(at 97.79 78.74 0)
 			(uuid "f47d8860-45a4-46d4-9a63-0d74cf84aeb1")
 			(effects
