@@ -6,12 +6,12 @@ from scipy import signal
 # SOURCE SIGNAL
 #######################
 
-F0 = 100e3
-F1 = 200e3
+F0 = 200e3
+F1 = 300e3
 SIGNAL_TO_ENCODE = [ord(x) for x in "Hello"]
 
 # Clock rate of the MANCHESTER encoded signal, so SIGNAL_TO_ENCODE is transmitted at half this
-SIGNAL_CLOCK_RATE = 24e3
+SIGNAL_CLOCK_RATE = 12e3
 # How many samples per bit of MANCHESTER encoded signal
 SIGNAL_OVERSAMPLING = 50e2
 
@@ -34,14 +34,14 @@ PHASE_CONTINUITY = True
 
 VCO_VMIN = 0.0
 VCO_VMAX = 1.0
-VCO_F_VMIN = 10e3
-VCO_F_VMAX = 300e3
+VCO_F_VMIN = 150e3
+VCO_F_VMAX = 350e3
 
 
 # Phase comparator output voltage
 PC_VOLTAGE = 1.0
 # Phase comparator output current (sink or drain)
-PC_CURRENT = 1e-3
+PC_CURRENT = 106e-6
 
 LOOP_FILTER_IS_CHARGE_PUMP = True
 
@@ -63,7 +63,7 @@ C1		2	0
 C2		1	0
 """
 
-VALUES_LOOP_FILTER_CURRENT = {"R1": 1e3, "C1": 1e-7, "C2": 1e-8}
+VALUES_LOOP_FILTER_CURRENT = {"R1": 10e3, "C1": 100e-9, "C2": 1e-9}
 
 # "PC1", "PC2" (requires charge pump) or "PC3"
 PHASE_COMP = "PC2"

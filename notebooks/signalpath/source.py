@@ -111,9 +111,13 @@ def generate_source_signal():
 
 
 if __name__ == "__main__":
-    ts, samples = generate_source_signal()
+    ts, samples, digital = generate_source_signal()
     plt.style.use("seaborn-v0_8-whitegrid")
 
     plt.figure()
     utils.plot_fft(samples, config.SIGNAL_FS, ts[0], ts[-1], 10e3, 15e6)
+    plt.show()
+
+    plt.figure()
+    utils.plot_fft(digital - 0.5, config.SIGNAL_FS, ts[0], ts[-1], 0, 100e3)
     plt.show()
