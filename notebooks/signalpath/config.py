@@ -11,7 +11,7 @@ F1 = 300e3
 SIGNAL_TO_ENCODE = [ord(x) for x in "Hello"]
 
 # Clock rate of the MANCHESTER encoded signal, so SIGNAL_TO_ENCODE is transmitted at half this
-SIGNAL_CLOCK_RATE = 12e3
+SIGNAL_CLOCK_RATE = 24e3
 # How many samples per bit of MANCHESTER encoded signal
 SIGNAL_OVERSAMPLING = 50e2
 
@@ -32,8 +32,8 @@ PHASE_CONTINUITY = True
 # RECEPTION PLL
 #######################
 
-VCO_VMIN = 0.0
-VCO_VMAX = 1.0
+VCO_VMIN = 0.06
+VCO_VMAX = 0.94
 VCO_F_VMIN = 150e3
 VCO_F_VMAX = 350e3
 
@@ -41,7 +41,7 @@ VCO_F_VMAX = 350e3
 # Phase comparator output voltage
 PC_VOLTAGE = 1.0
 # Phase comparator output current (sink or drain)
-PC_CURRENT = 106e-6
+PC_CURRENT = 87.7e-6
 
 LOOP_FILTER_IS_CHARGE_PUMP = True
 
@@ -67,3 +67,10 @@ VALUES_LOOP_FILTER_CURRENT = {"R1": 10e3, "C1": 100e-9, "C2": 1e-9}
 
 # "PC1", "PC2" (requires charge pump) or "PC3"
 PHASE_COMP = "PC2"
+
+
+OUTPUT_FILTER_PASS = 48e3
+OUTPUT_FILTER_ORDER = 2
+OUTPUT_FILTER = signal.butter(
+    OUTPUT_FILTER_ORDER, OUTPUT_FILTER_PASS, btype="lowpass", fs=SIGNAL_FS
+)

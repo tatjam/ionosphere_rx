@@ -132,6 +132,7 @@ def phase_comp_pump(current, ref=0.0, vco=0.0):
 # Pre-initialized with zeros so history exists
 filter_vin = [0] * len(filter_a)
 filter_vout = [0] * len(filter_a)
+filtered_vout = [0] * len(filter_a)
 vco = []
 ref = []
 
@@ -160,6 +161,14 @@ for i in range(0, len(ts)):
     comp = phase_comp.send((ref_sample, vco_val))
     filter_vin.append(comp)
     filter_vout.append(utils.apply_filter(filter_a, filter_b, filter_vin, filter_vout))
+    filtered_vout.append(
+        utils.apply_filter(
+            config.OUTPUT_FILTER[1],
+            config.OUTPUT_FILTER[0],
+            filter_vout,
+            filtered_vout,
+        )
+    )
 
     # Integrate the output of the filter
     vco_input = filter_vout[-1]
@@ -170,11 +179,23 @@ for i in range(0, len(ts)):
 
 filter_vin = filter_vin[len(filter_a) :]
 filter_vout = filter_vout[len(filter_a) :]
+filtered_vout = filtered_vout[len(filter_a) :]
 
 
 # sbn.lineplot(x=ts, y=filter_vin, label="filter V_in (V)")
-sbn.lineplot(x=ts, y=filter_vout, label="filter V_out (V)")
+# sbn.lineplot(x=ts, y=filter_vout, label="filter V_out (V)")
+sbn.lineplot(x=ts, y=filtered_vout, label="filtered V_out (V)")
 sbn.lineplot(x=ts, y=digital, label="Digital signal (V)")
+# sbn.lineplot(
+#     x=ts,
+#     y=0.5 * np.sign([x - 0.5 for x in filter_vout]) + 0.5,
+#     label="Digital out (V)",
+# )
+sbn.lineplot(
+    x=ts,
+    y=0.5 * np.sign([x - 0.5 for x in filtered_vout]) + 0.5,
+    label="Digital out (filt) (V)",
+)
 # sbn.lineplot(x=ts, y=vco, label="VCO (V)")
 # sbn.lineplot(x=ts, y=ref, label="Ref (V)")
 

@@ -75,8 +75,8 @@ VCC = 5
 Kp = VCC / (4 * np.pi)  # V/rad
 
 # Assuming lineal VCO
-VCO_VMIN = 0
-VCO_VMAX = VCC
+VCO_VMIN = 0.3
+VCO_VMAX = VCC - 0.3
 VCO_FMIN = 150e3
 VCO_FMAX = 350e3
 Kvco = 2 * np.pi * (VCO_FMAX - VCO_FMIN) / (VCO_VMAX - VCO_VMIN)  # (rad/s) / V
