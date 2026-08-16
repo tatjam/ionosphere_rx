@@ -135,3 +135,10 @@ I don't have any MOSFET drivers, but direct drive from the oscillator, with 4.5V
 - 10kOhm load drops by 1V, recovers in 3~4 ms once removed
 
 So with MOSFETs probably going to work perfectly!
+
+# (15-08-2026) Final experiments with PLL
+- Built the real filter, not really realistically modeled as it failed completely
+- By trial and error found some values that work, see schematic and pdf file in journal
+
+# (16-08-2026) Oscilloscope fix
+My oscilloscope CH2 is broken, found out that it likely is U13 (LMH6551) ADC driver differential op-amp being fried, will try to replace

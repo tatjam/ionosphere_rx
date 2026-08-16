@@ -1701,7 +1701,7 @@
 		)
 		(uuid "b05d49e4-bc01-46dd-ab9f-337d4cc93e50")
 	)
-	(text "For cd74hc4046a (dataset names):\nf0 = 250kHz\nfl = 100kHz\nfmin = 90kHz \nfmax = 410kHz\nVCC = 5V\n\nR2 = 22k\nC1 = 2~3nF\nR2/R1 = ~3\nR1 = 7.4k (maybe a bit lower)\n\n(R1C1 = 18.5us)\n(R2C1 = 55us)"
+	(text "For cd74hc4046a (dataset names):\nTested working values that give \nf(0.8V) = 160kHz\nf(4.0V) = 315kHz\n\nR2 = 47k\nC1 = 1nF\nR2/R1 = 5\nR1 = 220k\n(R1C1 = 220us)\n(R2C1 = 47us)"
 		(exclude_from_sim no)
 		(at 39.878 98.044 0)
 		(effects
@@ -1711,7 +1711,7 @@
 		)
 		(uuid "e4a2ddd3-46f1-479f-b2df-ced07fc43585")
 	)
-	(text "For 74HC_HCT4046A (dataset names):\nfl = 100kHz\nR1C1 = 4e-5 (40us)\nfoff = 90kHz\nR2 = 150kOhm\nC1 = 700pF\nR1 = 57kOhm\n\n(R2C1 = 105us)"
+	(text "For 74HC_HCT4046A (dataset names):\n(Untested values)\nfl = 100kHz\nR1C1 = 4e-5 (40us)\nfoff = 90kHz\nR2 = 150kOhm\nC1 = 700pF\nR1 = 57kOhm\n\n(R2C1 = 105us)"
 		(exclude_from_sim no)
 		(at 81.28 98.298 0)
 		(effects
@@ -4980,7 +4980,7 @@
 				)
 			)
 		)
-		(property "Value" "285k"
+		(property "Value" "470"
 			(at 204.47 27.94 90)
 			(effects
 				(font
@@ -5500,7 +5500,7 @@
 			(uuid "0b1e3691-b40e-4ef2-be6f-2ebc91c93293")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86/9a2777cd-eff3-4d8b-a149-a95a84199cc5"
 					(reference "U18")
 					(unit 1)
@@ -6365,7 +6365,7 @@
 			(uuid "35cf628b-9bf7-4a1b-95b4-c17a0b375fbe")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86/9a2777cd-eff3-4d8b-a149-a95a84199cc5"
 					(reference "U6")
 					(unit 1)

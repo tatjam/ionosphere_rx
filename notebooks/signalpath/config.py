@@ -6,9 +6,9 @@ from scipy import signal
 # SOURCE SIGNAL
 #######################
 
-F0 = 200e3
-F1 = 300e3
-SIGNAL_TO_ENCODE = [ord(x) for x in "Hello"]
+F0 = 160e3
+F1 = 310e3
+SIGNAL_TO_ENCODE = [ord(x) for x in "\x01\x02\x03\x04\x05"]
 
 # Clock rate of the MANCHESTER encoded signal, so SIGNAL_TO_ENCODE is transmitted at half this
 SIGNAL_CLOCK_RATE = 24e3
@@ -41,7 +41,7 @@ VCO_F_VMAX = 350e3
 # Phase comparator output voltage
 PC_VOLTAGE = 1.0
 # Phase comparator output current (sink or drain)
-PC_CURRENT = 87.7e-6
+PC_CURRENT = 500e-6
 
 LOOP_FILTER_IS_CHARGE_PUMP = True
 
@@ -56,14 +56,21 @@ P2      2   0
 VALUES_LOOP_FILTER_VOLTAGE = {"R1": 1e3, "C1": 1e-8, "R2": 1e2}
 
 
+# NETLIST_LOOP_FILTER_CURRENT = """
+# P1      1	0
+# R1		1	2
+# C1		2	0
+# C2		1	0
+# """
+
+# VALUES_LOOP_FILTER_CURRENT = {"R1": 10e3, "C1": 100e-9, "C2": 1e-9}
+
 NETLIST_LOOP_FILTER_CURRENT = """
 P1      1	0
-R1		1	2
-C1		2	0
 C2		1	0
 """
 
-VALUES_LOOP_FILTER_CURRENT = {"R1": 10e3, "C1": 100e-9, "C2": 1e-9}
+VALUES_LOOP_FILTER_CURRENT = {"C2": 1e-9}
 
 # "PC1", "PC2" (requires charge pump) or "PC3"
 PHASE_COMP = "PC2"

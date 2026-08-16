@@ -1820,7 +1820,7 @@
 			(uuid "b5dc9c1e-6196-435e-ba11-ac83526b795d")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/df39e936-6640-4b85-86a4-fd2ec31731c8"
 					(reference "K4")
 					(unit 1)

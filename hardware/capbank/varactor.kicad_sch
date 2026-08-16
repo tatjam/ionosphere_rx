@@ -1983,7 +1983,7 @@
 			(uuid "c495a0f3-8f69-4b84-8de7-3c37a99a168c")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
 					(reference "C2")
 					(unit 1)

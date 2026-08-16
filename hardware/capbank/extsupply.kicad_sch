@@ -1449,7 +1449,7 @@
 			(uuid "f3f311ea-6526-4834-9d34-c589a9b130a7")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/05d9e891-8d4f-4840-a6ec-b10068883578"
 					(reference "#PWR075")
 					(unit 1)
@@ -1585,7 +1585,7 @@
 			(uuid "6309dc56-3062-4fd9-9ab4-5a4bf5babb50")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/05d9e891-8d4f-4840-a6ec-b10068883578"
 					(reference "C28")
 					(unit 1)
@@ -2394,7 +2394,7 @@
 			(uuid "64a13d60-8ca3-4682-a962-76a968d7ca58")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/05d9e891-8d4f-4840-a6ec-b10068883578"
 					(reference "U16")
 					(unit 1)

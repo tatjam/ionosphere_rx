@@ -3094,7 +3094,7 @@
 			(uuid "352514e6-c429-491f-869d-71d70ed2c1c8")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
 					(reference "J5")
 					(unit 1)
@@ -3299,7 +3299,7 @@
 			(uuid "49214d6d-57df-4157-a7bd-1f82242195ab")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
 					(reference "R8")
 					(unit 1)
@@ -3677,7 +3677,7 @@
 			(uuid "9dd0d380-7563-4394-90ca-4b91e63b4fd6")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
 					(reference "U8")
 					(unit 1)
@@ -3945,7 +3945,7 @@
 			(uuid "16d3a1b9-60e7-44ea-8103-81aa4eed5ee2")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
 					(reference "SW2")
 					(unit 1)
@@ -4417,7 +4417,7 @@
 			(uuid "9f4d2bd7-71c3-4e08-a9a9-4c750310c01a")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
 					(reference "Y1")
 					(unit 1)
@@ -4618,7 +4618,7 @@
 			(uuid "68c12d45-96af-4f08-b066-7da5a36e4f20")
 		)
 		(instances
-			(project ""
+			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86"
 					(reference "JP1")
 					(unit 1)

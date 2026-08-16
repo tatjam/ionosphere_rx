@@ -23,8 +23,6 @@ import plotly.graph_objects as go
 
 NETLIST = """
 P1      1	0
-R1      1   1a
-C1		1a	0
 C2		1	0
 """
 
@@ -38,7 +36,7 @@ C2		1	0
 # 1kHz, and the pole at 50kHz.
 # The absolute value of the resistor must be chosen later once the entire loop is considered.
 
-VALUES = {"R1": 10e3, "C1": 100e-9, "C2": 1e-9}
+VALUES = {"C2": 1e-9}
 
 cct = lcapy.Circuit(NETLIST)
 tf = cct.impedance("P1")
@@ -75,8 +73,8 @@ VCC = 5
 Kp = VCC / (4 * np.pi)  # V/rad
 
 # Assuming lineal VCO
-VCO_VMIN = 0.3
-VCO_VMAX = VCC - 0.3
+VCO_VMIN = 0.8
+VCO_VMAX = VCC - 0.8
 VCO_FMIN = 150e3
 VCO_FMAX = 350e3
 Kvco = 2 * np.pi * (VCO_FMAX - VCO_FMIN) / (VCO_VMAX - VCO_VMIN)  # (rad/s) / V
