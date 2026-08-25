@@ -2157,7 +2157,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Capacitor_THT_AKL:CP_Radial_D8.0mm_P3.50mm"
+		(property "Footprint" "PCM_Capacitor_THT_AKL:CP_Radial_D6.3mm_P2.50mm"
 			(at 63.1952 85.09 0)
 			(effects
 				(font

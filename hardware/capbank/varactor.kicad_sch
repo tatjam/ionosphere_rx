@@ -1045,9 +1045,9 @@
 		)
 		(uuid "3895d782-e719-4262-ad63-699d89c19cd8")
 	)
-	(text "8pF -> 120pF"
+	(text "BB639 x3: 8pF -> 120pF\nBB640 x2: 6pF -> 140pF\nBB640 x1: 3pF -> 70pF"
 		(exclude_from_sim no)
-		(at 194.564 96.012 0)
+		(at 200.66 95.758 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1066,6 +1066,12 @@
 		(uuid "ca2363c5-362f-4c85-95a9-7591f8c8c508")
 	)
 	(junction
+		(at 172.72 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1a7c3eba-00b2-463a-b7c6-6b3afd79ae1b")
+	)
+	(junction
 		(at 201.93 85.09)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1076,6 +1082,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "875b9c43-c73c-44c0-9e11-84ec9d88a2a1")
+	)
+	(junction
+		(at 185.42 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b60a9449-a40c-4e15-a1b3-af86cb8bd882")
 	)
 	(junction
 		(at 97.79 92.71)
@@ -1132,6 +1144,16 @@
 			(type default)
 		)
 		(uuid "0195702a-45f1-4794-9a93-820829d20235")
+	)
+	(wire
+		(pts
+			(xy 182.88 110.49) (xy 185.42 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06f09a54-4e40-41cf-9fbc-df3b37be7e80")
 	)
 	(wire
 		(pts
@@ -1485,6 +1507,16 @@
 	)
 	(wire
 		(pts
+			(xy 172.72 96.52) (xy 172.72 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b8505db9-0cf6-409c-9952-6f0220a01431")
+	)
+	(wire
+		(pts
 			(xy 157.48 102.87) (xy 157.48 85.09)
 		)
 		(stroke
@@ -1515,6 +1547,16 @@
 	)
 	(wire
 		(pts
+			(xy 185.42 110.49) (xy 185.42 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c131ed11-a642-4da5-94e4-08ac4f31650f")
+	)
+	(wire
+		(pts
 			(xy 172.72 72.39) (xy 172.72 85.09)
 		)
 		(stroke
@@ -1542,6 +1584,16 @@
 			(type default)
 		)
 		(uuid "d5c98287-e30b-4af5-b3fc-60e0d848c689")
+	)
+	(wire
+		(pts
+			(xy 172.72 110.49) (xy 175.26 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db287b61-81ce-4895-b3fc-2430b1146a83")
 	)
 	(wire
 		(pts
@@ -1715,7 +1767,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22M"
+		(property "Value" "10M"
 			(at 139.7 102.8699 0)
 			(effects
 				(font
@@ -1785,7 +1837,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22M"
+		(property "Value" "10M"
 			(at 241.3 93.9799 0)
 			(effects
 				(font
@@ -2076,7 +2128,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22M"
+		(property "Value" "10M"
 			(at 241.3 111.7599 0)
 			(effects
 				(font
@@ -2550,7 +2602,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22M"
+		(property "Value" "10M"
 			(at 139.7 93.9799 0)
 			(effects
 				(font
@@ -2620,7 +2672,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22M"
+		(property "Value" "10M"
 			(at 139.7 111.7599 0)
 			(effects
 				(font
@@ -2690,7 +2742,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22M"
+		(property "Value" "10M"
 			(at 241.3 102.8699 0)
 			(effects
 				(font
@@ -3497,6 +3549,74 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
 					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 179.07 110.49 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(fields_autoplaced yes)
+		(uuid "f9a074f3-759a-4934-98e3-d35186dc10d0")
+		(property "Reference" "C38"
+			(at 179.07 102.87 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "80pF"
+			(at 179.07 105.41 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "PCM_Capacitor_SMD_AKL:C_0603_1608Metric"
+			(at 182.88 109.5248 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 179.07 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 179.07 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3ec1ce7d-9828-416f-bdc4-3f13ecc85733")
+		)
+		(pin "2"
+			(uuid "c427fc4b-5d8c-471e-acb6-6fe26286d150")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/a75e6ab6-702b-4065-b99f-956a48aaae0a/9f6d23b6-b895-41cb-b038-be08ed2e2ab5"
+					(reference "C38")
 					(unit 1)
 				)
 			)

@@ -1681,6 +1681,16 @@
 		)
 		(uuid ddad0f76-a221-434a-88ce-bf73827220b7)
 	)
+	(text "Cheaper: TLV9061xDBV"
+		(exclude_from_sim no)
+		(at 81.026 180.594 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "1a818ef7-1315-45d0-8ad4-ea1d63306657")
+	)
 	(text "I[output positive] = (VCC - x * VCC) / (R26 + R_series)\nI[output negative] = x * VCC / (R26 + R_series)"
 		(exclude_from_sim no)
 		(at 242.062 105.41 0)
@@ -1700,6 +1710,16 @@
 			)
 		)
 		(uuid "b05d49e4-bc01-46dd-ab9f-337d4cc93e50")
+	)
+	(text "Or CD74HC4046AM"
+		(exclude_from_sim no)
+		(at 88.9 36.83 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "cd9a0092-9e49-464b-b111-77da69c9bdca")
 	)
 	(text "For cd74hc4046a (dataset names):\nTested working values that give \nf(0.8V) = 160kHz\nf(4.0V) = 315kHz\n\nR2 = 47k\nC1 = 1nF\nR2/R1 = 5\nR1 = 220k\n(R1C1 = 220us)\n(R2C1 = 47us)"
 		(exclude_from_sim no)

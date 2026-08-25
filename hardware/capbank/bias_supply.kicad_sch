@@ -1182,12 +1182,12 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Driver_FET:MCP1415"
+		(symbol "Driver_FET:FAN3111E"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "U"
-				(at -5.08 6.35 0)
+				(at -7.62 7.62 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1195,8 +1195,8 @@
 					(justify left)
 				)
 			)
-			(property "Value" "MCP1415"
-				(at 1.27 6.35 0)
+			(property "Value" "FAN3111E"
+				(at 2.54 7.62 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1205,17 +1205,7 @@
 				)
 			)
 			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-				(at 0 -15.24 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf"
-				(at -5.08 6.35 0)
+				(at 16.51 -7.62 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1223,7 +1213,16 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "1.5A High speed power MOSFET driver with inverting output, SOT-23-5"
+			(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/fan3111c-d.pdf"
+				(at 29.21 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "High Speed Low Side MOSFET Gate Driver with logic voltage reference input, 4.5-18 V, 1.0 A, SOT-23-5"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1232,7 +1231,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "mosfet gate driver"
+			(property "ki_keywords" "MOSFET gate driver"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1241,7 +1240,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "SOT?23*"
+			(property "ki_fp_filters" "SOT?23?5*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1250,9 +1249,9 @@
 					(hide yes)
 				)
 			)
-			(symbol "MCP1415_0_1"
+			(symbol "FAN3111E_0_1"
 				(rectangle
-					(start -5.08 5.08)
+					(start -7.62 5.08)
 					(end 7.62 -5.08)
 					(stroke
 						(width 0.254)
@@ -1263,11 +1262,11 @@
 					)
 				)
 			)
-			(symbol "MCP1415_1_1"
+			(symbol "FAN3111E_1_1"
 				(pin input line
-					(at -7.62 0 0)
+					(at -10.16 2.54 0)
 					(length 2.54)
-					(name "IN"
+					(name "IN+"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1282,17 +1281,35 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at 0 7.62 270)
+				(pin input line
+					(at -10.16 0 0)
 					(length 2.54)
-					(name "Vdd"
+					(name "XREF"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "2"
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1310,26 +1327,7 @@
 							)
 						)
 					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin no_connect line
-					(at 7.62 -2.54 180)
-					(length 2.54)
-					(hide yes)
-					(name "NC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1338,9 +1336,9 @@
 					)
 				)
 				(pin output line
-					(at 10.16 0 180)
+					(at 10.16 2.54 180)
 					(length 2.54)
-					(name "~{OUT}"
+					(name "OUT"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2536,7 +2534,7 @@
 	)
 	(text "Resistor to ensure 10mA minimum load, \nWe need 4.5mA additional (at most!)\n\nIn practice, 3.5mA is enough, so may not \nneed to be populated"
 		(exclude_from_sim no)
-		(at 195.834 148.59 0)
+		(at 199.39 142.748 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2544,9 +2542,9 @@
 		)
 		(uuid "823709e4-b893-4019-be6e-057ef49f7861")
 	)
-	(text "170mW"
+	(text "170mW, buying 2.7k"
 		(exclude_from_sim no)
-		(at 93.726 178.054 0)
+		(at 101.6 178.054 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2573,12 +2571,6 @@
 			)
 		)
 		(uuid "e8683c87-c93f-4d03-a3e5-70ed7d036273")
-	)
-	(junction
-		(at 69.85 87.63)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0c6d2f3d-5d0c-4f55-af68-030eb4e516dd")
 	)
 	(junction
 		(at 200.66 43.18)
@@ -2651,6 +2643,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "65c1501e-dce7-44d8-975d-58a90aeaba25")
+	)
+	(junction
+		(at 73.66 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "662398cf-6b1c-4d5c-9107-1c634b83d3a2")
 	)
 	(junction
 		(at 88.9 167.64)
@@ -2774,6 +2772,16 @@
 	)
 	(wire
 		(pts
+			(xy 135.89 111.76) (xy 135.89 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0cad20cd-d5f5-4f43-9c1f-abcb8872edbd")
+	)
+	(wire
+		(pts
 			(xy 73.66 177.8) (xy 73.66 180.34)
 		)
 		(stroke
@@ -2794,7 +2802,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 87.63) (xy 69.85 87.63)
+			(xy 54.61 87.63) (xy 73.66 87.63)
 		)
 		(stroke
 			(width 0)
@@ -2864,6 +2872,16 @@
 	)
 	(wire
 		(pts
+			(xy 123.19 101.6) (xy 125.73 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fcf41a7-7597-49f6-acb0-569be9516366")
+	)
+	(wire
+		(pts
 			(xy 173.99 43.18) (xy 177.8 43.18)
 		)
 		(stroke
@@ -2904,7 +2922,7 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 87.63) (xy 133.35 87.63)
+			(xy 107.95 87.63) (xy 135.89 87.63)
 		)
 		(stroke
 			(width 0)
@@ -2921,6 +2939,16 @@
 			(type default)
 		)
 		(uuid "3ae9aad8-7bac-48df-a470-d6c5547de2e9")
+	)
+	(wire
+		(pts
+			(xy 123.19 97.79) (xy 123.19 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3bd1f344-36a4-497f-b9fd-85337ed8b786")
 	)
 	(wire
 		(pts
@@ -2941,6 +2969,16 @@
 			(type default)
 		)
 		(uuid "3f359e8f-c64f-4d67-9beb-40365184e42e")
+	)
+	(wire
+		(pts
+			(xy 73.66 111.76) (xy 73.66 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3fa774a0-1108-4c90-b7e0-3980be3dd6a6")
 	)
 	(wire
 		(pts
@@ -3004,17 +3042,7 @@
 	)
 	(wire
 		(pts
-			(xy 80.01 101.6) (xy 96.52 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "61a32070-10a5-4b43-8af1-d867a189334f")
-	)
-	(wire
-		(pts
-			(xy 133.35 87.63) (xy 133.35 93.98)
+			(xy 135.89 87.63) (xy 135.89 96.52)
 		)
 		(stroke
 			(width 0)
@@ -3054,6 +3082,16 @@
 	)
 	(wire
 		(pts
+			(xy 55.88 99.06) (xy 55.88 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ba5f5f7-542c-477d-a50d-f515e7e4737f")
+	)
+	(wire
+		(pts
 			(xy 60.96 38.1) (xy 60.96 44.45)
 		)
 		(stroke
@@ -3074,7 +3112,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 87.63) (xy 69.85 93.98)
+			(xy 73.66 87.63) (xy 73.66 96.52)
 		)
 		(stroke
 			(width 0)
@@ -3094,7 +3132,7 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 101.6) (xy 125.73 101.6)
+			(xy 121.92 97.79) (xy 123.19 97.79)
 		)
 		(stroke
 			(width 0)
@@ -3154,6 +3192,16 @@
 	)
 	(wire
 		(pts
+			(xy 165.1 167.64) (xy 165.1 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "82318483-0368-4e22-b7b2-045ae4c72bf0")
+	)
+	(wire
+		(pts
 			(xy 259.08 72.39) (xy 259.08 74.93)
 		)
 		(stroke
@@ -3194,6 +3242,16 @@
 	)
 	(wire
 		(pts
+			(xy 62.23 101.6) (xy 63.5 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8783fc4e-0c01-4f32-8646-5fe85aa3077d")
+	)
+	(wire
+		(pts
 			(xy 165.1 151.13) (xy 168.91 151.13)
 		)
 		(stroke
@@ -3214,13 +3272,13 @@
 	)
 	(wire
 		(pts
-			(xy 88.9 177.8) (xy 88.9 180.34)
+			(xy 146.05 101.6) (xy 165.1 101.6)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "92abb7e5-89f6-49c0-80e1-f06ad6d53f0f")
+		(uuid "8de1a4d7-1a68-47ac-a6ed-5da96a036d10")
 	)
 	(wire
 		(pts
@@ -3334,6 +3392,16 @@
 	)
 	(wire
 		(pts
+			(xy 73.66 87.63) (xy 107.95 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8dbd553-68d8-4145-a3fd-5db0bf30a62e")
+	)
+	(wire
+		(pts
 			(xy 40.64 143.51) (xy 40.64 151.13)
 		)
 		(stroke
@@ -3384,6 +3452,16 @@
 	)
 	(wire
 		(pts
+			(xy 83.82 101.6) (xy 91.44 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b55dbe22-97fe-4a38-8e5c-9ca1d7c751e8")
+	)
+	(wire
+		(pts
 			(xy 88.9 151.13) (xy 88.9 157.48)
 		)
 		(stroke
@@ -3424,6 +3502,16 @@
 	)
 	(wire
 		(pts
+			(xy 55.88 104.14) (xy 63.5 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c25291c4-78b6-40fd-80f1-d8e4801be043")
+	)
+	(wire
+		(pts
 			(xy 93.98 52.07) (xy 93.98 53.34)
 		)
 		(stroke
@@ -3431,6 +3519,26 @@
 			(type default)
 		)
 		(uuid "c3343753-cd21-404f-9712-11ab89d6f225")
+	)
+	(wire
+		(pts
+			(xy 88.9 185.42) (xy 88.9 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c58a8d38-ece4-44a1-965d-3624ad44e57e")
+	)
+	(wire
+		(pts
+			(xy 165.1 158.75) (xy 165.1 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c66461c1-4a40-4d67-8417-4f2ed37e8f0d")
 	)
 	(wire
 		(pts
@@ -3464,16 +3572,6 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 87.63) (xy 107.95 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c9335c8e-4922-48f0-b5df-42fec8d106ea")
-	)
-	(wire
-		(pts
 			(xy 60.96 60.96) (xy 60.96 63.5)
 		)
 		(stroke
@@ -3481,6 +3579,16 @@
 			(type default)
 		)
 		(uuid "c990f527-3c37-4d36-83cf-1930577f6dce")
+	)
+	(wire
+		(pts
+			(xy 116.84 104.14) (xy 125.73 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cab2dc4c-ec1d-437a-aed3-cc4f8036ea6c")
 	)
 	(wire
 		(pts
@@ -3501,6 +3609,16 @@
 			(type default)
 		)
 		(uuid "ce0b3977-f18d-49cd-8000-545468393881")
+	)
+	(wire
+		(pts
+			(xy 116.84 99.06) (xy 116.84 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cfb26d6b-f3af-4b55-88ae-4bf2c37c7155")
 	)
 	(wire
 		(pts
@@ -3554,16 +3672,6 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 101.6) (xy 165.1 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e8419d52-c19f-4216-86b2-398ebc081c72")
-	)
-	(wire
-		(pts
 			(xy 177.8 40.64) (xy 177.8 43.18)
 		)
 		(stroke
@@ -3594,7 +3702,7 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 101.6) (xy 62.23 101.6)
+			(xy 59.69 97.79) (xy 62.23 97.79)
 		)
 		(stroke
 			(width 0)
@@ -3611,6 +3719,16 @@
 			(type default)
 		)
 		(uuid "eea6cb9e-827a-49fd-9349-659b0a9940f9")
+	)
+	(wire
+		(pts
+			(xy 62.23 97.79) (xy 62.23 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f181c7c7-e6f5-4523-8cde-986ec436cf65")
 	)
 	(wire
 		(pts
@@ -3693,7 +3811,7 @@
 		(uuid "fef36c3f-f80c-4c82-a161-a03389af61cf")
 	)
 	(label "~{DRIVE}"
-		(at 96.52 101.6 0)
+		(at 91.44 101.6 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3713,7 +3831,7 @@
 		(uuid "15a98c87-e516-4056-853a-d6786648eb85")
 	)
 	(label "~{OSC}"
-		(at 114.3 101.6 0)
+		(at 121.92 97.79 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3733,7 +3851,7 @@
 		(uuid "4af92839-f4ce-4404-a3ce-aa64adb0b20b")
 	)
 	(label "OSC"
-		(at 50.8 101.6 0)
+		(at 59.69 97.79 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3882,72 +4000,6 @@
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
 					(reference "U13")
 					(unit 4)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "proj_power:GND_ISOL")
-		(at 69.85 109.22 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "0285f601-24f5-4a9b-bc27-9b542d482c68")
-		(property "Reference" "#PWR053"
-			(at 69.85 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND_ISOL"
-			(at 69.85 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 69.85 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 69.85 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
-			(at 69.85 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "8963bd25-2d55-40cf-bf08-755b6c2ad8c4")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
-					(reference "#PWR053")
-					(unit 1)
 				)
 			)
 		)
@@ -4355,7 +4407,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "7k"
+		(property "Value" "3.3k"
 			(at 167.64 156.2099 0)
 			(effects
 				(font
@@ -4364,7 +4416,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Resistor_SMD_AKL:R_1812_4532Metric"
+		(property "Footprint" "PCM_Resistor_SMD_AKL:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 163.322 154.94 90)
 			(effects
 				(font
@@ -4478,7 +4530,7 @@
 	)
 	(symbol
 		(lib_id "proj_power:GND_ISOL")
-		(at 133.35 109.22 0)
+		(at 135.89 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4487,7 +4539,7 @@
 		(fields_autoplaced yes)
 		(uuid "1ff026fb-32f8-42dc-953c-df9907c847a5")
 		(property "Reference" "#PWR052"
-			(at 133.35 115.57 0)
+			(at 135.89 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4496,7 +4548,7 @@
 			)
 		)
 		(property "Value" "GND_ISOL"
-			(at 133.35 114.3 0)
+			(at 135.89 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4504,7 +4556,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 133.35 109.22 0)
+			(at 135.89 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4513,7 +4565,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 133.35 109.22 0)
+			(at 135.89 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4522,7 +4574,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
-			(at 133.35 109.22 0)
+			(at 135.89 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4695,7 +4747,7 @@
 				)
 			)
 		)
-		(property "Value" "Ferrite_Bead"
+		(property "Value" "BLM18PG121SN1D"
 			(at 33.02 34.29 0)
 			(effects
 				(font
@@ -5015,7 +5067,7 @@
 	)
 	(symbol
 		(lib_id "proj_power:GND_ISOL")
-		(at 165.1 158.75 0)
+		(at 165.1 170.18 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5024,7 +5076,7 @@
 		(fields_autoplaced yes)
 		(uuid "37f19f59-b1a2-4db9-9ba6-f26e23193837")
 		(property "Reference" "#PWR093"
-			(at 165.1 165.1 0)
+			(at 165.1 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5033,7 +5085,7 @@
 			)
 		)
 		(property "Value" "GND_ISOL"
-			(at 165.1 163.83 0)
+			(at 165.1 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5041,7 +5093,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 165.1 158.75 0)
+			(at 165.1 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5050,7 +5102,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 165.1 158.75 0)
+			(at 165.1 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5059,7 +5111,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
-			(at 165.1 158.75 0)
+			(at 165.1 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5148,6 +5200,83 @@
 		)
 	)
 	(symbol
+		(lib_id "Driver_FET:FAN3111E")
+		(at 135.89 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "43c9fbca-1e61-4f6a-b043-cb1434097e40")
+		(property "Reference" "U14"
+			(at 149.86 95.1798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "FAN3111E"
+			(at 149.86 97.7198 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 152.4 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/fan3111c-d.pdf"
+			(at 165.1 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "High Speed Low Side MOSFET Gate Driver with logic voltage reference input, 4.5-18 V, 1.0 A, SOT-23-5"
+			(at 135.89 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "c6a132e5-b2c2-415c-8b58-14256298b2c2")
+		)
+		(pin "1"
+			(uuid "071bbfca-4bcb-4f0d-8100-ab0338a19ede")
+		)
+		(pin "4"
+			(uuid "562c7c3b-6d44-443d-b76c-c052b7665a25")
+		)
+		(pin "3"
+			(uuid "34350d3e-d9fd-4efd-80e9-c9bcfdeaf371")
+		)
+		(pin "2"
+			(uuid "06853ede-bdc5-461f-898a-2ee29f2ee914")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "U14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "proj_power:GND_ISOL")
 		(at 73.66 180.34 0)
 		(unit 1)
@@ -5215,7 +5344,7 @@
 	)
 	(symbol
 		(lib_id "proj_power:GND_ISOL")
-		(at 88.9 180.34 0)
+		(at 88.9 187.96 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5224,7 +5353,7 @@
 		(fields_autoplaced yes)
 		(uuid "493c6016-24be-49b3-b929-0e7ecce20b13")
 		(property "Reference" "#PWR060"
-			(at 88.9 186.69 0)
+			(at 88.9 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5233,7 +5362,7 @@
 			)
 		)
 		(property "Value" "GND_ISOL"
-			(at 88.9 185.42 0)
+			(at 88.9 193.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5241,7 +5370,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 88.9 180.34 0)
+			(at 88.9 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5250,7 +5379,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 88.9 180.34 0)
+			(at 88.9 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5259,7 +5388,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
-			(at 88.9 180.34 0)
+			(at 88.9 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5534,7 +5663,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "5.6k"
+		(property "Value" "2.8k"
 			(at 91.44 175.2599 0)
 			(effects
 				(font
@@ -5543,7 +5672,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Resistor_SMD_AKL:R_1210_3225Metric_Pad1.30x2.65mm_HandSolder"
+		(property "Footprint" "PCM_Resistor_SMD_AKL:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 			(at 87.122 173.99 90)
 			(effects
 				(font
@@ -5580,6 +5709,76 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
 					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 88.9 181.61 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7c0fbbbd-120f-40f0-a3d5-f61d32298d0f")
+		(property "Reference" "R21"
+			(at 91.44 180.3399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.8k"
+			(at 91.44 182.8799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_Resistor_SMD_AKL:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+			(at 87.122 181.61 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 88.9 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 88.9 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "7d1c2d29-78f8-4f1e-a379-603bfd40cf21")
+		)
+		(pin "1"
+			(uuid "c27ef1aa-be0e-45bc-ae30-5f99dff50993")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "R21")
 					(unit 1)
 				)
 			)
@@ -5656,6 +5855,72 @@
 		)
 	)
 	(symbol
+		(lib_id "proj_power:VDD_ISOL")
+		(at 116.84 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "81d7ceb0-6399-482f-9a6d-61e17d25bc32")
+		(property "Reference" "#PWR0102"
+			(at 116.84 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VDD_ISOL"
+			(at 116.84 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 116.84 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.84 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "197d85a7-fb12-41aa-b482-2e46d1bdda88")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "#PWR0102")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 60.96 57.15 0)
 		(unit 1)
@@ -5720,84 +5985,6 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
 					(reference "R11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Driver_FET:MCP1415")
-		(at 69.85 101.6 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "881410ba-3d0b-441d-b873-ca166d791502")
-		(property "Reference" "U14"
-			(at 83.82 95.1798 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MCP1415"
-			(at 83.82 97.7198 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 69.85 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf"
-			(at 64.77 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "1.5A High speed power MOSFET driver with inverting output, SOT-23-5"
-			(at 69.85 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "9ccbe2d1-bef7-488c-b31b-929242cb5d05")
-		)
-		(pin "5"
-			(uuid "aaa5ccc9-4fec-4c6c-a982-10a5bcd3772b")
-		)
-		(pin "2"
-			(uuid "c1a35d7f-4613-4e77-a191-048abc542772")
-		)
-		(pin "4"
-			(uuid "3b18e7ce-61bc-4795-a03c-d1605499e20e")
-		)
-		(pin "3"
-			(uuid "6190946f-da7f-483d-8ea5-d78322594ff5")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
-					(reference "U14")
 					(unit 1)
 				)
 			)
@@ -6939,6 +7126,83 @@
 		)
 	)
 	(symbol
+		(lib_id "Driver_FET:FAN3111E")
+		(at 73.66 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c9013f98-1a4e-47cf-abdb-cc2224eaee81")
+		(property "Reference" "U15"
+			(at 87.63 95.1798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "FAN3111E"
+			(at 87.63 97.7198 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+			(at 90.17 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.onsemi.com/pdf/datasheet/fan3111c-d.pdf"
+			(at 102.87 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "High Speed Low Side MOSFET Gate Driver with logic voltage reference input, 4.5-18 V, 1.0 A, SOT-23-5"
+			(at 73.66 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "addd77cc-1b81-4ccf-a603-bbd4532745ae")
+		)
+		(pin "1"
+			(uuid "3cbafd9b-33a8-4238-afc1-e460679d3268")
+		)
+		(pin "4"
+			(uuid "819362ec-6d0f-42cc-8df3-fa1329bc3e1e")
+		)
+		(pin "3"
+			(uuid "16f66f14-bf5d-4420-950c-8bf1882ba0c7")
+		)
+		(pin "2"
+			(uuid "b1a6b604-822f-430e-85f0-93812fbcfb95")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "U15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 101.6 110.49 0)
 		(unit 1)
@@ -7108,6 +7372,208 @@
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
 					(reference "U13")
 					(unit 2)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 165.1 163.83 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d2041d3b-953d-4407-b495-3d6c096c0d66")
+		(property "Reference" "R32"
+			(at 167.64 162.5599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "3.3k"
+			(at 167.64 165.0999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_Resistor_SMD_AKL:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
+			(at 163.322 163.83 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 165.1 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 165.1 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "34d77b29-1624-4825-94d3-f6a629ca8225")
+		)
+		(pin "1"
+			(uuid "489a167e-2cf4-4ab6-9e73-e53c08845580")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "R32")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "proj_power:VDD_ISOL")
+		(at 55.88 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d47e2a27-ef1f-44f2-8fd9-ec3a4df36fd7")
+		(property "Reference" "#PWR0100"
+			(at 55.88 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VDD_ISOL"
+			(at 55.88 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 55.88 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 55.88 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 55.88 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin ""
+			(uuid "c2a566d2-2fa8-4259-9ea4-7eaa245a42a5")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "#PWR0100")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "proj_power:GND_ISOL")
+		(at 73.66 114.3 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d884033f-3c68-46fb-9d4a-66c1bc5a932c")
+		(property "Reference" "#PWR037"
+			(at 73.66 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND_ISOL"
+			(at 73.66 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 73.66 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 73.66 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND_ISOL\" , isolated ground"
+			(at 73.66 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a9547ddf-3328-4e96-a7da-911b397a7ca3")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
+					(reference "#PWR037")
+					(unit 1)
 				)
 			)
 		)
@@ -7447,84 +7913,6 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
 					(reference "C47")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Driver_FET:MCP1415")
-		(at 133.35 101.6 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f2dc0546-c52b-4c72-8c91-757d249ee815")
-		(property "Reference" "U15"
-			(at 147.32 95.1798 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MCP1415"
-			(at 147.32 97.7198 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
-			(at 133.35 116.84 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/20002092F.pdf"
-			(at 128.27 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "1.5A High speed power MOSFET driver with inverting output, SOT-23-5"
-			(at 133.35 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "da70ffba-4141-4af9-88b8-da833ff1c469")
-		)
-		(pin "5"
-			(uuid "fc7b50b6-6bda-441b-9dd9-4ddf69d68ba2")
-		)
-		(pin "2"
-			(uuid "c4126811-88f4-4ee2-a327-b0af9f71cf00")
-		)
-		(pin "4"
-			(uuid "c52764c9-9d53-4994-9a78-f8e2aaf1f945")
-		)
-		(pin "3"
-			(uuid "f7ac2710-9dcb-413e-b078-7ed422d534c9")
-		)
-		(instances
-			(project "capbank1"
-				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/ab1f86cc-d767-40d2-ba42-215e3d92336b"
-					(reference "U15")
 					(unit 1)
 				)
 			)
