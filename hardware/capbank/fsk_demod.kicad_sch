@@ -1794,16 +1794,16 @@
 		(uuid "afc69938-2195-4e9a-9306-5e498dfc784f")
 	)
 	(junction
-		(at 191.77 121.92)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b5bdb98b-e7c1-480d-a970-c5b7e32283a9")
-	)
-	(junction
 		(at 63.5 161.29)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bc920b1f-f2eb-4d4e-96fd-c70d1eeba6e5")
+	)
+	(junction
+		(at 191.77 121.92)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ef333316-17da-4dd1-959a-69914f5a7713")
 	)
 	(junction
 		(at 228.6 31.75)
@@ -1976,16 +1976,6 @@
 			(type default)
 		)
 		(uuid "326368e6-3086-4f5a-819c-a8f1bd2ef484")
-	)
-	(wire
-		(pts
-			(xy 191.77 137.16) (xy 191.77 121.92)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3356c988-9b14-4cb0-8455-5022c25348b6")
 	)
 	(wire
 		(pts
@@ -2559,6 +2549,16 @@
 	)
 	(wire
 		(pts
+			(xy 191.77 129.54) (xy 191.77 137.16)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c4bb2ea6-6052-4bd4-9f7a-ad9c3b833832")
+	)
+	(wire
+		(pts
 			(xy 191.77 121.92) (xy 191.77 120.65)
 		)
 		(stroke
@@ -2686,6 +2686,16 @@
 			(type default)
 		)
 		(uuid "f1b6b80b-7fba-4261-82fa-01c59d509a39")
+	)
+	(wire
+		(pts
+			(xy 191.77 121.92) (xy 191.77 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f4f824c2-80be-4ab6-930c-c6deae148f59")
 	)
 	(wire
 		(pts
@@ -6799,6 +6809,76 @@
 			(project "capbank1"
 				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86/9a2777cd-eff3-4d8b-a149-a95a84199cc5"
 					(reference "#PWR0125")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Small_Open")
+		(at 191.77 127 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f4baa886-0361-46d1-8d24-9a08e0a010b0")
+		(property "Reference" "JP8"
+			(at 193.04 125.7299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "0"
+			(at 193.04 128.2699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "PCM_Resistor_SMD_AKL:R_0603_1608Metric"
+			(at 191.77 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 191.77 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, small symbol, open"
+			(at 191.77 127 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7d04e1bb-417b-4c50-bc81-1fc5a8fd4e42")
+		)
+		(pin "2"
+			(uuid "a6404cd2-1623-4a3b-ba9a-b9a997d17418")
+		)
+		(instances
+			(project "capbank1"
+				(path "/461cb8a1-2d60-44a8-88b5-d61a3ba14a84/d9c36704-5831-4033-b353-abc8255d1c86/9a2777cd-eff3-4d8b-a149-a95a84199cc5"
+					(reference "JP8")
 					(unit 1)
 				)
 			)
