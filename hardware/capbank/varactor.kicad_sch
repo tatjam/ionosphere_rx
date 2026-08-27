@@ -1014,8 +1014,8 @@
 		(uuid ba658815-6f51-42d4-a2ce-b499f1cfedf2)
 	)
 	(rectangle
-		(start 171.45 64.135)
-		(end 186.055 99.695)
+		(start 170.18 64.135)
+		(end 186.69 102.87)
 		(stroke
 			(width 0)
 			(type default)
@@ -2964,7 +2964,7 @@
 				)
 			)
 		)
-		(property "Value" "10n"
+		(property "Value" "10n low esr"
 			(at 227.33 80.01 90)
 			(effects
 				(font
@@ -3368,7 +3368,7 @@
 				)
 			)
 		)
-		(property "Value" "10n"
+		(property "Value" "10n low esr"
 			(at 146.05 80.01 90)
 			(effects
 				(font
