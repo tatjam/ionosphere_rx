@@ -16222,7 +16222,7 @@
 		(descr "SOIC, 16 Pin (JEDEC MS-013AA, https://www.analog.com/media/en/package-pcb-resources/package/pkg_pdf/soic_wide-rw/rw_16.pdf), generated with kicad-footprint-generator ipc_gullwing_generator.py")
 		(tags "SOIC SO")
 		(property "Reference" "U5"
-			(at 0.4 -6.2 270)
+			(at 0.4 -6.2 90)
 			(layer "F.SilkS")
 			(uuid "d34f2614-098b-4e1a-adf4-12ade0379113")
 			(effects
@@ -24817,7 +24817,7 @@
 		(property "Reference" "U8"
 			(at -3.025 -5.8 0)
 			(layer "F.SilkS")
-			(uuid "5aa9d130-99f5-442e-a114-57c4e83bfcf7")
+			(uuid "36bfc594-4bcc-4b22-8176-34d65fa460e1")
 			(effects
 				(font
 					(size 1 1)
@@ -24828,7 +24828,7 @@
 		(property "Value" "ATtiny84A-SS"
 			(at 0 5.28 0)
 			(layer "F.Fab")
-			(uuid "b54c3d81-c44b-493a-8ec7-30ab6a46da39")
+			(uuid "c6a415ea-5ed9-44b8-bbc3-ad320d13b9c0")
 			(effects
 				(font
 					(size 1 1)
@@ -24840,7 +24840,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "1aca05e9-ab73-41fd-b1af-5a4e9013421d")
+			(uuid "5937deb9-a9a4-4443-8cbd-a73bd75c07ad")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24852,7 +24852,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8ef73452-a963-48ac-ab2a-d43f6b0b44ac")
+			(uuid "246f3dc7-8da4-404b-8802-2602fbd6f937")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -38126,7 +38126,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), Alternate KiCad Library")
 		(tags "resistor")
 		(property "Reference" "JP13"
-			(at 3.6 0 180)
+			(at 3.6 0 0)
 			(layer "B.SilkS")
 			(uuid "0eafe062-2ac6-47af-9f45-c99a94bf299c")
 			(effects

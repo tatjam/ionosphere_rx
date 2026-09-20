@@ -2471,6 +2471,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "WRONG: It oscillates at roughly half the 1-gate frequency! \nAdjusted values for real build!"
+		(exclude_from_sim no)
+		(at 233.934 24.892 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "0e73a579-4ad9-4177-99df-9b37b1fa2ee4")
+	)
 	(text "VERIFIED oscillator"
 		(exclude_from_sim no)
 		(at 251.46 18.796 0)
@@ -4467,7 +4477,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "157e31a7-1134-42ad-82d2-937f2b31669c")
 		(property "Reference" "R23"
@@ -5961,7 +5971,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "3.3n"
+		(property "Value" "1n"
 			(at 204.47 38.0999 0)
 			(effects
 				(font
@@ -7541,7 +7551,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "d2041d3b-953d-4407-b495-3d6c096c0d66")
 		(property "Reference" "R32"

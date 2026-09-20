@@ -4046,7 +4046,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "395ab044-8431-4aad-94c3-a4abee5936d3")
 		(property "Reference" "R13"
@@ -4116,7 +4116,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "40fd828e-7a19-48cd-9e8f-044ba35928c2")
 		(property "Reference" "R14"
