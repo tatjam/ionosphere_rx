@@ -142,3 +142,12 @@ So with MOSFETs probably going to work perfectly!
 
 # (16-08-2026) Oscilloscope fix
 My oscilloscope CH2 is broken, found out that it likely is U13 (LMH6551) ADC driver differential op-amp being fried, will try to replace
+
+# (19-09-2026) Build
+The PCB arrived and I built it, it works! Small issues:
+- I built it with 6x gain on the op-amp, needs 12x for full range scale.
+- Bought the wrong PAI isolator footprint, had to botch.
+- Forgot to buy the 10nF coupling caps, so build an abomination with 3 2.2nF caps in parallel.
+- The female pin headers are tricky to cut, they look very ugly but hold pins.
+- The charge pump makes an annoying whine due to microphonic caps, probably should have used C0G or similar.
+- I totally forgot some indicator LED or similar on the uC
