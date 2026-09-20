@@ -15,7 +15,7 @@
 #define RELAY_PORT PORTA
 #define RELAY_DDR  DDRA
 #define RELAY1_PIN PA0
-#define RELAY2_PIN PA2
+#define RELAY2_PIN PA1
 #define RELAY3_PIN PA2
 
 // Returns 0 if the byte contains an even number of 1s, 1 if it contains an odd number, i.e.

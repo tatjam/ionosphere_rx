@@ -5,13 +5,13 @@
 #include <avr/io.h>
 #include <stdint.h>
 
-#define DAC_SPI_PIN_SDI	 PA7
+#define DAC_SPI_PIN_SDI	 PA6
 #define DAC_SPI_PORT_SDI PORTA
 #define DAC_SPI_DDR_SDI	 DDRA
 
-#define DAC_SPI_PIN_SCK	 PB2
-#define DAC_SPI_PORT_SCK PORTB
-#define DAC_SPI_DDR_SCK	 DDRB
+#define DAC_SPI_PIN_SCK	 PA4
+#define DAC_SPI_PORT_SCK PORTA
+#define DAC_SPI_DDR_SCK	 DDRA
 
 #define DAC_SPI_PIN_CS	PA5
 #define DAC_SPI_PORT_CS PORTA
