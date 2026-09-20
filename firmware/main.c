@@ -74,14 +74,14 @@ static inline void nominal_process(uint8_t high, uint8_t low, bool parity_good)
 		RELAY_PORT &= ~(1 << RELAY2_PIN);
 	}
 
-	if (relays & 0x03)
+	if (relays & 0x04)
 	{
-		RELAY_PORT |= 1 << RELAY2_PIN;
+		RELAY_PORT |= 1 << RELAY3_PIN;
 	}
 	else
 	{
 
-		RELAY_PORT &= ~(1 << RELAY2_PIN);
+		RELAY_PORT &= ~(1 << RELAY3_PIN);
 	}
 
 	// Tuning from 12 remaining bits, 4 from high byte, 8 from low byte
