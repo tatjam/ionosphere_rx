@@ -3443,7 +3443,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "15b0f3f5-a432-4fcb-a61a-af94c74cf13c")
 		(property "Reference" "JP12"
@@ -3656,7 +3656,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "120p"
+		(property "Value" "1n"
 			(at 34.29 54.6099 0)
 			(effects
 				(font
@@ -3845,7 +3845,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "29f6aaac-688d-4e2b-ad0f-2ec2185bf453")
 		(property "Reference" "JP16"
 			(at 86.36 43.18 0)
@@ -3979,7 +3979,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "36896118-677f-4de8-a909-3d9c7d2f8178")
 		(property "Reference" "JP14"
 			(at 78.74 67.056 0)
@@ -4046,7 +4046,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "395ab044-8431-4aad-94c3-a4abee5936d3")
 		(property "Reference" "R13"
@@ -4058,7 +4058,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "220k"
 			(at 31.75 71.1199 0)
 			(effects
 				(font
@@ -4116,7 +4116,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "40fd828e-7a19-48cd-9e8f-044ba35928c2")
 		(property "Reference" "R14"
@@ -4128,7 +4128,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10k"
+		(property "Value" "47k"
 			(at 41.91 71.1199 0)
 			(effects
 				(font
@@ -5618,7 +5618,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "a9fadd25-427d-4d77-84cc-aaa1b547d1a6")
 		(property "Reference" "JP9"
 			(at 34.29 140.97 0)

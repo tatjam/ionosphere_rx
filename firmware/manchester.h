@@ -4,8 +4,13 @@
 #pragma once
 #include <stdint.h>
 
+// Bits are 01010101 so maximally optimal for clock sync
+#define MANCHESTER_SYNC_WORD 0x55
+
 #define MANCHESTER_BUFFER_BYTES 16
-extern uint8_t manchester_buffer[MANCHESTER_BUFFER_BYTES];
+extern volatile uint8_t manchester_buffer[MANCHESTER_BUFFER_BYTES];
+
+extern volatile uint8_t manchester_idle_events;
 
 void manchester_init();
 
@@ -17,5 +22,9 @@ uint8_t manchester_get_next_count();
 // returns the byte from the buffer
 uint8_t manchester_read_next();
 
-// Returns the overflow counter, if it's > 1, data has been lost
+// Returns the overflow counter, if it's > 0, data has been lost, and
+// the reader must call this function, and afterwards he can inspect the
+// buffer (either to clear it or to extract useful info)
 uint8_t manchester_get_overflow();
+
+void manchester_clear_overflow();

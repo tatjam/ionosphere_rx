@@ -10,7 +10,6 @@
 
 #include "dac_spi.h"
 #include "manchester.h"
-#include "status.h"
 
 #define RELAY_PORT PORTA
 #define RELAY_DDR  DDRA
@@ -88,8 +87,6 @@ static inline void nominal_process(uint8_t high, uint8_t low, bool parity_good)
 	uint16_t tuning = low;
 	tuning |= ((uint16_t) (high & 0xF) << 8);
 	dac_spi_send(tuning);
-
-	status_blip();
 }
 
 int main()
@@ -110,13 +107,48 @@ int main()
 
 	dac_spi_init();
 	manchester_init();
-	status_init();
+
+	bool synced		  = false;
+	uint8_t last_idle = 0;
 
 	while (1)
 	{
-		if (!status_process())
+		uint8_t idle = manchester_idle_events;
+		if (idle != last_idle)
 		{
-			cli();
+			// Line is idle
+			last_idle = idle;
+			synced	  = false;
+		}
+
+		if (manchester_get_overflow())
+		{
+			synced = false;
+
+			// Clear the buffer if any
+			manchester_clear_overflow();
+			while (manchester_get_next_count() > 0)
+			{
+				manchester_read_next();
+			}
+			continue;
+		}
+
+		if (!synced)
+		{
+			// Wait for sync word
+			if (manchester_get_next_count() < 1)
+			{
+				continue;
+			}
+
+			if (manchester_read_next() == MANCHESTER_SYNC_WORD)
+			{
+				// We found the sync word, start a frame!
+				// Note, if the sync word is not found, we just skip the byte
+				synced = true;
+			}
+
 			continue;
 		}
 

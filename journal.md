@@ -151,3 +151,10 @@ The PCB arrived and I built it, it works! Small issues:
 - The female pin headers are tricky to cut, they look very ugly but hold pins.
 - The charge pump makes an annoying whine due to microphonic caps, probably should have used C0G or similar.
 - I totally forgot some indicator LED or similar on the uC
+
+# (26-09-2026) Fix PLL
+
+It appears the soldering quality on the PLL was absolutely terrible, after reflowing every joint it works!
+
+Now, the filter, i've replaced the 470ohm with a 4.7kOhm, because 470 gives way too high of a knee frequency, but maybe this is wrong?
+Also a jumper in the back I forgot to solder!

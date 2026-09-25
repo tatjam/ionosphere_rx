@@ -18,16 +18,18 @@ uint8_t manchester_hw_get_pin_value() { return 0; }
 
 // This is a ring-buffer, so read-write can take place safely
 // at the same time with minimal blocking
-uint8_t manchester_buffer[MANCHESTER_BUFFER_BYTES];
+volatile uint8_t manchester_buffer[MANCHESTER_BUFFER_BYTES];
 
 // Next byte is read from this position in rxbuffer
-static uint8_t rxbuffer_readpos;
+static volatile uint8_t rxbuffer_readpos;
 // Next byte is written to this position in rxbuffer
-static uint8_t rxbuffer_writepos;
+static volatile uint8_t rxbuffer_writepos;
 // Progress along the individual byte
 static uint8_t rxbuffer_writebit;
 
-static uint8_t overflow = 0;
+static volatile uint8_t overflow = 0;
+
+volatile uint8_t manchester_idle_events;
 
 static bool is_idle;
 
@@ -50,6 +52,7 @@ static inline void manchester_handle_timer_int()
 	is_idle = true;
 
 	rxbuffer_writebit = 0;
+	manchester_idle_events++;
 }
 
 static inline void manchester_handle_pin_change_int()
@@ -73,12 +76,6 @@ static inline void manchester_handle_pin_change_int()
 		return;
 	}
 
-	if (overflow >= 1)
-	{
-		overflow++;
-		return;
-	}
-
 	uint8_t pin = manchester_hw_get_pin_value();
 	if (pin)
 	{
@@ -93,16 +90,23 @@ static inline void manchester_handle_pin_change_int()
 	if (rxbuffer_writebit >= 8)
 	{
 		rxbuffer_writebit = 0;
-		rxbuffer_writepos++;
 
-		if (rxbuffer_writepos >= MANCHESTER_BUFFER_BYTES)
+		uint8_t next = rxbuffer_writepos + 1;
+		if (next >= MANCHESTER_BUFFER_BYTES)
 		{
-			rxbuffer_writepos = 0;
+			next = 0;
 		}
 
-		if (rxbuffer_writepos == rxbuffer_readpos)
+		if (next == rxbuffer_readpos)
 		{
-			overflow++;
+			if (overflow < 255)
+			{
+				overflow++;
+			}
+		}
+		else
+		{
+			rxbuffer_writepos = next;
 		}
 	}
 
@@ -153,6 +157,13 @@ uint8_t manchester_get_overflow()
 	return out;
 }
 
+void manchester_clear_overflow()
+{
+	cli();
+	overflow = 0;
+	sei();
+}
+
 uint8_t manchester_read_next()
 {
 	uint8_t out = manchester_buffer[rxbuffer_readpos];
@@ -163,7 +174,6 @@ uint8_t manchester_read_next()
 	{
 		rxbuffer_readpos = 0;
 	}
-	overflow = 0;
 	sei();
 
 	return out;
