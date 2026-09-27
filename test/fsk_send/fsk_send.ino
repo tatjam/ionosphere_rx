@@ -18,7 +18,7 @@
 // ---------------- Configuration ----------------
 #define OUT_PIN 9              // 9, 10 or 3
 #define HOST_BAUD 115200       // serial link from the PC
-#define DEFAULT_MARK 200000UL  // Hz, "high" tone (and idle)
+#define DEFAULT_MARK 150000UL  // Hz, "high" tone (and idle)
 #define DEFAULT_SPACE 300000UL // Hz, "low" tone
 #define DEFAULT_BAUD 1200UL    // Manchester bit rate (bits/s)
 #define FREQ_MIN 150000UL

@@ -10,6 +10,7 @@
 
 #include "dac_spi.h"
 #include "manchester.h"
+#include "pot.h"
 
 #define RELAY_PORT PORTA
 #define RELAY_DDR  DDRA
@@ -107,6 +108,10 @@ int main()
 
 	dac_spi_init();
 	manchester_init();
+	pot_init();
+
+	// This works well for 150kHz <-> 300kHz (the default in fsk_send)
+	pot_set_tap(7);
 
 	bool synced		  = false;
 	uint8_t last_idle = 0;
