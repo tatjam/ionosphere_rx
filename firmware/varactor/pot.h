@@ -6,15 +6,15 @@
 #include <avr/io.h>
 #include <stdint.h>
 
-#define POT_PIN_UD	PA7
+#define POT_PIN_UD  PA7
 #define POT_PORT_UD PORTA
-#define POT_DDR_UD	DDRA
+#define POT_DDR_UD  DDRA
 
-#define POT_PIN_CS	PB2
+#define POT_PIN_CS  PB2
 #define POT_PORT_CS PORTB
-#define POT_DDR_CS	DDRB
+#define POT_DDR_CS  DDRB
 
-#define POT_MAX_TAP	  0x3F
+#define POT_MAX_TAP   0x3F
 #define POT_START_TAP 0x1F
 
 void pot_init();

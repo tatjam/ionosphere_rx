@@ -38,8 +38,8 @@ void manchester_init()
 {
 	manchester_rb_init(&rb);
 	rxbuffer_writebit = 0;
-	is_idle			  = true;
-	overflow		  = 0;
+	is_idle           = true;
+	overflow          = 0;
 	manchester_hw_init();
 }
 
@@ -61,7 +61,7 @@ static inline void manchester_handle_pin_change_int()
 
 		// Set time thresholds to max, as we don't know just yet the period
 		t1_5 = 255;
-		t2	 = 255;
+		t2   = 255;
 		return;
 	}
 
@@ -106,18 +106,15 @@ static inline void manchester_handle_pin_change_int()
 		tnew = cval;
 	}
 
-	t2		   = tnew * 2;
+	t2         = tnew * 2;
 	uint8_t t3 = t2 + tnew;
-	t1_5	   = t3 / 2;
+	t1_5       = t3 / 2;
 
 	DEBUG("Processed with %i, new t1_5 %i\n", cval, t1_5);
 	manchester_hw_start_down_counter(t3);
 }
 
-uint8_t manchester_get_next_count()
-{
-	return manchester_rb_count(&rb);
-}
+uint8_t manchester_get_next_count() { return manchester_rb_count(&rb); }
 
 uint8_t manchester_get_overflow()
 {
@@ -134,7 +131,4 @@ void manchester_clear_overflow()
 	sei();
 }
 
-uint8_t manchester_read_next()
-{
-	return manchester_rb_get(&rb);
-}
+uint8_t manchester_read_next() { return manchester_rb_get(&rb); }

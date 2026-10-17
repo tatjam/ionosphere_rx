@@ -113,7 +113,7 @@ int main()
 	// This works well for 150kHz <-> 300kHz (the default in fsk_send)
 	pot_set_tap(7);
 
-	bool synced		  = false;
+	bool synced       = false;
 	uint8_t last_idle = 0;
 
 	while (1)
@@ -123,7 +123,7 @@ int main()
 		{
 			// Line is idle
 			last_idle = idle;
-			synced	  = false;
+			synced    = false;
 		}
 
 		if (manchester_get_overflow())
@@ -163,7 +163,7 @@ int main()
 		}
 
 		uint8_t high = manchester_read_next();
-		uint8_t low	 = manchester_read_next();
+		uint8_t low  = manchester_read_next();
 
 		// We always expect parity bit to be 0
 		bool parity_correct = (compute_parity(low) ^ compute_parity(high)) == 0;

@@ -1,28 +1,28 @@
 // Copyright (C) 2026 tatjam
 // SPDX-License-Identifier: GPL-3.0-or-later
 //
-#include "manchester.h"
 #include "../test.h"
+#include "manchester.h"
 #include <assert.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
 // Mock hardware
 
-static uint8_t clock	  = 0;
-static bool clock_up	  = false;
+static uint8_t clock      = 0;
+static bool clock_up      = false;
 static uint8_t transition = 0;
 
 static void manchester_hw_init()
 {
 	clock_up   = false;
-	clock	   = 0;
+	clock      = 0;
 	transition = 0;
 }
 static void manchester_hw_start_up_counter() { clock_up = true; }
 static void manchester_hw_start_down_counter(uint8_t val)
 {
-	clock	 = val;
+	clock    = val;
 	clock_up = false;
 }
 static uint8_t manchester_hw_get_counter() { return clock; }
@@ -93,7 +93,7 @@ static char *test_nominal_read()
 	for (uint8_t clock = 0; clock < 32; clock++)
 	{
 		uint8_t clockval = clock % 2;
-		uint8_t data	 = msg[clock / 2];
+		uint8_t data     = msg[clock / 2];
 		test_clock_tick(10);
 		test_transition(data ^ clockval);
 	}
@@ -124,7 +124,7 @@ static char *test_slow_clock()
 	for (uint8_t clock = 0; clock < 32; clock++)
 	{
 		uint8_t clockval = clock % 2;
-		uint8_t data	 = msg[clock / 2];
+		uint8_t data     = msg[clock / 2];
 		test_clock_tick(80);
 		test_transition(data ^ clockval);
 	}
@@ -149,7 +149,7 @@ static char *test_fiddly_clock()
 	for (uint8_t clock = 0; clock < 32; clock++)
 	{
 		uint8_t clockval = clock % 2;
-		uint8_t data	 = msg[clock / 2];
+		uint8_t data     = msg[clock / 2];
 		test_clock_tick(lastclk);
 		lastclk = 40 + (rand() % 10 - 5);
 		test_transition(data ^ clockval);
