@@ -1,6 +1,10 @@
 // Copyright (C) 2026 tatjam
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#include "link.h"
+#include "programmer.h"
+#include "uart.h"
+
 #include <avr/builtins.h>
 #include <avr/interrupt.h>
 #include <avr/io.h>
@@ -14,12 +18,26 @@ int main()
 	cli();
 	CLKPR = 0b10000000;
 	CLKPR = 0b00000000;
+
+	bool programming_mode = false;
+
+	uart_init();
+	programmer_init();
+	link_init();
+
 	sei();
 
 	while (1)
 	{
+		if (programming_mode)
+		{
+			programming_mode = programmer_task();
+		}
+		else
+		{
+			programming_mode = link_task();
+		}
 	}
 
 	return 0;
 }
-
