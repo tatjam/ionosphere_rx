@@ -1,8 +1,9 @@
 // Copyright (C) 2026 tatjam
 // SPDX-License-Identifier: GPL-3.0-or-later
 // Adapted from the ArduinoISP program
+#pragma once
+
 #include <stdbool.h>
-#include <stdint.h>
 
 // NOTE: The implementation is bit-banged so no need for these to match the
 // SPI pins!
@@ -18,9 +19,9 @@
 #define TARGET_MOSI_DDR  DDRB
 
 // Pin 12 or MISO on Arduino Nano
-#define TARGET_MISO_PIN  PB4
-#define TARGET_MISO_PORT PORTB
-#define TARGET_MISO_DDR  DDRB
+#define TARGET_MISO_PIN    PB4
+#define TARGET_MISO_PINREG PINB
+#define TARGET_MISO_DDR    DDRB
 
 // Pin 13 or SCK on Arduino Nano
 #define TARGET_SCK_PIN  PB5

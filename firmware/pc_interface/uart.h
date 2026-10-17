@@ -7,5 +7,6 @@
 
 void uart_init();
 void uart_tx(uint8_t data);
+void uart_tx_cstr(const char *str);
 uint8_t uart_get_next_count();
 uint8_t uart_read_next();

@@ -47,6 +47,15 @@ void uart_tx(uint8_t data)
 	UDR0 = data;
 }
 
+void uart_tx_cstr(const char *str)
+{
+	uint8_t ptr = 0;
+	while (str[ptr] != 0)
+	{
+		uart_tx((uint8_t) str[ptr]);
+	}
+}
+
 uint8_t uart_get_next_count() { return uart_rb_count(&rb); }
 
 uint8_t uart_read_next() { return uart_rb_get(&rb); }
