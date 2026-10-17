@@ -12,6 +12,9 @@
 // rb_put(rb, data_t item) -> bool: Inserts the item and returns true if successful, false if
 // overflow rb_commit(rb) -> bool: Assumes the writes has written to rb->buf[write], and advances
 // rb_get(rb) -> data_t: Call only if rb_empty() == false, pops the oldest item
+// IMPORTANT:
+// - Make sure oyu only call rb_get(rb) if rb_empty() == false, otherwise the queue will corrupt!
+// - If using index_t >= 8 bits, ensure all calls are protected by ATOMIC_BLOCK
 #define RING_BUFFER_DEFINE(type_name, size, index_t, data_t)                                       \
 	_Static_assert((size & (size - 1)) == 0, "size must be power of two");                         \
 	typedef struct                                                                                 \

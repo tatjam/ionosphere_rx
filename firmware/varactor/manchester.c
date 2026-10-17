@@ -118,17 +118,15 @@ uint8_t manchester_get_next_count() { return manchester_rb_count(&rb); }
 
 uint8_t manchester_get_overflow()
 {
-	cli();
+	// Safe as uint8 is atomic
 	uint8_t out = overflow;
-	sei();
 	return out;
 }
 
 void manchester_clear_overflow()
 {
-	cli();
+	// Safe as uint8 is atomic
 	overflow = 0;
-	sei();
 }
 
 uint8_t manchester_read_next() { return manchester_rb_get(&rb); }
