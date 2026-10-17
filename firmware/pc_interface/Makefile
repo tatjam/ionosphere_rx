@@ -6,7 +6,7 @@ TEST_BINS = $(TEST_SRCS:%_test.c=%_test.exe)
 MCU  = atmega328p
 F_CPU = 16000000
 CC = avr-gcc
-CFLAGS = -Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -g
+CFLAGS = -Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -g -DNDEBUG
 TEST_FLAGS = -Wall -g
 
 default: pc_interface.hex
