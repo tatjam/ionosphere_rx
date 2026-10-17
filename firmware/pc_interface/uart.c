@@ -2,26 +2,36 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "uart.h"
+#include "../shared/ring_buffer.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <avr/sfr_defs.h>
 
+// Large enough as to hold the largest avrisp command with ample margin, so we
+// never overflow!
+#define UART_BUFFER_BYTES 256
+RING_BUFFER_DEFINE(uart_rb, UART_BUFFER_BYTES, uint8_t, uint8_t);
+static uart_rb_t rb;
+
+ISR(USART_RX_vect)
+{
+	if (UCSR0A & _BV(FE0))
+	{
+		return;
+	}
+
+	uart_rb_put(&rb, UDR0);
+}
+
 #define UBRR_VALUE (F_CPU / 16 / UART_BAUD - 1)
-
-volatile static uint8_t rx_buffer_read_pos;
-volatile static uint8_t rx_buffer_write_pos;
-static uint8_t rx_buffer[64];
-
-ISR(USART_RX_vect) {}
 
 void uart_init()
 {
+	uart_rb_init(&rb);
+
 	// Baud
 	UBRR0H = (uint8_t) (UBRR_VALUE >> 8);
 	UBRR0L = (uint8_t) UBRR_VALUE;
-
-	rx_buffer_read_pos  = 0;
-	rx_buffer_write_pos = 0;
 
 	// Enable RX and TX
 	UCSR0B |= _BV(RXEN0) | _BV(TXEN0);
@@ -37,6 +47,6 @@ void uart_tx(uint8_t data)
 	UDR0 = data;
 }
 
-uint8_t uart_get_next_count() { return 0; }
+uint8_t uart_get_next_count() { return uart_rb_count(&rb); }
 
-uint8_t uart_read_next() { return 0; }
+uint8_t uart_read_next() { return uart_rb_get(&rb); }
