@@ -1,6 +1,7 @@
 // Copyright (C) 2026 tatjam
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "link.h"
+#include "command.h"
 #include "uart.h"
 #include <assert.h>
 
@@ -57,7 +58,13 @@ typedef enum
 	LINK_START,
 	LINK_COLLECT,
 } link_task_state_t;
+
 static link_task_state_t state;
+static bool enter_programming;
+
+static uint8_t link_buffer[128];
+static uint8_t link_ptr    = 0;
+static uint8_t num_to_zero = 0;
 
 void link_init()
 {
@@ -68,13 +75,9 @@ void link_init()
 	link_hw_toggle_off_fsk();
 }
 
-static uint8_t link_buffer[128];
-static uint8_t link_ptr    = 0;
-static uint8_t num_to_zero = 0;
-
 // Link mode runs a simple COBS with 0 as the special value, for simplicity
 // we just skip messages until the first zero
-bool link_task()
+void link_task()
 {
 	command_t cmd;
 	while (uart_get_next_count() != 0)
@@ -136,11 +139,20 @@ bool link_task()
 			}
 		}
 	}
-
-	return false;
 }
 
 void link_handle_command(const command_t *cmd)
 {
 	// TODO: dispatch commands
+	if (cmd->kind == COMMAND_ENTER_PROGRAMMER)
+	{
+		enter_programming = true;
+	}
+}
+
+bool link_wants_enter_programming()
+{
+	bool out          = enter_programming;
+	enter_programming = false;
+	return out;
 }

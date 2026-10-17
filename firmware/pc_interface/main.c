@@ -35,7 +35,11 @@ int main()
 		}
 		else
 		{
-			programming_mode = link_task();
+			link_task();
+			if (link_wants_enter_programming())
+			{
+				programming_mode = true;
+			}
 		}
 	}
 
