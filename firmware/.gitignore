@@ -3,4 +3,5 @@
 *.hex
 *.cache/
 *.elf
+*.exe
 compile_commands.json

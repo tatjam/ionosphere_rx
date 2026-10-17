@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 //
 #include "manchester.h"
-#include "test.h"
+#include "../test.h"
 #include <assert.h>
 #include <stdbool.h>
 #include <stdlib.h>

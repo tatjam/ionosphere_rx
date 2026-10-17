@@ -2,7 +2,7 @@ ALL_SRCS = $(wildcard *.c)
 TEST_SRCS = $(wildcard *_test.c)
 SRCS = $(filter-out ${TEST_SRCS},${ALL_SRCS})
 OBJS = $(SRCS:.c=.o)
-TEST_BINS = $(TEST_SRCS:%_test.c=%_test)
+TEST_BINS = $(TEST_SRCS:%_test.c=%_test.exe)
 MCU  = attiny84
 F_CPU = 8000000
 CC = avr-gcc
@@ -24,7 +24,7 @@ disasm: firmware.elf
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%_test: %_test.c ${SRCS}
+%_test.exe: %_test.c ${SRCS}
 	cc $(TEST_FLAGS) -o $@ $<
 
 test: $(TEST_BINS)
