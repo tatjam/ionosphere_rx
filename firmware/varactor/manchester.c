@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "manchester.h"
+#include "../shared/ring_buffer.h"
 #include <stdbool.h>
 
 #ifndef ENV_TEST
@@ -18,12 +19,9 @@ uint8_t manchester_hw_get_pin_value() { return 0; }
 
 // This is a ring-buffer, so read-write can take place safely
 // at the same time with minimal blocking
-volatile uint8_t manchester_buffer[MANCHESTER_BUFFER_BYTES];
+RING_BUFFER_DEFINE(manchester_rb, MANCHESTER_BUFFER_BYTES, uint8_t, uint8_t);
+static manchester_rb_t rb;
 
-// Next byte is read from this position in rxbuffer
-static volatile uint8_t rxbuffer_readpos;
-// Next byte is written to this position in rxbuffer
-static volatile uint8_t rxbuffer_writepos;
 // Progress along the individual byte
 static uint8_t rxbuffer_writebit;
 
@@ -38,8 +36,7 @@ static uint8_t t2;
 
 void manchester_init()
 {
-	rxbuffer_writepos = 0;
-	rxbuffer_readpos  = 0;
+	manchester_rb_init(&rb);
 	rxbuffer_writebit = 0;
 	is_idle			  = true;
 	overflow		  = 0;
@@ -79,11 +76,11 @@ static inline void manchester_handle_pin_change_int()
 	uint8_t pin = manchester_hw_get_pin_value();
 	if (pin)
 	{
-		manchester_buffer[rxbuffer_writepos] |= (1 << rxbuffer_writebit);
+		rb.buf[rb.write] |= (1 << rxbuffer_writebit);
 	}
 	else
 	{
-		manchester_buffer[rxbuffer_writepos] &= ~(1 << rxbuffer_writebit);
+		rb.buf[rb.write] &= ~(1 << rxbuffer_writebit);
 	}
 
 	rxbuffer_writebit++;
@@ -91,22 +88,12 @@ static inline void manchester_handle_pin_change_int()
 	{
 		rxbuffer_writebit = 0;
 
-		uint8_t next = rxbuffer_writepos + 1;
-		if (next >= MANCHESTER_BUFFER_BYTES)
-		{
-			next = 0;
-		}
-
-		if (next == rxbuffer_readpos)
+		if (!manchester_rb_commit(&rb))
 		{
 			if (overflow < 255)
 			{
 				overflow++;
 			}
-		}
-		else
-		{
-			rxbuffer_writepos = next;
 		}
 	}
 
@@ -129,24 +116,7 @@ static inline void manchester_handle_pin_change_int()
 
 uint8_t manchester_get_next_count()
 {
-	cli();
-	uint8_t out;
-	if (rxbuffer_readpos == rxbuffer_writepos)
-	{
-		out = 0;
-	}
-	else if (rxbuffer_readpos < rxbuffer_writepos)
-	{
-		// ..R------W.....
-		out = rxbuffer_writepos - rxbuffer_readpos;
-	}
-	else
-	{
-		// --W......R----
-		out = MANCHESTER_BUFFER_BYTES - rxbuffer_readpos + rxbuffer_writepos;
-	}
-	sei();
-	return out;
+	return manchester_rb_count(&rb);
 }
 
 uint8_t manchester_get_overflow()
@@ -166,15 +136,5 @@ void manchester_clear_overflow()
 
 uint8_t manchester_read_next()
 {
-	uint8_t out = manchester_buffer[rxbuffer_readpos];
-
-	cli();
-	rxbuffer_readpos++;
-	if (rxbuffer_readpos == MANCHESTER_BUFFER_BYTES)
-	{
-		rxbuffer_readpos = 0;
-	}
-	sei();
-
-	return out;
+	return manchester_rb_get(&rb);
 }

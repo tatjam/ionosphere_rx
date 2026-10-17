@@ -8,7 +8,6 @@
 #define MANCHESTER_SYNC_WORD 0x55
 
 #define MANCHESTER_BUFFER_BYTES 16
-extern volatile uint8_t manchester_buffer[MANCHESTER_BUFFER_BYTES];
 
 extern volatile uint8_t manchester_idle_events;
 
