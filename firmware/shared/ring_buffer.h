@@ -23,17 +23,20 @@
 		volatile index_t read;                                                                     \
 		volatile data_t buf[size];                                                                 \
 	} type_name##_t;                                                                               \
-	static inline void type_name##_init(type_name##_t *r)                                          \
+	static inline __attribute__((unused)) void type_name##_init(type_name##_t *r)                  \
 	{                                                                                              \
 		r->write = 0;                                                                              \
 		r->read  = 0;                                                                              \
 	}                                                                                              \
-	static inline bool type_name##_empty(const type_name##_t *r) { return r->write == r->read; }   \
-	static inline index_t type_name##_count(const type_name##_t *r)                                \
+	static inline __attribute__((unused)) bool type_name##_empty(const type_name##_t *r)           \
+	{                                                                                              \
+		return r->write == r->read;                                                                \
+	}                                                                                              \
+	static inline __attribute__((unused)) index_t type_name##_count(const type_name##_t *r)        \
 	{                                                                                              \
 		return (r->write - r->read) & (size - 1);                                                  \
 	}                                                                                              \
-	static inline bool type_name##_put(type_name##_t *r, data_t d)                                 \
+	static inline __attribute__((unused)) bool type_name##_put(type_name##_t *r, data_t d)         \
 	{                                                                                              \
 		index_t next = (r->write + 1) & (size - 1);                                                \
 		if (next == r->read)                                                                       \
@@ -44,7 +47,7 @@
 		r->write         = next;                                                                   \
 		return true;                                                                               \
 	}                                                                                              \
-	static inline bool type_name##_commit(type_name##_t *r)                                        \
+	static inline __attribute__((unused)) bool type_name##_commit(type_name##_t *r)                \
 	{                                                                                              \
 		index_t next = (r->write + 1) & (size - 1);                                                \
 		if (next == r->read)                                                                       \
@@ -54,7 +57,7 @@
 		r->write = next;                                                                           \
 		return true;                                                                               \
 	}                                                                                              \
-	static inline data_t type_name##_get(type_name##_t *r)                                         \
+	static inline __attribute__((unused)) data_t type_name##_get(type_name##_t *r)                 \
 	{                                                                                              \
 		data_t d = r->buf[r->read];                                                                \
 		r->read  = (r->read + 1) & (size - 1);                                                     \
