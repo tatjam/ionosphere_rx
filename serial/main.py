@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 # Send link commands to the pc_interface firmware over a ZeroMQ port
 import struct
-from json import JSONDecodeError
 import os
 import logging
 import argparse
-
-from utils import fletcher16, cobs, u16, u32
-import sys
 import time
+
 import zmq
 import coloredlogs
-
 import serial
 
+from utils import fletcher16, cobs
+
+BAUD = 250000
+DEFAULT_TIMEOUT = 1.0  # seconds
+
+# Command kinds, the values must match the firmware
 (
     NO_OP,
     ENTER_PROGRAMMER,
@@ -25,53 +27,39 @@ import serial
 ) = range(7)
 
 
+class DeviceTimeout(Exception):
+    """The device did not answer; the serial link should be reset."""
+
+
 def command(kind, data=b""):
     payload = bytes([kind]) + data
     cks = fletcher16(payload)
     return b"\x00" + cobs(payload + bytes([cks & 0xFF, cks >> 8])) + b"\x00"
 
 
-def symbols(args):
-    assert 0 < len(args) <= 100, "1..100 symbols per message"
-    return bytes([len(args)]) + b"".join(u16(int(s)) for s in args)
+def read_exact(ser, n, what):
+    """Read exactly n bytes or raise DeviceTimeout."""
+    data = ser.read(n)
+    if len(data) != n:
+        raise DeviceTimeout(f"{what}: expected {n} byte(s), got {len(data)}")
+    return data
 
 
-CMDS = {
-    "no_op": lambda a: command(NO_OP),
-    "enter_programmer": lambda a: command(ENTER_PROGRAMMER),
-    "get_clock": lambda a: command(GET_CLOCK),
-    "query_queue": lambda a: command(QUERY_SYMBOL_QUEUE),
-    "set_clock": lambda a: command(SET_CLOCK, u32(int(a[0])) + u16(int(a[1]))),
-    "start_sequence": lambda a: command(
-        START_SEQUENCE,
-        bytes([len(a) - 2]) + u32(int(a[0])) + u16(int(a[1])) + symbols(a[2:]),
-    ),
-    "append_sequence": lambda a: command(APPEND_SEQUENCE, symbols(a)),
-}
+def do_no_op(ser, inv):
+    ser.write(command(NO_OP))
+    return read_exact(ser, 1, "NO_OP").decode()
 
 
-def do_no_op(serial: serial.SerialBase, inv):
-    serial.write(command(NO_OP))
-    reply = serial.read()
-    assert isinstance(reply, bytes)
-    return reply.decode()
+def do_enter_programmer(ser, inv):
+    ser.write(command(ENTER_PROGRAMMER))
+    return read_exact(ser, 1, "ENTER_PROGRAMMER").decode()
 
 
-def do_enter_programmer(serial: serial.SerialBase, inv):
-    serial.write(command(ENTER_PROGRAMMER))
-    reply = serial.read()
-    assert isinstance(reply, bytes)
-    return reply.decode()
-
-
-def do_get_clock(serial: serial.SerialBase, inv):
-    serial.write(command(GET_CLOCK))
+def do_get_clock(ser, inv):
+    ser.write(command(GET_CLOCK))
 
     # 'G', then u16 tick, then u32 second (both little-endian)
-    reply = serial.read(7)  # read(n) blocks until n bytes or the port timeout
-    if len(reply) != 7:
-        raise TimeoutError(f"GET_CLOCK: expected 7 bytes, got {len(reply)}")
-
+    reply = read_exact(ser, 7, "GET_CLOCK")
     if reply[0:1] != b"G":
         raise ValueError(f"GET_CLOCK: bad reply byte {reply[0:1]!r}")
 
@@ -79,7 +67,7 @@ def do_get_clock(serial: serial.SerialBase, inv):
     return second, tick
 
 
-def do_raw_bytes(serial: serial.SerialBase, inv):
+def do_raw_bytes(ser, inv):
     b = inv.get("byte")
     if isinstance(b, int) and not isinstance(b, bool):
         data = bytes([b])
@@ -88,34 +76,44 @@ def do_raw_bytes(serial: serial.SerialBase, inv):
     else:
         raise RuntimeError("Expected int or list of ints in key 'byte'")
 
-    serial.write(data)
-    serial.flush()
+    ser.write(data)
+    ser.flush()
 
     n = inv.get("await_reply")
     if n is True:
         n = 1
     if isinstance(n, int) and n > 0:
-        reply = serial.read(n)
-        return list(reply)  # e.g. [20, 16] = 0x14 0x10
+        return list(read_exact(ser, n, "raw_bytes"))  # e.g. [20, 16]
     return {}
 
 
-def do_test_programmer(serial: serial.SerialBase, inv):
+def do_test_programmer(ser, inv):
     """True if the device is in programming mode (answers STK500 sync)."""
-    serial.write(bytes([ord("0"), 0x20]))
-    serial.flush()
-    reply = serial.read(2)  # returns fewer bytes on timeout
-    return reply == bytes([0x14, 0x10])
+    ser.write(bytes([ord("0"), 0x20]))
+    ser.flush()
+    # A timeout here is a legitimate "no" (link mode), so no reset
+    return ser.read(2) == bytes([0x14, 0x10])
 
 
-def do_exit_programmer(serial: serial.SerialBase, inv):
+def do_exit_programmer(ser, inv):
     """Send 'Q' + EOP. Device replies 0x14 0x10, then resets into link mode."""
-    serial.write(bytes([ord("Q"), 0x20]))
-    serial.flush()
-    reply = serial.read(2)
+    ser.write(bytes([ord("Q"), 0x20]))
+    ser.flush()
+    reply = read_exact(ser, 2, "EXIT_PROGRAMMER")
     if reply != bytes([0x14, 0x10]):
         raise RuntimeError(f"EXIT_PROGRAMMER: unexpected reply {list(reply)}")
     return "ok"
+
+
+HANDLERS = {
+    "no_op": do_no_op,
+    "enter_programmer": do_enter_programmer,
+    "get_clock": do_get_clock,
+    # Custom commands for special uses
+    "raw_bytes": do_raw_bytes,
+    "test_programmer": do_test_programmer,
+    "exit_programmer": do_exit_programmer,
+}
 
 
 def receive(sock):
@@ -129,11 +127,11 @@ def response(sock, v):
     sock.send_json(v)
 
 
-def rx_loop(serial, rep: zmq.Socket[bytes]):
+def rx_loop(ser, rep: zmq.Socket[bytes]):
     while True:
         try:
             inv = receive(rep)
-        except JSONDecodeError:
+        except ValueError:  # JSONDecodeError and UnicodeDecodeError
             response(rep, {"ok": False, "err": "Malformed message"})
             continue
 
@@ -143,27 +141,20 @@ def rx_loop(serial, rep: zmq.Socket[bytes]):
             )
             continue
 
-        msg_type = inv["type"]
         try:
-            if msg_type == "no_op":
-                reply = do_no_op(serial, inv)
-            elif msg_type == "enter_programmer":
-                reply = do_enter_programmer(serial, inv)
-            elif msg_type == "get_clock":
-                reply = do_get_clock(serial, inv)
-            # Custom commands for special uses
-            elif msg_type == "raw_bytes":
-                reply = do_raw_bytes(serial, inv)
-            elif msg_type == "test_programmer":
-                reply = do_test_programmer(serial, inv)
-            elif msg_type == "exit_programmer":
-                reply = do_exit_programmer(serial, inv)
-            else:
-                raise ValueError(f"Unknown message type {msg_type}")
+            handler = HANDLERS.get(inv["type"])
+            if handler is None:
+                raise ValueError(f"Unknown message type {inv['type']}")
+            reply = handler(ser, inv)
 
         except (RuntimeError, ValueError, TypeError) as e:
             response(rep, {"ok": False, "err": f"Error: {e}"})
             continue
+        except (DeviceTimeout, serial.SerialException) as e:
+            # Always answer first: a REP socket that got a request must send a
+            # reply, or the next recv fails. Then let main() reset the link.
+            response(rep, {"ok": False, "err": f"Device error: {e}"})
+            raise
 
         response(rep, {"ok": True, "reply": reply})
 
@@ -177,7 +168,13 @@ def main():
     parser.add_argument(
         "--zmq_host",
         default="tcp://127.0.0.1:9000",
-        help="Serial port, defaults to tcp://127.0.0.1:9000",
+        help="ZeroMQ address, defaults to tcp://127.0.0.1:9000",
+    )
+    parser.add_argument(
+        "--timeout",
+        type=float,
+        default=DEFAULT_TIMEOUT,
+        help=f"Serial read/write timeout in seconds, defaults to {DEFAULT_TIMEOUT}",
     )
 
     args = parser.parse_args()
@@ -186,20 +183,25 @@ def main():
     rep = ctx.socket(zmq.REP)
     rep.bind(args.zmq_host)
 
-    s = None
-    while s is None:
+    while True:
         try:
-            with serial.Serial(args.port, 250000) as s:
-                # Wait for Arduino restart, remove if we move away from Arduino :)
+            with serial.Serial(
+                args.port,
+                BAUD,
+                timeout=args.timeout,
+                write_timeout=args.timeout,
+            ) as s:
+                # Opening the port toggles DTR, which resets the Arduino.
+                # Wait for it to restart, remove if we move away from Arduino :)
                 time.sleep(2)
                 logging.info(f"Connection achieved with {args.port}")
 
                 rx_loop(s, rep)
 
-        except serial.SerialException:
-            logging.error("Serial error, retrying connection...")
+        except (serial.SerialException, DeviceTimeout) as e:
+            logging.error(f"{e}")
 
-        logging.info(f"pc_interface not connected to {args.port}, retrying...")
+        logging.info(f"Resetting connection to {args.port}, retrying...")
         time.sleep(1)
 
 
