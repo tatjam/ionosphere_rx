@@ -36,3 +36,9 @@ test: $(TEST_BINS)
 
 clean:
 	rm -f $(OBJS) $(TEST_OBJS) $(TEST_BINS) pc_interface.elf pc_interface.hex
+
+size: pc_interface.elf
+	avr-size -C --mcu=${MCU} pc_interface.elf
+
+size-info: pc_interface.elf
+	avr-nm -t d --size-sort -C pc_interface.elf

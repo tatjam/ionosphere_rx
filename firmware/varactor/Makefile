@@ -36,3 +36,9 @@ test: $(TEST_BINS)
 
 clean:
 	rm -f $(OBJS) $(TEST_OBJS) $(TEST_BINS) firmware.elf firmware.hex
+
+size: firmware.elf
+	avr-size -C --mcu=${MCU} firmware.elf
+
+size-info: firmware.elf
+	avr-nm -t d --size-sort -C firmware.elf

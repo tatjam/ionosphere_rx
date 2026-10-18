@@ -8,7 +8,7 @@
 #define LINK_FSK_HIGH 300000
 #define LINK_FSK_LOW  200000
 
-// Uses Timer1, in particular OC1A, so pin 9 in Arduino Nano (PB1)
+// - Uses Timer2, in particular OC2B, so pin 3 in Arduino Nano (PD3) for the FSK signal
 void link_init();
 
 void link_task();

@@ -12,34 +12,37 @@
 void link_hw_init()
 {
 	// Set the pin to output and the timer to output on it
-	DDRB |= _BV(PB1);
+	DDRD |= _BV(PD3);
 
-	// We setup the "Fast PWM" mode, with TOP = OCR1A, WGM = 15
-	TCCR1A |= _BV(WGM11) | _BV(WGM10);
-	TCCR1B |= _BV(WGM13) | _BV(WGM12);
+	OCR2B = 0;
 
-	// Toggle output (PB1) on compare match with OCR1A = TOP
-	TCCR1A |= _BV(COM1A0);
+	// Set WGM = 2, CTC with TOP = OCR2A, update of OCR2A is immediate,
+	// toggling the output pin on compare match
+	TCCR2A = _BV(WGM21) | _BV(COM2B0);
 }
 
 // Sets the FSK frequency to F_CPU / (2 * (1 + v))
-// NOTE: The change applies on next BOTTOM, so this is safe to call while
-// the timer is running!
-void link_hw_set_fsk(uint16_t v) { OCR1A = v; }
+void link_hw_set_fsk(uint16_t v)
+{
+	OCR2A = v;
+	// Restart the counter to prevent long-symbol, this does break phase continuity
+	TCNT2 = 0;
+}
 
 void link_hw_toggle_off_fsk()
 {
 	// Set clock source = none
-	TCCR1B &= ~(_BV(CS12) | _BV(CS11) | _BV(CS10));
+	TCCR2B = 0;
 }
 
 void link_hw_toggle_on_fsk()
 {
 	// Restart counter
-	TCNT1 = 0;
+	TCNT2 = 0;
 	// Set clock source = I/O clock
-	TCCR1B |= _BV(CS10);
+	TCCR2B = _BV(CS20);
 }
+
 
 #define DEBUG(...)
 #else
@@ -75,11 +78,12 @@ void link_init()
 	link_hw_toggle_off_fsk();
 }
 
+static command_t cmd;
+
 // Link mode runs a simple COBS with 0 as the special value, for simplicity
 // we just skip messages until the first zero
 void link_task()
 {
-	command_t cmd;
 	while (uart_get_next_count() != 0)
 	{
 		if (link_ptr >= sizeof(link_buffer) || num_to_zero >= sizeof(link_buffer))
@@ -146,6 +150,7 @@ void link_handle_command(const command_t *cmd)
 	if (cmd->kind == COMMAND_ENTER_PROGRAMMER)
 	{
 		enter_programming = true;
+		uart_tx('G');
 	}
 }
 

@@ -3,7 +3,7 @@
 #pragma once
 
 #include <stdint.h>
-#define UART_BAUD 19200
+#define UART_BAUD 250000
 
 void uart_init();
 void uart_tx(uint8_t data);

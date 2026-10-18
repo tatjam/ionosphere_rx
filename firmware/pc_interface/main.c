@@ -3,6 +3,7 @@
 
 #include "link.h"
 #include "programmer.h"
+#include "timebase.h"
 #include "uart.h"
 
 #include <avr/builtins.h>
@@ -22,7 +23,9 @@ int main()
 	bool programming_mode = false;
 
 	uart_init();
+	timebase_init();
 	programmer_init();
+
 	link_init();
 
 	sei();
