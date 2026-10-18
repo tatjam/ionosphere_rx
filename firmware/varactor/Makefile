@@ -6,8 +6,9 @@ TEST_BINS = $(TEST_SRCS:%_test.c=%_test.exe)
 MCU  = attiny84
 F_CPU = 8000000
 CC = avr-gcc
-CFLAGS = -Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -g -DNDEBUG
+CFLAGS = -Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -g -DNDEBUG -MMD -MP
 TEST_FLAGS = -Wall -g
+HDRS = $(wildcard *.h) ../shared/*.h ../test.h
 
 default: firmware.hex
 
@@ -24,7 +25,7 @@ disasm: firmware.elf
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%_test.exe: %_test.c ${SRCS}
+%_test.exe: %_test.c ${SRCS} ${HDRS}
 	cc $(TEST_FLAGS) -o $@ $<
 
 test: $(TEST_BINS)
@@ -34,8 +35,10 @@ test: $(TEST_BINS)
 	done
 
 
+-include ${OBJS:.o=.d}
+
 clean:
-	rm -f $(OBJS) $(TEST_OBJS) $(TEST_BINS) firmware.elf firmware.hex
+	rm -f $(OBJS) $(TEST_OBJS) $(TEST_BINS) firmware.elf firmware.hex *.d
 
 size: firmware.elf
 	avr-size -C --mcu=${MCU} firmware.elf

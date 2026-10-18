@@ -4,4 +4,5 @@
 *.cache/
 *.elf
 *.exe
+*.d
 compile_commands.json
