@@ -18,7 +18,7 @@ static volatile bool slot_run;
 
 uint16_t timebase_hw_read_tick()
 {
-	return OCR1A;
+	return TCNT1;
 }
 
 void timebase_hw_init()

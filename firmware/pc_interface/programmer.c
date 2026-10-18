@@ -58,7 +58,7 @@ static uint8_t programmer_hw_spi_transmit(uint8_t b)
 
 		// Read LSB from target into b itself after shifting up
 		b <<= 1;
-		if ((TARGET_MISO_PINREG & TARGET_MISO_PIN) != 0)
+		if ((TARGET_MISO_PINREG & _BV(TARGET_MISO_PIN)) != 0)
 		{
 			b |= 1;
 		}
