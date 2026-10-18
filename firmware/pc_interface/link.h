@@ -9,6 +9,9 @@
 #define LINK_FSK_LOW     200000
 #define SEQUENCE_RB_SIZE 256
 
+#define LINK_GOOD_BYTE 'G'
+#define LINK_BAD_BYTE  'B'
+
 _Static_assert(SEQUENCE_RB_SIZE > MAX_COMMAND_SYMBOLS,
                "The symbol queue must atleast fit a single command");
 

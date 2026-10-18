@@ -16,6 +16,11 @@ static volatile bool slot_run;
 #include <avr/interrupt.h>
 #include <avr/io.h>
 
+uint16_t timebase_hw_read_tick()
+{
+	return OCR1A;
+}
+
 void timebase_hw_init()
 {
 	// Set the pin to output
@@ -122,4 +127,11 @@ uint32_t timebase_get_second()
 	uint32_t second_read;
 	CRITICAL_SECTION { second_read = second; }
 	return second_read;
+}
+
+uint16_t timebase_get_tick()
+{
+	uint16_t tick_read;
+	CRITICAL_SECTION { tick_read = timebase_hw_read_tick(); }
+	return tick_read;
 }

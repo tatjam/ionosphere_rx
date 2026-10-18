@@ -43,3 +43,4 @@ void timebase_stop_slot();
 void timebase_on_slot(uint32_t tick_num);
 
 uint32_t timebase_get_second();
+uint16_t timebase_get_tick();

@@ -1,9 +1,11 @@
 // Copyright (C) 2026 tatjam
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "link.h"
+#include "../shared/critical_section.h"
 #include "../shared/ring_buffer.h"
 #include "cobs.h"
 #include "command.h"
+#include "timebase.h"
 #include "uart.h"
 
 #ifndef ENV_TEST
@@ -85,16 +87,63 @@ void link_task()
 			{
 				link_handle_command(&cmd);
 			}
+			else
+			{
+				uart_tx(LINK_BAD_BYTE);
+			}
 		}
 	}
 }
 
 void link_handle_command(const command_t *cmd)
 {
-	if (cmd->kind == COMMAND_ENTER_PROGRAMMER)
+	if (cmd->kind == COMMAND_NO_OP)
+	{
+		uart_tx(LINK_GOOD_BYTE);
+	}
+	else if (cmd->kind == COMMAND_ENTER_PROGRAMMER)
 	{
 		enter_programming = true;
-		uart_tx('G');
+		uart_tx(LINK_GOOD_BYTE);
+	}
+	else if (cmd->kind == COMMAND_START_SEQUENCE)
+	{
+		uart_tx(LINK_GOOD_BYTE);
+	}
+	else if (cmd->kind == COMMAND_APPEND_SEQUENCE)
+	{
+		uart_tx(LINK_GOOD_BYTE);
+	}
+	else if (cmd->kind == COMMAND_QUERY_SYMBOL_QUEUE)
+	{
+		uint16_t remain;
+		CRITICAL_SECTION { remain = sequence_rb_count(&sequence_rb); }
+
+		uart_tx(LINK_GOOD_BYTE);
+		uart_tx(remain & 0xFF);
+		uart_tx((remain >> 8) & 0xFF);
+	}
+	else if (cmd->kind == COMMAND_SET_CLOCK)
+	{
+		uart_tx(LINK_GOOD_BYTE);
+	}
+	else if (cmd->kind == COMMAND_GET_CLOCK)
+	{
+		uint32_t second = timebase_get_second();
+		uint16_t tick   = timebase_get_tick();
+		uart_tx(LINK_GOOD_BYTE);
+
+		uart_tx(tick & 0xFF);
+		uart_tx((tick >> 8) & 0xFF);
+
+		uart_tx(second & 0xFF);
+		uart_tx((second >> 8) & 0xFF);
+		uart_tx((second >> 16) & 0xFF);
+		uart_tx((second >> 24) & 0xFF);
+	}
+	else
+	{
+		uart_tx(LINK_BAD_BYTE);
 	}
 }
 
