@@ -143,7 +143,6 @@ void link_task()
 
 void link_handle_command(const command_t *cmd)
 {
-	// TODO: dispatch commands
 	if (cmd->kind == COMMAND_ENTER_PROGRAMMER)
 	{
 		enter_programming = true;

@@ -9,15 +9,32 @@
 #ifndef ENV_TEST
 #include <avr/io.h>
 
-static void programmer_hw_init()
+static void programmer_hw_acquire_pins(bool reset_active_high)
 {
 	TARGET_MOSI_DDR |= _BV(TARGET_MOSI_PIN);
 	TARGET_SCK_DDR |= _BV(TARGET_SCK_PIN);
 	TARGET_MISO_DDR &= ~_BV(TARGET_MISO_PIN);
 
-	// Pull reset high to not shutdown the device
-	TARGET_RESET_PORT |= _BV(TARGET_RESET_PIN);
+	// Pull reset to inactive state to not shutdown the device
+	if (reset_active_high)
+	{
+		TARGET_RESET_PORT &= ~_BV(TARGET_RESET_PIN);
+	}
+	else
+	{
+		TARGET_RESET_PORT |= _BV(TARGET_RESET_PIN);
+	}
 	TARGET_RESET_DDR |= _BV(TARGET_RESET_PIN);
+}
+
+static void programmer_hw_release_pins()
+{
+	TARGET_MOSI_DDR &= ~_BV(TARGET_MOSI_PIN);
+	TARGET_SCK_DDR &= ~_BV(TARGET_SCK_PIN);
+	TARGET_MISO_DDR &= ~_BV(TARGET_MISO_PIN);
+	// NOTE: This technically leaves the pin weakly pulled-up if it's reset-on-low,
+	// but that's okay
+	TARGET_RESET_DDR &= ~_BV(TARGET_RESET_PIN);
 }
 
 // Transmit a byte, receive a byte
@@ -103,7 +120,7 @@ static void breply(const uint8_t c)
 	}
 }
 
-static uint8_t buf[128];
+static uint8_t buf[256];
 // Params
 static uint8_t param_devicecode;
 static uint8_t param_revision;
@@ -203,6 +220,7 @@ static void reset_target(bool reset)
 
 static void start_pmode()
 {
+	programmer_hw_acquire_pins(rst_active_high);
 	reset_target(true);
 
 	// Reset under clock down
@@ -224,6 +242,7 @@ static void end_pmode()
 {
 	reset_target(false);
 	pmode = false;
+	programmer_hw_release_pins();
 }
 
 static void read_signature()
@@ -279,6 +298,7 @@ static void commit(unsigned int addr)
 	programmer_hw_spi_transmit((addr >> 8) & 0xFF);
 	programmer_hw_spi_transmit(addr & 0xFF);
 	programmer_hw_spi_transmit(0);
+	_delay_ms(30);
 }
 
 static void flash(bool high, uint16_t addr, uint8_t data)
@@ -478,7 +498,7 @@ void programmer_init()
 {
 	here            = 0;
 	rst_active_high = false;
-	programmer_hw_init();
+	programmer_hw_release_pins();
 }
 
 // Return true if we need to continue in programming mode
@@ -488,9 +508,8 @@ bool programmer_task()
 
 	if (byte == '0')
 	{
-		// Exit programming
+		// Sync sequence
 		reply(NULL);
-		return false;
 	}
 	else if (byte == '1')
 	{
@@ -504,6 +523,12 @@ bool programmer_task()
 	else if (byte == 'B')
 	{
 		set_parameters();
+		reply(NULL);
+	}
+	else if (byte == 'E')
+	{
+		// Extra parameters, unimplemeneted
+		fill(5);
 		reply(NULL);
 	}
 	else if (byte == 'P')
