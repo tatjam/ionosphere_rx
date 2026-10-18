@@ -62,4 +62,9 @@
 		data_t d = r->buf[r->read];                                                                \
 		r->read  = (r->read + 1) & (size - 1);                                                     \
 		return d;                                                                                  \
+	}                                                                                              \
+	static inline __attribute__((unused)) void type_name##_drain(type_name##_t *r)                 \
+	{                                                                                              \
+		r->read  = 0;                                                                              \
+		r->write = 0;                                                                              \
 	}

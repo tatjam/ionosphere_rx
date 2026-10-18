@@ -4,9 +4,6 @@
 #pragma once
 #include <stdint.h>
 
-// Bits are 01010101 so maximally optimal for clock sync
-#define MANCHESTER_SYNC_WORD 0x55
-
 #define MANCHESTER_BUFFER_BYTES 16
 
 extern volatile uint8_t manchester_idle_events;
