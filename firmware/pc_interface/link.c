@@ -1,9 +1,9 @@
 // Copyright (C) 2026 tatjam
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "link.h"
+#include "cobs.h"
 #include "command.h"
 #include "uart.h"
-#include <assert.h>
 
 #ifndef ENV_TEST
 #include <avr/interrupt.h>
@@ -43,7 +43,6 @@ void link_hw_toggle_on_fsk()
 	TCCR2B = _BV(CS20);
 }
 
-
 #define DEBUG(...)
 #else
 
@@ -55,30 +54,19 @@ void link_hw_toggle_on_fsk()
 #define FSK_V_HIGH     SOLVE_FOR_V(LINK_FSK_HIGH)
 #define FSK_V_LOW      SOLVE_FOR_V(LINK_FSK_LOW)
 
-typedef enum
-{
-	LINK_ALIGN,
-	LINK_START,
-	LINK_COLLECT,
-} link_task_state_t;
-
-static link_task_state_t state;
-static bool enter_programming;
-
+static cobs_decoder_t decoder;
 static uint8_t link_buffer[sizeof(command_t) + 3];
-static uint8_t link_ptr    = 0;
-static uint8_t num_to_zero = 0;
+static command_t cmd;
+static bool enter_programming;
 
 void link_init()
 {
-	state = LINK_ALIGN;
+	cobs_init(&decoder, link_buffer, sizeof(link_buffer));
 
 	link_hw_init();
 	link_hw_set_fsk(FSK_V_LOW);
 	link_hw_toggle_off_fsk();
 }
-
-static command_t cmd;
 
 // Link mode runs a simple COBS with 0 as the special value, for simplicity
 // we just skip messages until the first zero
@@ -86,60 +74,12 @@ void link_task()
 {
 	while (uart_get_next_count() != 0)
 	{
-		if (link_ptr >= sizeof(link_buffer) || num_to_zero >= sizeof(link_buffer))
+		uint8_t len;
+		if (cobs_feed(&decoder, uart_read_next(), &len))
 		{
-			state       = LINK_ALIGN;
-			link_ptr    = 0;
-			num_to_zero = 0;
-			continue;
-		}
-
-		if (state == LINK_ALIGN && uart_read_next() == 0)
-		{
-			// Found the COBS delimiter, start reading bytes!
-			state    = LINK_START;
-			link_ptr = 0;
-			break;
-		}
-		else if (state == LINK_START)
-		{
-			// Read the COBS number of bytes to next zero
-			num_to_zero = uart_read_next();
-			if (num_to_zero != 0)
+			if (command_decode(link_buffer, len, &cmd))
 			{
-				state = LINK_COLLECT;
-			}
-		}
-		else if (state == LINK_COLLECT)
-		{
-			assert(num_to_zero > 0);
-			num_to_zero--;
-			if (num_to_zero == 0)
-			{
-				num_to_zero = uart_read_next();
-				if (num_to_zero == 0)
-				{
-					// Packet completed
-					state      = LINK_START;
-					bool valid = command_decode(link_buffer, link_ptr, &cmd);
-					if (valid)
-					{
-						link_handle_command(&cmd);
-					}
-
-					link_ptr = 0;
-				}
-				else
-				{
-					// Insert a zero
-					link_buffer[link_ptr] = 0;
-					link_ptr++;
-				}
-			}
-			else
-			{
-				link_buffer[link_ptr] = uart_read_next();
-				link_ptr++;
+				link_handle_command(&cmd);
 			}
 		}
 	}
