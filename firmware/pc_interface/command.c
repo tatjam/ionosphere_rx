@@ -119,7 +119,8 @@ bool command_decode(uint8_t *data, uint8_t size, command_t *out)
 	}
 
 	if (out->kind == COMMAND_NO_OP || out->kind == COMMAND_ENTER_PROGRAMMER ||
-	    out->kind == COMMAND_GET_CLOCK || out->kind == COMMAND_QUERY_SYMBOL_QUEUE)
+	    out->kind == COMMAND_GET_CLOCK || out->kind == COMMAND_QUERY_SYMBOL_QUEUE ||
+	    out->kind == COMMAND_GET_ERROR)
 	{
 		return true;
 	}

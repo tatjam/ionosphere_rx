@@ -24,7 +24,8 @@ DEFAULT_TIMEOUT = 1.0  # seconds
     QUERY_SYMBOL_QUEUE,
     SET_CLOCK,
     GET_CLOCK,
-) = range(7)
+    GET_ERROR,
+) = range(8)
 
 
 class DeviceTimeout(Exception):
@@ -105,10 +106,82 @@ def do_exit_programmer(ser, inv):
     return "ok"
 
 
+def do_get_error(ser, inv):
+    ser.write(command(GET_ERROR))
+
+    # 'G', then u8 error
+    reply = read_exact(ser, 2, "GET_ERROR")
+    if reply[0:1] != b"G":
+        raise ValueError(f"GET_ERROR: bad reply byte {reply[0:1]!r}")
+
+    error = struct.unpack("<B", reply[1:])[0]
+    return error
+
+
+def _symbols(syms):
+    if not isinstance(syms, list) or not all(
+        isinstance(s, int) and not isinstance(s, bool) and 0 <= s <= 0xFFFF
+        for s in syms
+    ):
+        raise ValueError("'symbols' must be a list of u16 integers")
+    if len(syms) > 255:
+        raise ValueError("symbol count must fit in a u8")
+    return struct.pack(f"<{len(syms)}H", *syms)
+
+
+def start_sequence_payload(second, ticks, syms):
+    return struct.pack("<BIH", len(syms), second, ticks) + _symbols(syms)
+
+
+def append_sequence_payload(syms):
+    return struct.pack("<B", len(syms)) + _symbols(syms)
+
+
+def _read_sequence_reply(ser, sent, what):
+    reply = read_exact(ser, 2, what)
+    if reply[0:1] != b"G":
+        raise ValueError(f"{what}: bad reply byte {reply[0:1]!r}")
+    accepted = reply[1]
+    if accepted != sent:
+        raise RuntimeError(
+            f"{what}: only {accepted} of {sent} symbols queued (queue full or time too early)"
+        )
+    return {"accepted": accepted}
+
+
+def do_start_sequence(ser, inv):
+    syms = inv["symbols"]
+    data = start_sequence_payload(inv["second"], inv["ticks"], syms)
+    ser.write(command(START_SEQUENCE, data))
+    return _read_sequence_reply(ser, len(syms), "START_SEQUENCE")
+
+
+def do_append_sequence(ser, inv):
+    syms = inv["symbols"]
+    ser.write(command(APPEND_SEQUENCE, append_sequence_payload(syms)))
+    return _read_sequence_reply(ser, len(syms), "APPEND_SEQUENCE")
+
+
+def do_query_symbol_queue(ser, inv):
+    ser.write(command(QUERY_SYMBOL_QUEUE))
+
+    # 'G', then u16 remains
+    reply = read_exact(ser, 3, "QUERY_SYMBOL_QUEUE")
+    if reply[0:1] != b"G":
+        raise ValueError(f"QUERY_SYMBOL_QUEUE: bad reply byte {reply[0:1]!r}")
+
+    remain = struct.unpack("<H", reply[1:])[0]
+    return remain
+
+
 HANDLERS = {
     "no_op": do_no_op,
     "enter_programmer": do_enter_programmer,
     "get_clock": do_get_clock,
+    "query_symbol_queue": do_query_symbol_queue,
+    "get_error": do_get_error,
+    "start_sequence": do_start_sequence,
+    "append_sequence": do_append_sequence,
     # Custom commands for special uses
     "raw_bytes": do_raw_bytes,
     "test_programmer": do_test_programmer,

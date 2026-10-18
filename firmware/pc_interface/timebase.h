@@ -1,5 +1,12 @@
 // Copyright (C) 2026 tatjam
 // SPDX-License-Identifier: GPL-3.0-or-later
+
+// Peripherals:
+// - Uses Timer1 with 256 prescaler to get a tick each 16us
+// - Outputs a 2-second square wave on PB1 (pin 9 in Arduino Nano), i.e.
+// 	 the signal switches each second as measured by us
+// - TODO: Can receive an external PPS on PB0 (pin 8 in Arduin Nano)
+
 #pragma once
 
 #include <stdbool.h>
@@ -16,10 +23,6 @@
 
 _Static_assert((uint32_t) TICKS_PER_S + (uint32_t) MAX_SLEW < 65535, "MAX_SLEW too large");
 
-// - Uses Timer1 with 256 prescaler to get a tick each 16us
-// - Outputs a 2-second square wave on PB1 (pin 9 in Arduino Nano), i.e.
-// 	 the signal switches each second as measured by us
-// - TODO: Can receive an external PPS on PB0 (pin 8 in Arduin Nano)
 void timebase_init();
 
 // The function 'timebase_on_slot' is triggered starting at a given second, at

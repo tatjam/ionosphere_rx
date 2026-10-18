@@ -14,6 +14,8 @@
 
 void link_hw_init()
 {
+	// Timer2 for the FSK
+
 	// Set the pin to output and the timer to output on it
 	DDRD |= _BV(PD3);
 
@@ -46,6 +48,8 @@ void link_hw_toggle_on_fsk()
 	TCCR2B = _BV(CS20);
 }
 
+void link_hw_set_fsk_clock_timer() {}
+
 #define DEBUG(...)
 #else
 
@@ -58,7 +62,12 @@ void link_hw_toggle_on_fsk()
 #define FSK_V_LOW      SOLVE_FOR_V(LINK_FSK_LOW)
 
 RING_BUFFER_DEFINE(sequence_rb, SEQUENCE_RB_SIZE, uint8_t, uint16_t);
-sequence_rb_t sequence_rb;
+static sequence_rb_t sequence_rb;
+
+static link_error_t link_error;
+static bool sequence_next;
+static int16_t next_symbol;
+static uint8_t symbol_progress;
 
 static cobs_decoder_t decoder;
 static uint8_t link_buffer[sizeof(command_t) + 3];
@@ -72,13 +81,43 @@ void link_init()
 	link_hw_init();
 	link_hw_set_fsk(FSK_V_LOW);
 	link_hw_toggle_off_fsk();
+
+	sequence_next = false;
+	link_error    = LINK_NO_ERROR;
 }
+
+static void launch_next_symbol(uint16_t symbol)
+{
+	next_symbol     = symbol;
+	symbol_progress = 0;
+
+	// Reset the clock and launch it to clock out the bytes
+}
+
+// Strong symbol override of the timebase slot function
+void timebase_on_slot(uint32_t tick_num)
+{
+	if (sequence_next)
+	{
+		link_error = LINK_SYMBOLS_SLOW;
+	}
+	sequence_next = true;
+}
+
+#define PER_ITERATION_MAX_BYTES 8
 
 // Link mode runs a simple COBS with 0 as the special value, for simplicity
 // we just skip messages until the first zero
 void link_task()
 {
-	while (uart_get_next_count() != 0)
+	if (sequence_next && !sequence_rb_empty(&sequence_rb))
+	{
+		next_symbol = sequence_rb_get(&sequence_rb);
+		launch_next_symbol(next_symbol);
+	}
+
+	uint8_t processed_bytes = 0;
+	while (uart_get_next_count() != 0 && processed_bytes < PER_ITERATION_MAX_BYTES)
 	{
 		uint8_t len;
 		if (cobs_feed(&decoder, uart_read_next(), &len))
@@ -92,6 +131,7 @@ void link_task()
 				uart_tx(LINK_BAD_BYTE);
 			}
 		}
+		processed_bytes++;
 	}
 }
 
@@ -109,10 +149,40 @@ void link_handle_command(const command_t *cmd)
 	else if (cmd->kind == COMMAND_START_SEQUENCE)
 	{
 		uart_tx(LINK_GOOD_BYTE);
+		bool clock_failed = false;
+		if (!timebase_start_slot(cmd->command_start_sequence.starting_second,
+		                         cmd->command_start_sequence.ticks_between_symbols))
+		{
+			link_error   = LINK_SYMBOLS_START_IN_PAST;
+			clock_failed = true;
+		}
+		uint8_t sym = 0;
+		if (!clock_failed)
+		{
+			for (sym = 0; sym < cmd->command_start_sequence.num_symbols; sym++)
+			{
+				if (!sequence_rb_put(&sequence_rb, cmd->command_start_sequence.symbols[sym]))
+				{
+					link_error = LINK_SYMBOLS_OVERFLOW;
+					break;
+				}
+			}
+		}
+		uart_tx(sym);
 	}
 	else if (cmd->kind == COMMAND_APPEND_SEQUENCE)
 	{
 		uart_tx(LINK_GOOD_BYTE);
+		uint8_t sym = 0;
+		for (sym = 0; sym < cmd->command_append_sequence.num_symbols; sym++)
+		{
+			if (!sequence_rb_put(&sequence_rb, cmd->command_append_sequence.symbols[sym]))
+			{
+				link_error = LINK_SYMBOLS_OVERFLOW;
+				break;
+			}
+		}
+		uart_tx(sym);
 	}
 	else if (cmd->kind == COMMAND_QUERY_SYMBOL_QUEUE)
 	{
@@ -140,6 +210,12 @@ void link_handle_command(const command_t *cmd)
 		uart_tx((second >> 8) & 0xFF);
 		uart_tx((second >> 16) & 0xFF);
 		uart_tx((second >> 24) & 0xFF);
+	}
+	else if (cmd->kind == COMMAND_GET_ERROR)
+	{
+		uart_tx(LINK_GOOD_BYTE);
+		uart_tx(link_error);
+		link_error = LINK_NO_ERROR;
 	}
 	else
 	{
