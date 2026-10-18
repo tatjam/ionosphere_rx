@@ -158,3 +158,8 @@ It appears the soldering quality on the PLL was absolutely terrible, after reflo
 
 Now, the filter, i've replaced the 470ohm with a 4.7kOhm, because 470 gives way too high of a knee frequency, but maybe this is wrong?
 Also a jumper in the back I forgot to solder!
+
+# (18-10-2026) Helper tool
+
+Wrote and tested the helper tool on the Arduino Nano, the programmer seems to work and the FSK too.
+
