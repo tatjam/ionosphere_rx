@@ -33,6 +33,10 @@ void uart_init()
 	UBRR0H = (uint8_t) (UBRR_VALUE >> 8);
 	UBRR0L = (uint8_t) UBRR_VALUE;
 
+	UCSR0A = 0;
+	UCSR0B = 0;
+	UCSR0C = 0;
+
 	// Enable RX and TX
 	UCSR0B |= _BV(RXEN0) | _BV(TXEN0);
 	// 8 bit of data

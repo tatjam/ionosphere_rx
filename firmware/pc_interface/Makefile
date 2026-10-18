@@ -13,7 +13,7 @@ HDRS = $(wildcard *.h) ../shared/*.h ../test.h
 default: pc_interface.hex
 
 upload: pc_interface.hex
-	avrdude -c arduino -P /dev/ttyACM0 -b 115200 -p $(MCU) -U flash:w:pc_interface.hex:i
+	avrdude -c arduino -P /dev/ttyUSB0 -b 115200 -p $(MCU) -U flash:w:pc_interface.hex:i
 
 pc_interface.elf pc_interface.hex: $(OBJS)
 	avr-gcc $(CFLAGS) -o pc_interface.elf $(OBJS)
