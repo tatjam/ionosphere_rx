@@ -8,6 +8,10 @@
 #define LINK_FSK_HIGH    300000
 #define LINK_FSK_LOW     200000
 #define MAX_SYMBOL_QUEUE 512
+#define SEQUENCE_RB_SIZE 256
+
+_Static_assert(SEQUENCE_RB_SIZE > MAX_COMMAND_SYMBOLS,
+               "The symbol queue must atleast fit a single command");
 
 // - Uses Timer2, in particular OC2B, so pin 3 in Arduino Nano (PD3) for the FSK signal
 void link_init();

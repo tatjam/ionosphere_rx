@@ -1,6 +1,7 @@
 // Copyright (C) 2026 tatjam
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "link.h"
+#include "../shared/ring_buffer.h"
 #include "cobs.h"
 #include "command.h"
 #include "uart.h"
@@ -53,6 +54,9 @@ void link_hw_toggle_on_fsk()
 #define SOLVE_FOR_V(f) ((F_CPU + (f)) / (2 * (f)) - 1)
 #define FSK_V_HIGH     SOLVE_FOR_V(LINK_FSK_HIGH)
 #define FSK_V_LOW      SOLVE_FOR_V(LINK_FSK_LOW)
+
+RING_BUFFER_DEFINE(sequence_rb, SEQUENCE_RB_SIZE, uint8_t, uint16_t);
+sequence_rb_t sequence_rb;
 
 static cobs_decoder_t decoder;
 static uint8_t link_buffer[sizeof(command_t) + 3];

@@ -11,7 +11,7 @@
 // never overflow!
 #define UART_BUFFER_BYTES 256
 RING_BUFFER_DEFINE(uart_rb, UART_BUFFER_BYTES, uint8_t, uint8_t);
-static uart_rb_t rb;
+static uart_rb_t uart_rb;
 
 ISR(USART_RX_vect)
 {
@@ -20,14 +20,14 @@ ISR(USART_RX_vect)
 		return;
 	}
 
-	uart_rb_put(&rb, UDR0);
+	uart_rb_put(&uart_rb, UDR0);
 }
 
 #define UBRR_VALUE (F_CPU / 16 / UART_BAUD - 1)
 
 void uart_init()
 {
-	uart_rb_init(&rb);
+	uart_rb_init(&uart_rb);
 
 	// Baud
 	UBRR0H = (uint8_t) (UBRR_VALUE >> 8);
@@ -56,6 +56,6 @@ void uart_tx_cstr(const char *str)
 	}
 }
 
-uint8_t uart_get_next_count() { return uart_rb_count(&rb); }
+uint8_t uart_get_next_count() { return uart_rb_count(&uart_rb); }
 
-uint8_t uart_read_next() { return uart_rb_get(&rb); }
+uint8_t uart_read_next() { return uart_rb_get(&uart_rb); }
