@@ -5,8 +5,9 @@
 #include "command.h"
 #include <stdbool.h>
 
-#define LINK_FSK_HIGH 300000
-#define LINK_FSK_LOW  200000
+#define LINK_FSK_HIGH    300000
+#define LINK_FSK_LOW     200000
+#define MAX_SYMBOL_QUEUE 512
 
 // - Uses Timer2, in particular OC2B, so pin 3 in Arduino Nano (PD3) for the FSK signal
 void link_init();

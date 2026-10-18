@@ -65,7 +65,7 @@ typedef enum
 static link_task_state_t state;
 static bool enter_programming;
 
-static uint8_t link_buffer[128];
+static uint8_t link_buffer[sizeof(command_t) + 3];
 static uint8_t link_ptr    = 0;
 static uint8_t num_to_zero = 0;
 

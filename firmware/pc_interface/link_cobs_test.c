@@ -16,6 +16,7 @@ static uint8_t rx_pos = 0;
 uint8_t uart_get_next_count() { return rx_len - rx_pos; }
 
 uint8_t uart_read_next() { return rx_buffer[rx_pos++]; }
+void uart_tx(uint8_t byte) {  }
 
 // link_hw mocks, link.c only defines them for the AVR build
 void link_hw_init() {}
