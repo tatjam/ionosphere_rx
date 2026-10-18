@@ -13,6 +13,7 @@ HDRS = $(wildcard *.h) ../shared/*.h ../test.h
 default: firmware.hex
 
 upload: firmware.hex
+	bash ../../serial/enter_programming.sh
 	avrdude -c avrisp -P /dev/ttyUSB0 -b 250000 -p $(MCU) -U flash:w:firmware.hex:i
 
 firmware.elf firmware.hex: $(OBJS)
