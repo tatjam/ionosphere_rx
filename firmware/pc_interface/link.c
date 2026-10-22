@@ -4,7 +4,6 @@
 #include "../shared/critical_section.h"
 #include "../shared/defines.h"
 #include "../shared/ring_buffer.h"
-#include "cobs.h"
 #include "command.h"
 #include "timebase.h"
 #include "uart.h"
@@ -16,9 +15,6 @@ static link_error_t link_error;
 static volatile uint8_t frame[3];
 static volatile uint8_t symbol_progress;
 
-static cobs_decoder_t decoder;
-static uint8_t link_buffer[sizeof(command_t) + 3];
-static command_t cmd;
 static bool enter_programming;
 
 #define SOLVE_FOR_V(f) ((F_CPU + (f)) / (2 * (f)) - 1)
@@ -90,19 +86,32 @@ void link_hw_stop_bit_clock()
 	TIMSK0 &= ~_BV(OCIE0A);
 }
 
-static void link_hw_emit_halfbit()
+#define DEBUG(...)
+#else
+
+#define DEBUG(...) printf(__VA_ARGS__)
+
+#endif
+
+static void emit_halfbit()
 {
 	// One bit advances every 2 ticks
 	uint8_t bit_progress = symbol_progress >> 1;
 	// One byte advances every 8 bits
 	uint8_t byte_progress = bit_progress >> 3;
 
+	// Last 3 bits of the bit_progress is the position within the bit
 	uint8_t bit_pos = bit_progress & 0b00000111;
 
+	// The byte of data we are sending right now
 	uint8_t sending = frame[byte_progress];
 
-	uint8_t bit   = (sending >> bit_pos) & 0x1;
+	// The individual bit we are sending
+	uint8_t bit = (sending >> bit_pos) & 0x1;
+
+	// Manchester clock
 	uint8_t clock = symbol_progress % 2 == 0;
+
 	if ((clock ^ bit) != 0)
 	{
 		link_hw_set_fsk(FSK_V_HIGH);
@@ -111,8 +120,23 @@ static void link_hw_emit_halfbit()
 	{
 		link_hw_set_fsk(FSK_V_LOW);
 	}
+
 	symbol_progress += 1;
 }
+
+static void launch_next_symbol(uint16_t symbol)
+{
+	frame[0]        = MANCHESTER_SYNC_WORD;
+	frame[1]        = (symbol >> 8) & 0xFF;
+	frame[2]        = symbol & 0xFF;
+	symbol_progress = 0;
+
+	emit_halfbit();
+
+	link_hw_launch_bit_clock();
+}
+
+#ifndef ENV_TEST
 
 // Runs on eveery Timer0 tick, see adjustment of prescaler and OCR0A, one entire
 // symbol is sent in 48 ticks (32 if no sync word)
@@ -124,38 +148,20 @@ ISR(TIMER0_COMPA_vect)
 		link_hw_stop_bit_clock();
 		return;
 	}
-	link_hw_emit_halfbit();
+	emit_halfbit();
 }
-
-#define DEBUG(...)
-#else
-
-#define DEBUG(...) printf(__VA_ARGS__)
 
 #endif
 
 void link_init()
 {
-	cobs_init(&decoder, link_buffer, sizeof(link_buffer));
-
 	link_hw_init();
 	link_hw_set_fsk(FSK_V_LOW);
 	link_hw_toggle_off_fsk();
 
-	link_error      = LINK_NO_ERROR;
-	symbol_progress = HALFBITS_PER_SYMBOL;
-}
-
-static void launch_next_symbol(uint16_t symbol)
-{
-	frame[0]        = MANCHESTER_SYNC_WORD;
-	frame[1]        = (symbol >> 8) & 0xFF;
-	frame[2]        = symbol & 0xFF;
-	symbol_progress = 0;
-
-	link_hw_emit_halfbit();
-
-	link_hw_launch_bit_clock();
+	enter_programming = false;
+	link_error        = LINK_NO_ERROR;
+	symbol_progress   = HALFBITS_PER_SYMBOL;
 }
 
 // Strong symbol override of the timebase slot function
@@ -167,6 +173,7 @@ void timebase_on_slot(uint32_t tick_num)
 		link_error = LINK_LINK_SLOW;
 	}
 
+	// NOTE: Called from ISR no need for atomic
 	if (!sequence_rb_empty(&sequence_rb))
 	{
 		uint16_t sym = sequence_rb_get(&sequence_rb);
@@ -177,31 +184,6 @@ void timebase_on_slot(uint32_t tick_num)
 		// Sequence is over, end the slots
 		timebase_stop_slot();
 		link_hw_toggle_off_fsk();
-	}
-}
-
-#define PER_ITERATION_MAX_BYTES 8
-
-// Link mode runs a simple COBS with 0 as the special value, for simplicity
-// we just skip messages until the first zero
-void link_task()
-{
-	uint8_t processed_bytes = 0;
-	while (uart_get_next_count() != 0 && processed_bytes < PER_ITERATION_MAX_BYTES)
-	{
-		uint8_t len;
-		if (cobs_feed(&decoder, uart_read_next(), &len))
-		{
-			if (command_decode(link_buffer, len, &cmd))
-			{
-				link_handle_command(&cmd);
-			}
-			else
-			{
-				uart_tx(LINK_BAD_BYTE);
-			}
-		}
-		processed_bytes++;
 	}
 }
 
@@ -244,16 +226,23 @@ void link_handle_command(const command_t *cmd)
 	else if (cmd->kind == COMMAND_APPEND_SEQUENCE)
 	{
 		uart_tx(LINK_GOOD_BYTE);
-		uint8_t sym = 0;
-		for (sym = 0; sym < cmd->command_append_sequence.num_symbols; sym++)
+		uint8_t sym     = 0;
+		bool is_running = false;
+		CRITICAL_SECTION { is_running = !sequence_rb_empty(&sequence_rb); }
+
+		// Only add if the sequence already contains data
+		if (is_running)
 		{
-			bool success    = false;
-			uint16_t symbol = cmd->command_append_sequence.symbols[sym];
-			CRITICAL_SECTION { success = sequence_rb_put(&sequence_rb, symbol); }
-			if (!success)
+			for (sym = 0; sym < cmd->command_append_sequence.num_symbols; sym++)
 			{
-				link_error = LINK_SYMBOLS_OVERFLOW;
-				break;
+				bool success    = false;
+				uint16_t symbol = cmd->command_append_sequence.symbols[sym];
+				CRITICAL_SECTION { success = sequence_rb_put(&sequence_rb, symbol); }
+				if (!success)
+				{
+					link_error = LINK_SYMBOLS_OVERFLOW;
+					break;
+				}
 			}
 		}
 		uart_tx(sym);

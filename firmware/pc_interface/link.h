@@ -30,8 +30,6 @@ _Static_assert(SEQUENCE_RB_SIZE > MAX_COMMAND_SYMBOLS,
 
 void link_init();
 
-void link_task();
-
 void link_handle_command(const command_t *cmd);
 
 bool link_wants_enter_programming();
