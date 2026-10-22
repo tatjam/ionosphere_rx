@@ -1,4 +1,4 @@
-= Electronically tunable capacitor
+# Electronically tunable capacitor
 
 This repo contains the hardware and firmware for a electronically tunable capacitor designed for RX loop antennas.
 
