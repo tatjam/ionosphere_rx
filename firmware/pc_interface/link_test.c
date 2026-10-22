@@ -255,8 +255,8 @@ static char *test_sequencing()
 	// 48 transitions + the starting zero
 	mu_assert("after 47 timer ticks, entire first symbol has been sent", fsk_ptr == 49);
 
-	// Sync 0101 0101 = 0x55
-	mu_assert("Sync byte", check_fsk_byte(0x55, 2));
+	// Sync = MANCHESTER_SYNC_WORD
+	mu_assert("Sync byte", check_fsk_byte(MANCHESTER_SYNC_WORD, 2));
 	// First byte (MSB)
 	mu_assert("MSB", check_fsk_byte(0x12, 18));
 	// Second byte (LSB)
@@ -274,8 +274,8 @@ static char *test_sequencing()
 
 	mu_assert("after 47 timer ticks, entire second symbol has been sent", fsk_ptr == 97);
 
-	// Sync 0101 0101 = 0x55
-	mu_assert("Sync byte", check_fsk_byte(0x55, 50));
+	// Sync = MANCHESTER_SYNC_WORD
+	mu_assert("Sync byte", check_fsk_byte(MANCHESTER_SYNC_WORD, 50));
 	// First byte (MSB)
 	mu_assert("MSB", check_fsk_byte(0x56, 66));
 	// Second byte (LSB)
