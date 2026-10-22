@@ -11,9 +11,10 @@
 RING_BUFFER_DEFINE(sequence_rb, SEQUENCE_RB_SIZE, uint8_t, uint16_t);
 static sequence_rb_t sequence_rb;
 
-static link_error_t link_error;
+static volatile link_error_t link_error;
 static volatile uint8_t frame[3];
 static volatile uint8_t symbol_progress;
+static volatile bool sequence_active;
 
 static bool enter_programming;
 
@@ -162,6 +163,8 @@ void link_init()
 	enter_programming = false;
 	link_error        = LINK_NO_ERROR;
 	symbol_progress   = HALFBITS_PER_SYMBOL;
+	sequence_active   = false;
+	sequence_rb_init(&sequence_rb);
 }
 
 // Strong symbol override of the timebase slot function
@@ -184,7 +187,105 @@ void timebase_on_slot(uint32_t tick_num)
 		// Sequence is over, end the slots
 		timebase_stop_slot();
 		link_hw_toggle_off_fsk();
+		sequence_active = false;
 	}
+}
+
+static void handle_command_start_sequence(const command_t *cmd)
+{
+	if (sequence_active)
+	{
+		link_error = LINK_SYMBOLS_STARTED;
+		uart_tx(0);
+		return;
+	}
+
+	if (cmd->command_start_sequence.num_symbols == 0)
+	{
+		uart_tx(0);
+		return;
+	}
+
+	CRITICAL_SECTION { sequence_rb_drain(&sequence_rb); }
+
+	uint8_t sym = 0;
+	for (sym = 0; sym < cmd->command_start_sequence.num_symbols; sym++)
+	{
+		bool success    = false;
+		uint16_t symbol = cmd->command_start_sequence.symbols[sym];
+		CRITICAL_SECTION { success = sequence_rb_put(&sequence_rb, symbol); }
+		if (!success)
+		{
+			link_error = LINK_SYMBOLS_OVERFLOW;
+			break;
+		}
+	}
+
+	if (sym != cmd->command_append_sequence.num_symbols)
+	{
+		CRITICAL_SECTION { sequence_rb_drain(&sequence_rb); }
+		uart_tx(0);
+		return;
+	}
+
+	sequence_active = true;
+	if (!timebase_start_slot(cmd->command_start_sequence.starting_second,
+	                         cmd->command_start_sequence.ticks_between_symbols))
+	{
+		sequence_active = false;
+		link_error      = LINK_SYMBOLS_START_IN_PAST;
+		sym             = 0;
+		CRITICAL_SECTION { sequence_rb_drain(&sequence_rb); }
+	}
+
+	uart_tx(sym);
+}
+
+static void handle_command_append_sequence(const command_t *cmd)
+{
+	uint8_t sym = 0;
+
+	// Only add if the sequence is active! (Also checked in each put)
+	if (!sequence_active)
+	{
+		uart_tx(sym);
+		link_error = LINK_SYMBOLS_STOPPED;
+		return;
+	}
+
+	bool full = false;
+
+	for (sym = 0; sym < cmd->command_append_sequence.num_symbols; sym++)
+	{
+		bool success    = true;
+		uint16_t symbol = cmd->command_append_sequence.symbols[sym];
+		CRITICAL_SECTION
+		{
+			if (!sequence_active)
+			{
+				success = false;
+			}
+			else if (!sequence_rb_put(&sequence_rb, symbol))
+			{
+				success = false;
+				full    = true;
+			}
+		}
+		if (!success)
+		{
+			if (full)
+			{
+				link_error = LINK_SYMBOLS_OVERFLOW;
+			}
+			else
+			{
+				link_error = LINK_SYMBOLS_STOPPED;
+			}
+
+			break;
+		}
+	}
+	uart_tx(sym);
 }
 
 void link_handle_command(const command_t *cmd)
@@ -195,64 +296,26 @@ void link_handle_command(const command_t *cmd)
 	}
 	else if (cmd->kind == COMMAND_ENTER_PROGRAMMER)
 	{
-		enter_programming = true;
 		uart_tx(LINK_GOOD_BYTE);
+		enter_programming = true;
 	}
 	else if (cmd->kind == COMMAND_START_SEQUENCE)
 	{
 		uart_tx(LINK_GOOD_BYTE);
-		uint8_t sym = 0;
-		for (sym = 0; sym < cmd->command_start_sequence.num_symbols; sym++)
-		{
-			bool success    = false;
-			uint16_t symbol = cmd->command_start_sequence.symbols[sym];
-			CRITICAL_SECTION { success = sequence_rb_put(&sequence_rb, symbol); }
-			if (!success)
-			{
-				link_error = LINK_SYMBOLS_OVERFLOW;
-				break;
-			}
-		}
-		if (!timebase_start_slot(cmd->command_start_sequence.starting_second,
-		                         cmd->command_start_sequence.ticks_between_symbols))
-		{
-			link_error = LINK_SYMBOLS_START_IN_PAST;
-			sym        = 0;
-			CRITICAL_SECTION { sequence_rb_drain(&sequence_rb); }
-		}
-
-		uart_tx(sym);
+		handle_command_start_sequence(cmd);
 	}
 	else if (cmd->kind == COMMAND_APPEND_SEQUENCE)
 	{
 		uart_tx(LINK_GOOD_BYTE);
-		uint8_t sym     = 0;
-		bool is_running = false;
-		CRITICAL_SECTION { is_running = !sequence_rb_empty(&sequence_rb); }
-
-		// Only add if the sequence already contains data
-		if (is_running)
-		{
-			for (sym = 0; sym < cmd->command_append_sequence.num_symbols; sym++)
-			{
-				bool success    = false;
-				uint16_t symbol = cmd->command_append_sequence.symbols[sym];
-				CRITICAL_SECTION { success = sequence_rb_put(&sequence_rb, symbol); }
-				if (!success)
-				{
-					link_error = LINK_SYMBOLS_OVERFLOW;
-					break;
-				}
-			}
-		}
-		uart_tx(sym);
+		handle_command_append_sequence(cmd);
 	}
 	else if (cmd->kind == COMMAND_QUERY_SYMBOL_QUEUE)
 	{
-		uint16_t remain;
+		uart_tx(LINK_GOOD_BYTE);
+
+		uint16_t remain = 0;
 		CRITICAL_SECTION { remain = sequence_rb_count(&sequence_rb); }
 
-		uart_tx(LINK_GOOD_BYTE);
 		uart_tx(remain & 0xFF);
 		uart_tx((remain >> 8) & 0xFF);
 	}
@@ -262,9 +325,10 @@ void link_handle_command(const command_t *cmd)
 	}
 	else if (cmd->kind == COMMAND_GET_CLOCK)
 	{
+		uart_tx(LINK_GOOD_BYTE);
+
 		uint32_t second = timebase_get_second();
 		uint16_t tick   = timebase_get_tick();
-		uart_tx(LINK_GOOD_BYTE);
 
 		uart_tx(tick & 0xFF);
 		uart_tx((tick >> 8) & 0xFF);
@@ -277,6 +341,7 @@ void link_handle_command(const command_t *cmd)
 	else if (cmd->kind == COMMAND_GET_ERROR)
 	{
 		uart_tx(LINK_GOOD_BYTE);
+
 		uart_tx(link_error);
 		link_error = LINK_NO_ERROR;
 	}
