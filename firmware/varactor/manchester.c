@@ -14,7 +14,7 @@ uint8_t manchester_hw_get_counter() { return 0; }
 uint8_t manchester_hw_get_pin_value() { return 0; }
 #define DEBUG(...)
 #else
-#define DEBUG(...) printf(__VA_ARGS__)
+#define DEBUG(...) fprintf(stderr, __VA_ARGS__)
 #endif
 
 // This is a ring-buffer, so read-write can take place safely
