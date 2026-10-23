@@ -64,7 +64,7 @@ static uint8_t manchester_hw_get_counter()
 	}
 }
 
-static uint8_t manchester_hw_get_pin_value() { return PINA & _BV(PA3); }
+static bool manchester_hw_get_pin_value() { return !!(PINA & _BV(PA3)); }
 
 ISR(TIM0_OVF_vect) { manchester_handle_timer_int(); }
 

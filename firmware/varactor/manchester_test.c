@@ -12,14 +12,14 @@
 static uint8_t hw_counter = 0;
 static bool clock_up      = false;
 static bool clock_running = false;
-static uint8_t transition = 0;
+static bool transition = 0;
 
 static void manchester_hw_init()
 {
 	clock_up      = false;
 	clock_running = false;
 	hw_counter    = 0;
-	transition    = 0;
+	transition    = false;
 }
 
 static void manchester_hw_start_up_counter()
@@ -37,7 +37,7 @@ static void manchester_hw_start_down_counter(uint8_t val)
 }
 
 static uint8_t manchester_hw_get_counter() { return hw_counter; }
-static uint8_t manchester_hw_get_pin_value() { return transition; }
+static bool manchester_hw_get_pin_value() { return transition; }
 
 static void sei() {}
 
@@ -83,7 +83,7 @@ static void test_clock_tick(uint8_t num)
 	}
 }
 
-static void test_transition(uint8_t dir)
+static void test_transition(bool dir)
 {
 	transition = dir;
 	manchester_handle_pin_change_int();
