@@ -6,7 +6,7 @@ TEST_BINS = $(TEST_SRCS:%_test.c=%_test.exe)
 MCU  = atmega328p
 F_CPU = 16000000
 CC = avr-gcc
-CFLAGS = -Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -g -DNDEBUG -MMD -MP
+CFLAGS = -Wall -Werror -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -g -DNDEBUG -MMD -MP
 TEST_FLAGS = -Wall -g
 HDRS = $(wildcard *.h) ../shared/*.h ../test.h
 
