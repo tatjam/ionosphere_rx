@@ -3,7 +3,6 @@
 
 #include "manchester.h"
 #include "../shared/ring_buffer.h"
-#include <avr/io.h>
 #include <stdbool.h>
 
 // Forward decl for hardware so file is neat
@@ -11,6 +10,7 @@ static inline void manchester_handle_timer_int();
 static inline void manchester_handle_pin_change_int();
 
 #ifndef ENV_TEST
+#include <avr/io.h>
 #include <avr/interrupt.h>
 
 static volatile bool up_counter = false;
@@ -64,7 +64,7 @@ static uint8_t manchester_hw_get_counter()
 
 static uint8_t manchester_hw_get_pin_value() { return FSK_PORT & _BV(FSK_PIN); }
 
-ISR(TIMER0_OVF_vect) { manchester_handle_timer_int(); }
+ISR(TIM0_OVF_vect) { manchester_handle_timer_int(); }
 
 ISR(PCINT0_vect) { manchester_handle_pin_change_int(); }
 
