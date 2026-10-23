@@ -1,19 +1,14 @@
 // Copyright (C) 2026 tatjam
 // SPDX-License-Identifier: GPL-3.0-or-later
+// Peripherals used:
+// - PA3
+// - Pin change interrupt 0
+// - Timer0
 
 #pragma once
 #include <stdint.h>
 
 #define MANCHESTER_BUFFER_BYTES 16
-
-#define FSK_PIN   PA3
-#define FSK_PORT  PORTA
-#define FSK_DDR   DDRA
-#define FSK_PCMSK PCMSK0
-#define FSK_PCINT PCINT3
-#define FSK_PCIE  PCIE0
-
-#define FSK_TIMER_SCALER (_BV(CS00) | _BV(CS01))
 
 extern volatile uint8_t manchester_idle_events;
 

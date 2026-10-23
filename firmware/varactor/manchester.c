@@ -13,13 +13,15 @@ static inline void manchester_handle_pin_change_int();
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
+#define FSK
+
 static volatile bool up_counter = false;
 
 static void manchester_hw_init()
 {
 	// Set PA3 as PCINT0 source
-	FSK_PCMSK |= _BV(FSK_PCINT);
-	GIMSK |= _BV(FSK_PCIE);
+	PCMSK0 |= _BV(PCINT3);
+	GIMSK |= _BV(PCIE0);
 }
 
 static void manchester_hw_start_counter(bool up, uint8_t initial)
@@ -37,7 +39,7 @@ static void manchester_hw_start_counter(bool up, uint8_t initial)
 	up_counter = up;
 
 	// Launch timer
-	TCCR0B |= FSK_TIMER_SCALER;
+	TCCR0B |= _BV(CS00) | _BV(CS01);
 }
 
 static void manchester_hw_start_up_counter() { manchester_hw_start_counter(true, 0); }
@@ -62,7 +64,7 @@ static uint8_t manchester_hw_get_counter()
 	}
 }
 
-static uint8_t manchester_hw_get_pin_value() { return FSK_PORT & _BV(FSK_PIN); }
+static uint8_t manchester_hw_get_pin_value() { return PINA & _BV(PA3); }
 
 ISR(TIM0_OVF_vect) { manchester_handle_timer_int(); }
 
