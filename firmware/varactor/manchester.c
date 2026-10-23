@@ -3,15 +3,71 @@
 
 #include "manchester.h"
 #include "../shared/ring_buffer.h"
+#include <avr/io.h>
 #include <stdbool.h>
+
+// Forward decl for hardware so file is neat
+static inline void manchester_handle_timer_int();
+static inline void manchester_handle_pin_change_int();
 
 #ifndef ENV_TEST
 #include <avr/interrupt.h>
-void manchester_hw_init() {}
-void manchester_hw_start_up_counter() {}
-void manchester_hw_start_down_counter(uint8_t start) {}
-uint8_t manchester_hw_get_counter() { return 0; }
-uint8_t manchester_hw_get_pin_value() { return 0; }
+
+static volatile bool up_counter = false;
+
+static void manchester_hw_init()
+{
+	// Set PA3 as PCINT0 source
+	FSK_PCMSK |= _BV(FSK_PCINT);
+	GIMSK |= _BV(FSK_PCIE);
+}
+
+static void manchester_hw_start_counter(bool up, uint8_t initial)
+{
+	// Stop counter if running
+	TCCR0B = 0;
+
+	// Restart counter
+	TCNT0 = initial;
+	// Clear interrupt if it's already triggered
+	TIFR0 |= _BV(TOV0);
+	// Enable the overflow interrupt
+	TIMSK0 |= _BV(TOIE0);
+
+	up_counter = up;
+
+	// Launch timer
+	TCCR0B |= FSK_TIMER_SCALER;
+}
+
+static void manchester_hw_start_up_counter() { manchester_hw_start_counter(true, 0); }
+
+static void manchester_hw_start_down_counter(uint8_t start)
+{
+	// The interface expects it to count down FROM start, so
+	// we set everything symmetric (as the HW counter can only
+	// count upwards!)
+	manchester_hw_start_counter(false, 0xFF - start);
+}
+
+static uint8_t manchester_hw_get_counter()
+{
+	if (up_counter)
+	{
+		return TCNT0;
+	}
+	else
+	{
+		return 0xFF - TCNT0;
+	}
+}
+
+static uint8_t manchester_hw_get_pin_value() { return FSK_PORT & _BV(FSK_PIN); }
+
+ISR(TIMER0_OVF_vect) { manchester_handle_timer_int(); }
+
+ISR(PCINT0_vect) { manchester_handle_pin_change_int(); }
+
 #define DEBUG(...)
 #else
 #define DEBUG(...) fprintf(stderr, __VA_ARGS__)
