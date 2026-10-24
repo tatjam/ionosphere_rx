@@ -9,12 +9,13 @@ CC = avr-gcc
 CFLAGS = -Wall -Werror -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -g -DNDEBUG -MMD -MP
 TEST_FLAGS = -Wall -g
 HDRS = $(wildcard *.h) ../shared/*.h ../test.h
+PORT = /dev/ttyUSB1
 
 default: firmware.hex
 
 upload: firmware.hex
-	bash ../../serial/enter_programming.sh
-	avrdude -c avrisp -P /dev/ttyUSB0 -b 250000 -p $(MCU) -U flash:w:firmware.hex:i
+	bash ../../serial/enter_programming.sh $(PORT)
+	avrdude -c avrisp -P $(PORT) -b 250000 -p $(MCU) -U flash:w:firmware.hex:i
 
 firmware.elf firmware.hex: $(OBJS)
 	avr-gcc $(CFLAGS) -o firmware.elf $(OBJS)
