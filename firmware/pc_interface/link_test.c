@@ -187,16 +187,18 @@ static uint16_t get_remaining_in_queue()
 
 static bool check_fsk_byte(uint8_t expected, size_t offset)
 {
-	// Assume line is low before start
-	bool last_state_high = false;
+ 	// NOTE: line is idle-high and the FSK symbols are
+ 	// inverted, i.e. low F => High voltage
+	// Assume line is high before start
+	bool last_state_high = true;
 	if (offset != 0)
 	{
-		last_state_high = fsk_vals[offset - 1] == FSK_V_HIGH;
+		last_state_high = fsk_vals[offset - 1] == FSK_V_LOW;
 	}
 
 	for (size_t i = 0; i < 16; i++)
 	{
-		bool new_state = fsk_vals[offset + i] == FSK_V_HIGH;
+		bool new_state = fsk_vals[offset + i] == FSK_V_LOW;
 		if (i % 2 == 0)
 		{
 			bool expected_high = (expected >> (i / 2) & 0x1) != 0;
