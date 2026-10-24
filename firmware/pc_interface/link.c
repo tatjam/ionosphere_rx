@@ -67,16 +67,16 @@ void link_hw_launch_bit_clock()
 {
 	// Just in case, this should stop the counter
 	TCCR0B = 0;
-	// Count up to tick 64, approx 1 tick per ms
-	OCR0A = 64;
+	// Count up to tick 61, approx 250us / tick
+	OCR0A = 61;
 	// Restart counter
 	TCNT0 = 0;
 	// Enable interrupt (Clear them first)
 	TIFR0 = _BV(OCF0A);
 	TIMSK0 |= _BV(OCIE0A);
 
-	// Prescaler to 256 (each tick is 16us), the clock starts now!
-	TCCR0B |= _BV(CS02);
+	// Prescaler to 64 (each tick is 4us), the clock starts now!
+	TCCR0B |= _BV(CS01) | _BV(CS00);
 }
 
 void link_hw_stop_bit_clock()
@@ -148,8 +148,6 @@ ISR(TIMER0_COMPA_vect)
 	if (symbol_progress >= HALFBITS_PER_SYMBOL)
 	{
 		link_hw_stop_bit_clock();
-		// TODO: Remove if we send symbols one after another without sync
-		link_hw_toggle_off_fsk();
 		return;
 	}
 	emit_halfbit();
@@ -157,11 +155,16 @@ ISR(TIMER0_COMPA_vect)
 
 #endif
 
+static void idle_fsk()
+{
+	link_hw_set_fsk(FSK_V_LOW);
+	// link_hw_toggle_off_fsk();
+}
+
 void link_init()
 {
 	link_hw_init();
-	link_hw_set_fsk(FSK_V_LOW);
-	link_hw_toggle_off_fsk();
+	idle_fsk();
 
 	enter_programming = false;
 	link_error        = LINK_NO_ERROR;
@@ -189,7 +192,7 @@ void timebase_on_slot(uint32_t tick_num)
 	{
 		// Sequence is over, end the slots
 		timebase_stop_slot();
-		link_hw_toggle_off_fsk();
+		idle_fsk();
 		sequence_active = false;
 	}
 }

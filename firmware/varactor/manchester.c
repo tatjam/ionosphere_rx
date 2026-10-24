@@ -39,7 +39,7 @@ static void manchester_hw_start_counter(bool up, uint8_t initial)
 	up_counter = up;
 
 	// Launch timer, prescaled to 256 so 1 tick each 32us
-	TCCR0B |= _BV(CS02);
+	TCCR0B |= _BV(CS01) | _BV(CS00);
 }
 
 static void manchester_hw_start_up_counter() { manchester_hw_start_counter(true, 0); }
