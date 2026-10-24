@@ -113,7 +113,7 @@ int main()
 	pot_init();
 
 	// This works well for 100kHz <-> 300kHz
-	pot_set_tap(8);
+	pot_set_tap(57);
 
 	bool synced       = false;
 	uint8_t last_idle = 0;
