@@ -11,7 +11,7 @@
 #include <stdbool.h>
 
 #define LINK_FSK_HIGH    300000
-#define LINK_FSK_LOW     200000
+#define LINK_FSK_LOW     100000
 #define SEQUENCE_RB_SIZE 256
 
 #define LINK_GOOD_BYTE 'G'

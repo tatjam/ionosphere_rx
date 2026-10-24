@@ -113,13 +113,14 @@ static void emit_halfbit()
 	// Manchester clock
 	uint8_t clock = symbol_progress % 2 == 0;
 
+	// NOTE: The inverter on the receiver makes high frequency -> low voltage
 	if ((clock ^ bit) != 0)
 	{
-		link_hw_set_fsk(FSK_V_HIGH);
+		link_hw_set_fsk(FSK_V_LOW);
 	}
 	else
 	{
-		link_hw_set_fsk(FSK_V_LOW);
+		link_hw_set_fsk(FSK_V_HIGH);
 	}
 
 	symbol_progress += 1;
@@ -147,6 +148,8 @@ ISR(TIMER0_COMPA_vect)
 	if (symbol_progress >= HALFBITS_PER_SYMBOL)
 	{
 		link_hw_stop_bit_clock();
+		// TODO: Remove if we send symbols one after another without sync
+		link_hw_toggle_off_fsk();
 		return;
 	}
 	emit_halfbit();

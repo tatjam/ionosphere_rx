@@ -112,8 +112,8 @@ int main()
 	manchester_init();
 	pot_init();
 
-	// This works well for 150kHz <-> 300kHz (the default in fsk_send)
-	pot_set_tap(7);
+	// This works well for 100kHz <-> 300kHz
+	pot_set_tap(8);
 
 	bool synced       = false;
 	uint8_t last_idle = 0;
