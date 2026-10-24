@@ -29,6 +29,8 @@ static bool enter_programming;
 #include <avr/interrupt.h>
 #include <avr/io.h>
 
+static void idle_fsk();
+
 void link_hw_init()
 {
 	// Timer2 for the FSK
@@ -148,6 +150,7 @@ ISR(TIMER0_COMPA_vect)
 	if (symbol_progress >= HALFBITS_PER_SYMBOL)
 	{
 		link_hw_stop_bit_clock();
+		idle_fsk();
 		return;
 	}
 	emit_halfbit();
