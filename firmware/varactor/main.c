@@ -55,9 +55,10 @@ static inline void nominal_process(uint8_t high, uint8_t low, bool parity_good)
 		return;
 	}
 
-	// Relays states from three bits after parity bit of high byte
+	// Relays states from three bits after parity bit of high byte:
+	// PB R1 R2 R3 DB DA D9 D8 | D7 D6 D5 D4 D3 D2 D1 D0
 	uint8_t relays = __builtin_avr_swap(high) & 0x0F;
-	if (relays & 0x01)
+	if (relays & 0x02)
 	{
 		RELAY_PORT |= 1 << RELAY1_PIN;
 	}
@@ -66,7 +67,7 @@ static inline void nominal_process(uint8_t high, uint8_t low, bool parity_good)
 		RELAY_PORT &= ~(1 << RELAY1_PIN);
 	}
 
-	if (relays & 0x02)
+	if (relays & 0x04)
 	{
 		RELAY_PORT |= 1 << RELAY2_PIN;
 	}
@@ -75,7 +76,7 @@ static inline void nominal_process(uint8_t high, uint8_t low, bool parity_good)
 		RELAY_PORT &= ~(1 << RELAY2_PIN);
 	}
 
-	if (relays & 0x04)
+	if (relays & 0x08)
 	{
 		RELAY_PORT |= 1 << RELAY3_PIN;
 	}

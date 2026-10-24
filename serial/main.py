@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Send link commands to the pc_interface firmware over a ZeroMQ port
+from control_varactor import make_symbol
 import struct
 import os
 import logging
@@ -118,18 +119,41 @@ def do_get_error(ser, inv):
     return error
 
 
+def _parse_sym(sym):
+    if isinstance(sym, int) and (sym < 0 or sym > 0xFFFF):
+        raise ValueError(
+            "'symbols' must be a list of u16 integers or hex representations"
+        )
+    elif isinstance(sym, str):
+        try:
+            as_int = int(sym, 16)
+        except ValueError as e:
+            raise ValueError(
+                "Hex representations are the only string values allowd for symbols"
+            ) from e
+
+        return as_int
+
+    return sym
+
+
 def _symbols(syms):
-    if not isinstance(syms, list) or not all(
-        isinstance(s, int) and not isinstance(s, bool) and 0 <= s <= 0xFFFF
-        for s in syms
-    ):
-        raise ValueError("'symbols' must be a list of u16 integers")
+    if not isinstance(syms, list):
+        raise ValueError(
+            "'symbols' must be a list of u16 integers or hex representations"
+        )
+
+    syms = [_parse_sym(sym) for sym in syms]
+
     if len(syms) > 255:
         raise ValueError("symbol count must fit in a u8")
+
     return struct.pack(f"<{len(syms)}H", *syms)
 
 
 def start_sequence_payload(second, ticks, syms):
+    if second == "next":
+        second = 0xFFFFFFFF
     return struct.pack("<BIH", len(syms), second, ticks) + _symbols(syms)
 
 
@@ -156,10 +180,32 @@ def do_start_sequence(ser, inv):
     return _read_sequence_reply(ser, len(syms), "START_SEQUENCE")
 
 
+def _parse_varactor(inv):
+    settings = inv["settings"]
+    symbols = [
+        make_symbol(
+            setting["relay0"], setting["relay1"], setting["relay2"], setting["tuning"]
+        )
+        for setting in settings
+    ]
+    print(f"Parsed {inv} as {symbols}")
+    return symbols
+
+
+def do_start_varactor(ser, inv):
+    inv["symbols"] = _parse_varactor(inv)
+    return do_start_sequence(ser, inv)
+
+
 def do_append_sequence(ser, inv):
     syms = inv["symbols"]
     ser.write(command(APPEND_SEQUENCE, append_sequence_payload(syms)))
     return _read_sequence_reply(ser, len(syms), "APPEND_SEQUENCE")
+
+
+def do_append_varactor(ser, inv):
+    inv["symbols"] = _parse_varactor(inv)
+    return do_append_sequence(ser, inv)
 
 
 def do_query_symbol_queue(ser, inv):
@@ -181,7 +227,9 @@ HANDLERS = {
     "query_symbol_queue": do_query_symbol_queue,
     "get_error": do_get_error,
     "start_sequence": do_start_sequence,
+    "start_varactor": do_start_varactor,
     "append_sequence": do_append_sequence,
+    "append_varactor": do_append_varactor,
     # Custom commands for special uses
     "raw_bytes": do_raw_bytes,
     "test_programmer": do_test_programmer,
