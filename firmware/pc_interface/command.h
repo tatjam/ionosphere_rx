@@ -20,6 +20,8 @@ typedef enum
 
 #define MAX_COMMAND_SYMBOLS 100
 
+#define NEXT_SECOND 0xFFFFFFFF
+
 typedef struct
 {
 	uint16_t symbols[MAX_COMMAND_SYMBOLS];

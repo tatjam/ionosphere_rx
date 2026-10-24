@@ -221,16 +221,21 @@ static void handle_command_start_sequence(const command_t *cmd)
 		}
 	}
 
-	if (sym != cmd->command_append_sequence.num_symbols)
+	if (sym != cmd->command_start_sequence.num_symbols)
 	{
 		CRITICAL_SECTION { sequence_rb_drain(&sequence_rb); }
 		uart_tx(0);
 		return;
 	}
 
-	sequence_active = true;
-	if (!timebase_start_slot(cmd->command_start_sequence.starting_second,
-	                         cmd->command_start_sequence.ticks_between_symbols))
+	sequence_active          = true;
+	uint32_t starting_second = cmd->command_start_sequence.starting_second;
+	if (starting_second == NEXT_SECOND)
+	{
+		starting_second = timebase_get_second() + 1;
+	}
+
+	if (!timebase_start_slot(starting_second, cmd->command_start_sequence.ticks_between_symbols))
 	{
 		sequence_active = false;
 		link_error      = LINK_SYMBOLS_START_IN_PAST;
