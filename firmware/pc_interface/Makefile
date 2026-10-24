@@ -9,7 +9,7 @@ CC = avr-gcc
 CFLAGS = -Wall -Werror -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU) -g -DNDEBUG -MMD -MP
 TEST_FLAGS = -Wall -g
 HDRS = $(wildcard *.h) ../shared/*.h ../test.h
-PORT = /dev/ttyUSB1
+PORT = /dev/ttyUSB0
 
 default: pc_interface.hex
 
