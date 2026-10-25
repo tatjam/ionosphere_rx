@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Send link commands to the pc_interface firmware over a ZeroMQ port
 from control_varactor import make_symbol
+from tuned_varactor import TUNING_TABLE, build_model, RELAY_OFFSETS_PF, CHECK_CODES
 import struct
 import os
 import logging
@@ -192,8 +193,33 @@ def _parse_varactor(inv):
     return symbols
 
 
+tunings_mask = None
+tuning_model = build_model(TUNING_TABLE, CHECK_CODES, RELAY_OFFSETS_PF)
+
+
+def _parse_tunings(inv):
+    global tunings_mask
+    tunings = inv["tunings"]
+
+    symbols = []
+    for tuning in tunings:
+        mask, code = tuning_model(tuning, tunings_mask)
+        print(mask)
+        print(code)
+        symbols.append(make_symbol(mask[0], mask[1], mask[2], code))
+        tunings_mask = mask
+
+    print(f"Parsed {inv} as {symbols}")
+    return symbols
+
+
 def do_start_varactor(ser, inv):
     inv["symbols"] = _parse_varactor(inv)
+    return do_start_sequence(ser, inv)
+
+
+def do_start_tunings(ser, inv):
+    inv["symbols"] = _parse_tunings(inv)
     return do_start_sequence(ser, inv)
 
 
@@ -201,6 +227,11 @@ def do_append_sequence(ser, inv):
     syms = inv["symbols"]
     ser.write(command(APPEND_SEQUENCE, append_sequence_payload(syms)))
     return _read_sequence_reply(ser, len(syms), "APPEND_SEQUENCE")
+
+
+def do_append_tunings(ser, inv):
+    inv["symbols"] = _parse_tunings(inv)
+    return do_start_sequence(ser, inv)
 
 
 def do_append_varactor(ser, inv):
@@ -228,8 +259,10 @@ HANDLERS = {
     "get_error": do_get_error,
     "start_sequence": do_start_sequence,
     "start_varactor": do_start_varactor,
+    "start_tunings": do_start_tunings,
     "append_sequence": do_append_sequence,
     "append_varactor": do_append_varactor,
+    "append_tunings": do_append_tunings,
     # Custom commands for special uses
     "raw_bytes": do_raw_bytes,
     "test_programmer": do_test_programmer,
